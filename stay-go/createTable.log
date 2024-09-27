@@ -1,0 +1,412 @@
+2024-09-28T00:52:06.278+02:00  INFO 39494 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 39494 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T00:52:06.298+02:00  INFO 39494 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T00:52:07.505+02:00  INFO 39494 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T00:52:07.655+02:00  INFO 39494 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 131 ms. Found 11 JPA repository interfaces.
+2024-09-28T00:52:08.760+02:00  INFO 39494 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T00:52:08.874+02:00  INFO 39494 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T00:52:08.938+02:00  INFO 39494 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T00:52:09.467+02:00  INFO 39494 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T00:52:09.515+02:00  INFO 39494 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T00:52:10.124+02:00  INFO 39494 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6de5ad56
+2024-09-28T00:52:10.129+02:00  INFO 39494 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T00:52:12.459+02:00  INFO 39494 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T00:52:13.181+02:00  INFO 39494 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T00:52:14.281+02:00  WARN 39494 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T00:52:15.176+02:00  WARN 39494 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 8226a8b2-97d7-4588-896a-08492a375c60
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T00:52:15.207+02:00  INFO 39494 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T00:52:15.509+02:00  INFO 39494 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 9.778 seconds (process running for 12.113)
+2024-09-28T00:52:16.772+02:00  INFO 39494 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.RoomService   : files: [org.springframework.mock.web.MockMultipartFile@ab40f46]
+2024-09-28T00:52:16.864+02:00  INFO 39494 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T00:52:16.868+02:00  INFO 39494 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T00:52:16.884+02:00  INFO 39494 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T00:55:27.256+02:00  INFO 39848 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 39848 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T00:55:27.260+02:00  INFO 39848 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T00:55:28.396+02:00  INFO 39848 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T00:55:28.537+02:00  INFO 39848 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 129 ms. Found 11 JPA repository interfaces.
+2024-09-28T00:55:29.425+02:00  INFO 39848 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T00:55:29.512+02:00  INFO 39848 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T00:55:29.569+02:00  INFO 39848 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T00:55:30.032+02:00  INFO 39848 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T00:55:30.077+02:00  INFO 39848 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T00:55:30.561+02:00  INFO 39848 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@55397d15
+2024-09-28T00:55:30.565+02:00  INFO 39848 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T00:55:32.808+02:00  INFO 39848 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T00:55:33.206+02:00  INFO 39848 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T00:55:34.315+02:00  WARN 39848 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T00:55:35.223+02:00  WARN 39848 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 1df0f8e8-dece-4b21-a02c-10ff4823da42
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T00:55:35.250+02:00  INFO 39848 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T00:55:35.567+02:00  INFO 39848 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.849 seconds (process running for 11.016)
+2024-09-28T00:55:36.882+02:00  INFO 39848 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T00:55:36.885+02:00  INFO 39848 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T00:55:36.899+02:00  INFO 39848 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:04:23.014+02:00  INFO 40598 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 40598 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:04:23.032+02:00  INFO 40598 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:04:24.094+02:00  INFO 40598 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:04:24.216+02:00  INFO 40598 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:04:25.092+02:00  INFO 40598 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:04:25.185+02:00  INFO 40598 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:04:25.248+02:00  INFO 40598 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:04:25.733+02:00  INFO 40598 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:04:25.773+02:00  INFO 40598 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:04:26.290+02:00  INFO 40598 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5ca4c88a
+2024-09-28T01:04:26.293+02:00  INFO 40598 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:04:28.399+02:00  INFO 40598 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:04:28.725+02:00  INFO 40598 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:04:29.728+02:00  WARN 40598 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:04:30.565+02:00  WARN 40598 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c9695838-52ca-4e4c-828b-eb3cc624f8fe
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:04:30.590+02:00  INFO 40598 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:04:30.874+02:00  INFO 40598 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.396 seconds (process running for 10.374)
+2024-09-28T01:04:32.102+02:00  INFO 40598 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:04:32.106+02:00  INFO 40598 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:04:32.118+02:00  INFO 40598 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:05:32.211+02:00  INFO 40892 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 40892 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:05:32.214+02:00  INFO 40892 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:05:33.201+02:00  INFO 40892 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:05:33.319+02:00  INFO 40892 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 105 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:05:34.200+02:00  INFO 40892 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:05:34.279+02:00  INFO 40892 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:05:34.340+02:00  INFO 40892 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:05:34.783+02:00  INFO 40892 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:05:34.822+02:00  INFO 40892 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:05:35.280+02:00  INFO 40892 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@646d58cd
+2024-09-28T01:05:35.283+02:00  INFO 40892 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:05:37.210+02:00  INFO 40892 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:05:37.533+02:00  INFO 40892 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:05:38.574+02:00  WARN 40892 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:05:39.366+02:00  WARN 40892 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 47336919-aeb9-49c2-90a6-86e699f13962
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:05:39.389+02:00  INFO 40892 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:05:39.653+02:00  INFO 40892 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 7.919 seconds (process running for 9.871)
+2024-09-28T01:05:40.875+02:00  WARN 40892 --- [stay-go] [Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1451, SQLState: 23000
+2024-09-28T01:05:40.876+02:00 ERROR 40892 --- [stay-go] [Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot delete or update a parent row: a foreign key constraint fails (`stay_go`.`hotel`, CONSTRAINT `FK7j29orh95kdchnlf8e9q3xvle` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`))
+2024-09-28T01:05:41.025+02:00  INFO 40892 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:05:41.030+02:00  INFO 40892 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:05:41.043+02:00  INFO 40892 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:06:23.176+02:00  INFO 41156 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 41156 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:06:23.179+02:00  INFO 41156 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:06:24.143+02:00  INFO 41156 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:06:24.264+02:00  INFO 41156 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:06:25.129+02:00  INFO 41156 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:06:25.207+02:00  INFO 41156 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:06:25.271+02:00  INFO 41156 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:06:25.705+02:00  INFO 41156 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:06:25.744+02:00  INFO 41156 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:06:26.206+02:00  INFO 41156 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@388e4c25
+2024-09-28T01:06:26.209+02:00  INFO 41156 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:06:28.235+02:00  INFO 41156 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:06:28.597+02:00  INFO 41156 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:06:29.554+02:00  WARN 41156 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:06:30.319+02:00  WARN 41156 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e12682ae-1b64-4250-b4c1-5b352f6c49f7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:06:30.342+02:00  INFO 41156 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:06:30.606+02:00  INFO 41156 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 7.902 seconds (process running for 9.841)
+2024-09-28T01:06:31.896+02:00  INFO 41156 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:06:31.901+02:00  INFO 41156 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:06:31.914+02:00  INFO 41156 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:08:25.494+02:00  INFO 41500 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Starting StayGoApplication using Java 17.0.12 with PID 41500 (/media/another/work/developering/master/stay-go/build/classes/java/main started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:08:25.498+02:00  INFO 41500 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:08:25.574+02:00  INFO 41500 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-28T01:08:25.574+02:00  INFO 41500 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-28T01:08:26.645+02:00  INFO 41500 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:08:26.762+02:00  INFO 41500 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:08:27.708+02:00  INFO 41500 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-09-28T01:08:27.728+02:00  INFO 41500 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-28T01:08:27.728+02:00  INFO 41500 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-28T01:08:27.806+02:00  INFO 41500 --- [stay-go] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-28T01:08:27.807+02:00  INFO 41500 --- [stay-go] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2232 ms
+2024-09-28T01:08:28.114+02:00  INFO 41500 --- [stay-go] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:08:28.188+02:00  INFO 41500 --- [stay-go] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:08:28.236+02:00  INFO 41500 --- [stay-go] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:08:28.692+02:00  INFO 41500 --- [stay-go] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:08:28.731+02:00  INFO 41500 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:08:29.198+02:00  INFO 41500 --- [stay-go] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@e50d834
+2024-09-28T01:08:29.202+02:00  INFO 41500 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:08:31.200+02:00  INFO 41500 --- [stay-go] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:08:33.298+02:00  INFO 41500 --- [stay-go] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:08:34.055+02:00  WARN 41500 --- [stay-go] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:08:34.776+02:00  WARN 41500 --- [stay-go] [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f2c13c20-d12c-41b1-95e5-2e5209c31de7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:08:34.800+02:00  INFO 41500 --- [stay-go] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:08:35.077+02:00  INFO 41500 --- [stay-go] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-28T01:08:35.145+02:00  INFO 41500 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-09-28T01:08:35.162+02:00  INFO 41500 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Started StayGoApplication in 10.334 seconds (process running for 11.255)
+2024-09-28T01:08:48.617+02:00  INFO 41500 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:08:48.621+02:00  INFO 41500 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:08:48.631+02:00  INFO 41500 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:12:21.138+02:00  INFO 42087 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 42087 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:12:21.141+02:00  INFO 42087 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:12:22.185+02:00  INFO 42087 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:12:22.309+02:00  INFO 42087 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 112 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:12:23.192+02:00  INFO 42087 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:12:23.280+02:00  INFO 42087 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:12:23.340+02:00  INFO 42087 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:12:23.795+02:00  INFO 42087 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:12:23.836+02:00  INFO 42087 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:12:24.319+02:00  INFO 42087 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@601d9f3a
+2024-09-28T01:12:24.323+02:00  INFO 42087 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:12:26.539+02:00  INFO 42087 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:12:26.881+02:00  INFO 42087 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:12:27.932+02:00  WARN 42087 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:12:28.803+02:00  WARN 42087 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 6a02fd70-a4e9-45b1-a495-620ff6c6e381
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:12:28.827+02:00  INFO 42087 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:12:29.147+02:00  INFO 42087 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.503 seconds (process running for 10.549)
+2024-09-28T01:12:30.386+02:00  INFO 42087 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:12:30.389+02:00  INFO 42087 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:12:30.401+02:00  INFO 42087 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:15:10.060+02:00  INFO 42444 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 42444 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:15:10.064+02:00  INFO 42444 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:15:11.104+02:00  INFO 42444 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:15:11.228+02:00  INFO 42444 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:15:12.087+02:00  INFO 42444 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:15:12.171+02:00  INFO 42444 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:15:12.228+02:00  INFO 42444 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:15:12.680+02:00  INFO 42444 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:15:12.721+02:00  INFO 42444 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:15:13.197+02:00  INFO 42444 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b7e4d14
+2024-09-28T01:15:13.201+02:00  INFO 42444 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:15:15.362+02:00  INFO 42444 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:15:15.696+02:00  INFO 42444 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:15:16.804+02:00  WARN 42444 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:15:17.743+02:00  WARN 42444 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 9e290b64-77b3-4f69-916a-f8f30b0616af
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:15:17.775+02:00  INFO 42444 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:15:18.153+02:00  INFO 42444 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.573 seconds (process running for 10.548)
+2024-09-28T01:15:19.617+02:00  INFO 42444 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:15:19.622+02:00  INFO 42444 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:15:19.640+02:00  INFO 42444 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:19:44.886+02:00  INFO 42958 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 42958 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:19:44.889+02:00  INFO 42958 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:19:45.854+02:00  INFO 42958 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:19:45.967+02:00  INFO 42958 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:19:46.778+02:00  INFO 42958 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:19:46.869+02:00  INFO 42958 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:19:46.924+02:00  INFO 42958 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:19:47.361+02:00  INFO 42958 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:19:47.400+02:00  INFO 42958 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:19:47.855+02:00  INFO 42958 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@66abb2fa
+2024-09-28T01:19:47.863+02:00  INFO 42958 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:19:49.880+02:00  INFO 42958 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:19:50.194+02:00  INFO 42958 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:19:51.245+02:00  WARN 42958 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:19:52.083+02:00  WARN 42958 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 6cccc507-5ab0-4213-a38f-80aed8d784a3
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:19:52.108+02:00  INFO 42958 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:19:52.409+02:00  INFO 42958 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 7.991 seconds (process running for 9.919)
+2024-09-28T01:19:53.660+02:00  INFO 42958 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:19:53.663+02:00  INFO 42958 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:19:53.675+02:00  INFO 42958 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:25:15.480+02:00  INFO 43430 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 43430 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:25:15.482+02:00  INFO 43430 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:25:16.515+02:00  INFO 43430 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:25:16.636+02:00  INFO 43430 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:25:17.462+02:00  INFO 43430 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:25:17.538+02:00  INFO 43430 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:25:17.602+02:00  INFO 43430 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:25:18.071+02:00  INFO 43430 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:25:18.113+02:00  INFO 43430 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:25:18.631+02:00  INFO 43430 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@55397d15
+2024-09-28T01:25:18.634+02:00  INFO 43430 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:25:20.812+02:00  INFO 43430 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:25:21.163+02:00  INFO 43430 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:25:22.212+02:00  WARN 43430 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:25:23.105+02:00  WARN 43430 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 525ce553-9483-4bc5-8d0e-64e054ef5c88
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:25:23.131+02:00  INFO 43430 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:25:23.449+02:00  INFO 43430 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.462 seconds (process running for 10.559)
+2024-09-28T01:25:24.683+02:00  INFO 43430 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:25:24.689+02:00  INFO 43430 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:25:24.701+02:00  INFO 43430 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:28:47.423+02:00  INFO 43806 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 43806 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:28:47.427+02:00  INFO 43806 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:28:48.478+02:00  INFO 43806 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:28:48.602+02:00  INFO 43806 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:28:49.552+02:00  INFO 43806 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:28:49.634+02:00  INFO 43806 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:28:49.703+02:00  INFO 43806 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:28:50.164+02:00  INFO 43806 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:28:50.204+02:00  INFO 43806 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:28:50.661+02:00  INFO 43806 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d93ff21
+2024-09-28T01:28:50.669+02:00  INFO 43806 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:28:52.692+02:00  INFO 43806 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:28:53.010+02:00  INFO 43806 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:28:54.001+02:00  WARN 43806 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:28:54.774+02:00  WARN 43806 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e60eba1e-db6d-4f7e-b9e6-5832a19e172d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:28:54.797+02:00  INFO 43806 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:28:55.084+02:00  INFO 43806 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.164 seconds (process running for 10.237)
+2024-09-28T01:28:56.292+02:00  INFO 43806 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:28:56.296+02:00  INFO 43806 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:28:56.311+02:00  INFO 43806 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:29:39.680+02:00  INFO 44078 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 44078 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:29:39.683+02:00  INFO 44078 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:29:40.680+02:00  INFO 44078 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:29:40.799+02:00  INFO 44078 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:29:41.637+02:00  INFO 44078 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:29:41.715+02:00  INFO 44078 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:29:41.780+02:00  INFO 44078 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:29:42.227+02:00  INFO 44078 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:29:42.266+02:00  INFO 44078 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:29:42.722+02:00  INFO 44078 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@66abb2fa
+2024-09-28T01:29:42.726+02:00  INFO 44078 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:29:44.776+02:00  INFO 44078 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:29:45.091+02:00  INFO 44078 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:29:46.093+02:00  WARN 44078 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:29:46.919+02:00  WARN 44078 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 07420981-f4eb-4e3c-a474-678c7156863e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:29:46.944+02:00  INFO 44078 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:29:47.224+02:00  INFO 44078 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.014 seconds (process running for 9.929)
+2024-09-28T01:29:48.471+02:00  INFO 44078 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:29:48.475+02:00  INFO 44078 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:29:48.486+02:00  INFO 44078 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:30:28.003+02:00  INFO 44343 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 44343 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:30:28.006+02:00  INFO 44343 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:30:29.106+02:00  INFO 44343 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:30:29.250+02:00  INFO 44343 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 123 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:30:30.238+02:00  INFO 44343 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:30:30.321+02:00  INFO 44343 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:30:30.378+02:00  INFO 44343 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:30:30.820+02:00  INFO 44343 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:30:30.860+02:00  INFO 44343 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:30:31.338+02:00  INFO 44343 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2aa811f9
+2024-09-28T01:30:31.341+02:00  INFO 44343 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:30:33.378+02:00  INFO 44343 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:30:33.772+02:00  INFO 44343 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:30:34.765+02:00  WARN 44343 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:30:35.558+02:00  WARN 44343 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e5836377-b5c9-4c1a-88bc-3398b3af9ebd
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:30:35.581+02:00  INFO 44343 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:30:35.848+02:00  INFO 44343 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.333 seconds (process running for 10.287)
+2024-09-28T01:30:37.156+02:00  INFO 44343 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:30:37.161+02:00  INFO 44343 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:30:37.174+02:00  INFO 44343 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:31:19.351+02:00  INFO 44609 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 44609 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:31:19.354+02:00  INFO 44609 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:31:20.381+02:00  INFO 44609 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:31:20.504+02:00  INFO 44609 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:31:21.448+02:00  INFO 44609 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:31:21.533+02:00  INFO 44609 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:31:21.593+02:00  INFO 44609 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:31:22.047+02:00  INFO 44609 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:31:22.088+02:00  INFO 44609 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:31:22.559+02:00  INFO 44609 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@51fb5fe6
+2024-09-28T01:31:22.562+02:00  INFO 44609 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:31:24.603+02:00  INFO 44609 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:31:24.968+02:00  INFO 44609 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:31:25.973+02:00  WARN 44609 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:31:26.874+02:00  WARN 44609 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 239400af-2f33-4e93-9442-e082a5ed844f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:31:26.901+02:00  INFO 44609 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:31:27.202+02:00  INFO 44609 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.326 seconds (process running for 10.375)
+2024-09-28T01:31:28.441+02:00  INFO 44609 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:31:28.445+02:00  INFO 44609 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:31:28.456+02:00  INFO 44609 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:32:33.385+02:00  INFO 44898 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 44898 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:32:33.388+02:00  INFO 44898 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:32:34.390+02:00  INFO 44898 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:32:34.520+02:00  INFO 44898 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 118 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:32:35.492+02:00  INFO 44898 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:32:35.581+02:00  INFO 44898 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:32:35.642+02:00  INFO 44898 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:32:36.092+02:00  INFO 44898 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:32:36.133+02:00  INFO 44898 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:32:36.667+02:00  INFO 44898 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2aa811f9
+2024-09-28T01:32:36.671+02:00  INFO 44898 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:32:38.730+02:00  INFO 44898 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:32:39.035+02:00  INFO 44898 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:32:40.054+02:00  WARN 44898 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:32:40.842+02:00  WARN 44898 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: aed15341-788b-4ef7-ab80-4a11464325b3
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:32:40.865+02:00  INFO 44898 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:32:41.138+02:00  INFO 44898 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.227 seconds (process running for 10.222)
+2024-09-28T01:32:42.317+02:00  INFO 44898 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:32:42.320+02:00  INFO 44898 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:32:42.331+02:00  INFO 44898 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-28T01:34:18.647+02:00  INFO 45213 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Starting RoomServiceTest using Java 17.0.12 with PID 45213 (started by another in /media/another/work/developering/master/stay-go)
+2024-09-28T01:34:18.650+02:00  INFO 45213 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2024-09-28T01:34:19.682+02:00  INFO 45213 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-28T01:34:19.803+02:00  INFO 45213 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 11 JPA repository interfaces.
+2024-09-28T01:34:20.709+02:00  INFO 45213 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-28T01:34:20.794+02:00  INFO 45213 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-28T01:34:20.855+02:00  INFO 45213 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-28T01:34:21.304+02:00  INFO 45213 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-28T01:34:21.345+02:00  INFO 45213 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-28T01:34:21.822+02:00  INFO 45213 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@70f91ae3
+2024-09-28T01:34:21.825+02:00  INFO 45213 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-28T01:34:23.818+02:00  INFO 45213 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-28T01:34:24.196+02:00  INFO 45213 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:34:25.237+02:00  WARN 45213 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-28T01:34:26.112+02:00  WARN 45213 --- [stay-go] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4ee5a854-11a3-4cac-8acb-7ace037d0cb5
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-28T01:34:26.139+02:00  INFO 45213 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-09-28T01:34:26.472+02:00  INFO 45213 --- [stay-go] [Test worker] c.s.service.hotel_ser.RoomServiceTest    : Started RoomServiceTest in 8.339 seconds (process running for 10.329)
+2024-09-28T01:34:27.845+02:00  INFO 45213 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-28T01:34:27.849+02:00  INFO 45213 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-28T01:34:27.861+02:00  INFO 45213 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
