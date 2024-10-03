@@ -15,7 +15,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArmoredHotel implements Serializable {
+public class ArmoredRoom implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +23,8 @@ public class ArmoredHotel implements Serializable {
     @ManyToOne
     private Users users;
 
-    @ManyToOne
-    private Hotel hotel;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Room room;
 
     private Date createDate;
 

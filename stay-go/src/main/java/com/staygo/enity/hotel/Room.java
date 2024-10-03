@@ -35,6 +35,9 @@ public class Room implements Serializable {
     @JsonBackReference  // Указывает на "обратную" сторону связи
     private Hotel hotel;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private ArmoredRoom armoredRoom;
+
     public void addRoomData(RoomData roomDataFile) {
         if (this.roomData == null) {
             this.roomData = new ArrayList<>();

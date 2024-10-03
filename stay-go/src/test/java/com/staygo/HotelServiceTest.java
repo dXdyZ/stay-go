@@ -12,8 +12,10 @@ import com.staygo.service.user_ser.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -64,9 +66,9 @@ public class HotelServiceTest {
     @BeforeEach
     void setUp() {
         // Очищаем базы данных перед каждым тестом
-        hotelRepository.deleteAll();
-        addressService.deleteAll();
-        userRepository.deleteAll();
+//        hotelRepository.deleteAll();
+//        addressService.deleteAll();
+//        userRepository.deleteAll();
 
         // Создаем и сохраняем пользователя
         Users user = Users.builder()
@@ -77,16 +79,26 @@ public class HotelServiceTest {
         userRepository.save(user);
     }
 
-    @AfterAll
-    void tearDown() {
-        // Очищаем базы данных после всех тестов
-        hotelRepository.deleteAll();
-        addressService.deleteAll();
-        userRepository.deleteAll();
-    }
+//    @AfterAll
+//    void tearDown() {
+//        // Очищаем базы данных после всех тестов
+//        hotelRepository.deleteAll();
+//        addressService.deleteAll();
+//        userRepository.deleteAll();
+//    }
+
 
     @Test
     @Transactional
+    public void testFindAllHotelSuccess() throws Exception {
+        ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("testCity", "20.02.2023", "20.02.2023", 4);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+
+    @Test
+    @Transactional
+    @Rollback(false)
     public void testCreatedHotelSuccess() throws Exception {
         // Настройка входных данных
         Hotel hotel = Hotel.builder()

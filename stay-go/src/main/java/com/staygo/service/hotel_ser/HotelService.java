@@ -12,6 +12,7 @@ import com.staygo.service.AddressService;
 import com.staygo.service.user_ser.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -32,14 +34,20 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final AddressService addressService;
     private final UserService userService;
+    private final ArmoredRoomService armoredRoomService;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         AddressService addressService,
-                        UserService userService) {
+                        UserService userService, ArmoredRoomService armoredRoomService) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
+        this.armoredRoomService = armoredRoomService;
+    }
+
+    private Pageable getPageable() {
+        return PageRequest.of(0, 10);
     }
 
 
@@ -131,6 +139,43 @@ public class HotelService {
     public List<Hotel> allHotel() {
         Pageable pageable = PageRequest.of(0, 10);
         return hotelRepository.findAllByOrderByGradeDesc(pageable);
+    }
+
+    @Transactional
+    @Cacheable("userFindAllHotelForArmored")
+    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, Integer grade) {
+        List<Hotel> hotels = hotelRepository.findAllByAddress_City(city, getPageable());
+        List<Hotel> hotelGrade = new ArrayList<>();
+        if (!hotels.isEmpty()) {
+            try {
+                for (Hotel hotel : hotels) {
+                    if (grade != null) {
+                        if (hotel.getGrade().equals(grade)) {
+                            hotelGrade.add(hotel);
+                        }
+                    }
+                    hotel.setRooms(hotel.getRooms().stream()
+                            .filter(room -> !room.getArmoredRoom().getDateArmored().equals(dateArmored) &&
+                                    !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
+                                    room.getRoomStatus().equals("free"))
+                            .collect(Collectors.toList()));
+                    return ResponseEntity.ok(hotels);
+                }
+                if (!hotelGrade.isEmpty()) {
+                    for (Hotel hotel : hotelGrade) {
+                        hotel.setRooms(hotel.getRooms().stream()
+                                .filter(room -> !room.getArmoredRoom().getDateArmored().equals(dateArmored) &&
+                                        !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
+                                        room.getRoomStatus().equals("free"))
+                                .collect(Collectors.toList()));
+                    }
+                    return ResponseEntity.ok(hotelGrade);
+                }
+            } catch (NullPointerException e) {
+                log.error("null pointer exception: {}", e.getMessage());
+                return ResponseEntity.ok(hotels.stream().filter(n -> n.getGrade().equals(grade)).toList());
+            }
+        } return new ResponseEntity<>("В скором времени отели этого города появятся в нашем сервисе", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Transactional
