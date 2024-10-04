@@ -58,8 +58,7 @@ public class HotelService {
             Hotel hotel = objectMapper.readValue(hotelJson, Hotel.class);
             hotel.setUsers(userService.findByName(principal.getName()).get());
             log.info("hotel: {}", hotel);
-            if (!addressService.findAllParameterize(hotel.getAddress().getCountry(), hotel.getAddress().getCity(),
-                    hotel.getAddress().getStreet(), hotel.getAddress().getZipCode())) {
+            if (!addressService.findAllParameterize(hotel.getAddress().getStreet(), hotel.getAddress().getNumberHouse(), hotel.getAddress().getZipCode())) {
                 try {
                     List<HotelData> hotelDataList = new ArrayList<>();
                     for (MultipartFile hotelFiles : hotelDataFiles) {
@@ -143,39 +142,15 @@ public class HotelService {
 
     @Transactional
     @Cacheable("userFindAllHotelForArmored")
-    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, Integer grade) {
-        List<Hotel> hotels = hotelRepository.findAllByAddress_City(city, getPageable());
-        List<Hotel> hotelGrade = new ArrayList<>();
-        if (!hotels.isEmpty()) {
-            try {
-                for (Hotel hotel : hotels) {
-                    if (grade != null) {
-                        if (hotel.getGrade().equals(grade)) {
-                            hotelGrade.add(hotel);
-                        }
-                    }
-                    hotel.setRooms(hotel.getRooms().stream()
-                            .filter(room -> !room.getArmoredRoom().getDateArmored().equals(dateArmored) &&
-                                    !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
-                                    room.getRoomStatus().equals("free"))
-                            .collect(Collectors.toList()));
-                    return ResponseEntity.ok(hotels);
-                }
-                if (!hotelGrade.isEmpty()) {
-                    for (Hotel hotel : hotelGrade) {
-                        hotel.setRooms(hotel.getRooms().stream()
-                                .filter(room -> !room.getArmoredRoom().getDateArmored().equals(dateArmored) &&
-                                        !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
-                                        room.getRoomStatus().equals("free"))
-                                .collect(Collectors.toList()));
-                    }
-                    return ResponseEntity.ok(hotelGrade);
-                }
-            } catch (NullPointerException e) {
-                log.error("null pointer exception: {}", e.getMessage());
-                return ResponseEntity.ok(hotels.stream().filter(n -> n.getGrade().equals(grade)).toList());
-            }
-        } return new ResponseEntity<>("В скором времени отели этого города появятся в нашем сервисе", HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, int grade) {
+        List<Hotel> hotels;
+        if (grade == 0) {
+            hotels = hotelRepository.findAllByAddress_City(city, getPageable());
+            return addingRoomsToAHotel(hotels, dateArmored, departureDate);
+        } else {
+            hotels = hotelRepository.findAllByGradeAndAddress_City(grade, city, getPageable());
+            return addingRoomsToAHotel(hotels, dateArmored, departureDate);
+        }
     }
 
     @Transactional
@@ -195,4 +170,22 @@ public class HotelService {
         return hotelRepository.findById(id);
     }
 
+    private ResponseEntity<?> addingRoomsToAHotel(List<Hotel> hotels, String dateArmored, String departureDate) {
+        try {
+            if (!hotels.isEmpty()) {
+                for (Hotel hotel : hotels) {
+                    hotel.setRooms(hotel.getRooms().stream()
+                            .filter(room -> !room.getArmoredRoom().getDateArmored().equals(dateArmored) &&
+                                    !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
+                                    room.getRoomStatus().equals("free"))
+                            .collect(Collectors.toList()));
+                    return ResponseEntity.ok(hotels);
+                }
+            }
+            return new ResponseEntity<>("В скором времени отели этого города появятся в нашем сервисе", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (NullPointerException e) {
+            log.error("null pointer exception: {}", e.getMessage());
+            return ResponseEntity.ok(hotels);
+        }
+    }
 }

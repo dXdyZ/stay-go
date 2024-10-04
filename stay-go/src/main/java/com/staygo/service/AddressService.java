@@ -14,8 +14,8 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public boolean findAllParameterize(String country, String city, String street, String zipCode) {
-        return addressRepository.findByCountryAndCityAndStreetAndZipCode(country, city, street, zipCode).isPresent();
+    public boolean findAllParameterize(String houseNumber, String street, String zipCode) {
+        return addressRepository.findByStreetAndNumberHouseAndZipCode(street, houseNumber, zipCode).isPresent();
     }
 
     public void save(Address address) {

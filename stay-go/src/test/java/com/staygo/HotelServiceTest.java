@@ -10,6 +10,8 @@ import com.staygo.service.AddressService;
 import com.staygo.service.hotel_ser.HotelService;
 import com.staygo.service.user_ser.UserService;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -35,10 +37,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * {@code @SpringBootTest} - обеспечит загрузку контекста Spring Boot для ваших тестов, что позволит вам использовать внедрение зависимостей и другие возможности Spring.
  * </p>
  */
+
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HotelServiceTest {
 
+    private static final Logger log = LoggerFactory.getLogger(HotelServiceTest.class);
     @Autowired
     private UserService userService;
 
@@ -65,7 +69,7 @@ public class HotelServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Очищаем базы данных перед каждым тестом
+//        // Очищаем базы данных перед каждым тестом
 //        hotelRepository.deleteAll();
 //        addressService.deleteAll();
 //        userRepository.deleteAll();
@@ -90,9 +94,17 @@ public class HotelServiceTest {
 
     @Test
     @Transactional
-    public void testFindAllHotelSuccess() throws Exception {
+    public void testFindAllHotelSuccessAllParameters() throws Exception {
         ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("testCity", "20.02.2023", "20.02.2023", 4);
+        log.info("response: {}", response.toString());
         assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void testFindAllHotelSuccessNoAllParameters() throws Exception {
+
     }
 
 
@@ -105,13 +117,54 @@ public class HotelServiceTest {
                 .name("Test Hotel")
                 .address(Address.builder()
                         .city("testCity")
+                        .country("testCountry1")
+                        .zipCode("332222")
+                        .street("testStreet12")
+                        .numberHouse("93 q")
+                        .build())
+                .grade(5)
+                .build();
+        String hotelJson = objectMapper.writeValueAsString(hotel);
+
+        Hotel hotel2 = Hotel.builder()
+                .name("Test Hotel two test created")
+                .address(Address.builder()
+                        .city("testCity")
                         .country("testCountry")
-                        .zipCode("123123")
-                        .street("testStreet")
+                        .zipCode("332222")
+                        .street("testStreet12 123 b")
+                        .numberHouse("23 a")
+                        .build())
+                .grade(5)
+                .build();
+        String hotel2Json = objectMapper.writeValueAsString(hotel2);
+
+        Hotel hotel3 = Hotel.builder()
+                .name("ooooooqqweqwe")
+                .address(Address.builder()
+                        .city("testCity")
+                        .country("testCountry")
+                        .zipCode("qweqweqw123")
+                        .street("qweqweqwe12312300")
+                        .numberHouse("123qwe1")
                         .build())
                 .grade(4)
                 .build();
-        String hotelJson = objectMapper.writeValueAsString(hotel);
+        String hotel3Json = objectMapper.writeValueAsString(hotel3);
+
+
+        Hotel hotel4 = Hotel.builder()
+                .name("yyyyyqweqwe")
+                .address(Address.builder()
+                        .city("testCity")
+                        .country("testCountry")
+                        .zipCode("123123231ff")
+                        .street("123123231ffqweqweb")
+                        .numberHouse("12332a")
+                        .build())
+                .grade(3)
+                .build();
+        String hotel4Json = objectMapper.writeValueAsString(hotel4);
 
         // Создаем MultipartFile
         MockMultipartFile hotelFile = new MockMultipartFile("file", "file1.txt",
@@ -120,13 +173,21 @@ public class HotelServiceTest {
 
         // Тестируемый метод
         ResponseEntity<?> response = hotelService.createdHotel(hotelJson, hotelDataFiles, principal);
+        ResponseEntity<?> hotelResponse = hotelService.createdHotel(hotel2Json, hotelDataFiles, principal);
+        hotelService.createdHotel(hotel3Json, hotelDataFiles, principal);
+        hotelService.createdHotel(hotel4Json, hotelDataFiles, principal);
 
         // Проверка результата
         assertEquals(200, response.getStatusCodeValue());
+        log.info("hotel two response: {}", hotelResponse.toString());
+        assertEquals(HttpStatus.OK, hotelResponse.getStatusCode());
 
         // Дополнительные проверки
         Optional<Hotel> hotels = hotelRepository.findByName("Test Hotel");
+        Optional<Hotel> hotel2Find = hotelRepository.findByName("Test Hotel two test created");
         assertFalse(hotels.isEmpty());
+        assertFalse(hotel2Find.isEmpty());
+
         Hotel savedHotel = hotels.get();
         assertNotNull(savedHotel.getUsers());
         assertEquals("testUser", savedHotel.getUsers().getUsername());

@@ -53,4 +53,12 @@ public class Address implements Serializable {
     )
     private String country;
 
+    @NotNull
+    @Size (
+            min = 1,
+            max = 10,
+            message = "Требуется номер дома, максимум 200 символов"
+    )
+    private String numberHouse;
+
 }

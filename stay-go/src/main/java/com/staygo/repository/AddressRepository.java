@@ -8,8 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface AddressRepository extends CrudRepository<Address, Long> {
-    Optional<Address> findByCountryAndCityAndStreetAndZipCode(String country,
-                                                              String city,
-                                                              String street,
-                                                              String zipCode);
+    Optional<Address> findByStreetAndNumberHouseAndZipCode(String street,
+                                                           String houseNumber,
+                                                           String zipCode);
 }
