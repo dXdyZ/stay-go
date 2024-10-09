@@ -22,7 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,16 +38,14 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final AddressService addressService;
     private final UserService userService;
-    private final ArmoredRoomService armoredRoomService;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         AddressService addressService,
-                        UserService userService, ArmoredRoomService armoredRoomService) {
+                        UserService userService) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
-        this.armoredRoomService = armoredRoomService;
     }
 
     private Pageable getPageable() {
@@ -137,8 +138,7 @@ public class HotelService {
     }
 
     public List<Hotel> allHotel() {
-        Pageable pageable = PageRequest.of(0, 10);
-        return hotelRepository.findAllByOrderByGradeDesc(pageable);
+        return hotelRepository.findAllByOrderByGradeDesc(getPageable());
     }
 
     @Transactional
@@ -169,6 +169,16 @@ public class HotelService {
 
     public Optional<Hotel> findById(Long id) {
         return hotelRepository.findById(id);
+    }
+
+    private BigDecimal costCalculation(String armoredDare, String departureDate, BigDecimal price) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date armorDate = format.parse(armoredDare);
+        Date deparDate = format.parse(departureDate);
+        long millis = deparDate.getTime() - armorDate.getTime();
+        int date = (int) (millis / (24 * 60 * 60 * 1000));
+        BigDecimal priceDate = BigDecimal.valueOf(date);
+        return price.multiply(priceDate);
     }
 
     private ResponseEntity<?> addingRoomsToAHotel(List<Hotel> hotels, String dateArmored, String departureDate) {
