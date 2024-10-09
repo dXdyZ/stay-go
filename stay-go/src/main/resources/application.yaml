@@ -8,12 +8,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    user:
+      name: root
+      password: werpipl15
 logging:
   level:
     org:
-      hibernate: info
+      hibernate: debug
       springframework:
-        jdbc: info
+        jdbc: debug
     root: info
   file:
     name: createTable.log

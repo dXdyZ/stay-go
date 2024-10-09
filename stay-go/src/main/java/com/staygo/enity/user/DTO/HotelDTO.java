@@ -1,6 +1,7 @@
 package com.staygo.enity.user.DTO;
 
 import com.staygo.enity.Address;
+import com.staygo.enity.hotel.Comments;
 import com.staygo.enity.hotel.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,4 +19,5 @@ public class HotelDTO {
     private Integer grade;
     private Address address;
     private List<Room> rooms;
+    private List<Comments> comments;
 }

@@ -36,6 +36,14 @@ public class HotelController {
         return hotelService.createdHotel(hotel, hotelFiles, principal);
     }
 
+    @GetMapping("/findHotel/{city}")
+    public ResponseEntity<?> findHotelByCityAndGradeAndArmoredDate(@PathVariable("city") String city,
+                                                                   @RequestParam(name = "dateArmored") String dateArmored,
+                                                                   @RequestParam(name = "departureDate") String departureDate,
+                                                                   @RequestParam(name = "grade", required = false) Integer grade) {
+        return hotelService.findAllHotelByCityAndDataArmoredAndTerm(city, dateArmored, departureDate, grade);
+    }
+
     @PostMapping("/addedRoom/{street}")
     public ResponseEntity<?> addedRoomToHotel(@RequestPart List<Room> room,
                                               @RequestPart List<MultipartFile> roomFile,

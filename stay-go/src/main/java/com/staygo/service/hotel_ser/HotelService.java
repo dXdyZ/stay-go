@@ -12,6 +12,7 @@ import com.staygo.service.AddressService;
 import com.staygo.service.user_ser.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -98,6 +99,7 @@ public class HotelService {
     }
 
     @Transactional
+    @CachePut(value = "findAllHotelForArmored", key = "#hotelNew.address")
     public ResponseEntity<?> updateToDataHotel(HotelDTO hotelNew) {
         Optional<Hotel> hotel = hotelRepository.findByAddress_CountryAndAddress_CityAndAddress_Street(hotelNew.getAddress().getCountry(), hotelNew.getAddress().getCity(), hotelNew.getAddress().getStreet());
         if (hotel.isPresent()) {
@@ -128,8 +130,7 @@ public class HotelService {
     }
 
     public ResponseEntity<?> getAllHotelUsers(Principal principal) {
-        Pageable pageable = PageRequest.of(0, 5);
-        List<Hotel> allHotelUser = hotelRepository.findAllByUsers_Username(principal.getName(), pageable);
+        List<Hotel> allHotelUser = hotelRepository.findAllByUsers_Username(principal.getName(), getPageable());
         if (allHotelUser.isEmpty()) {
             return new ResponseEntity<>("У вас нет зарегестрированных отелей", HttpStatus.OK);
         } else return ResponseEntity.ok(allHotelUser);
@@ -141,10 +142,10 @@ public class HotelService {
     }
 
     @Transactional
-    @Cacheable("userFindAllHotelForArmored")
-    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, int grade) {
+    @Cacheable("findAllHotelForArmored")
+    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, Integer grade) {
         List<Hotel> hotels;
-        if (grade == 0) {
+        if (grade == null) {
             hotels = hotelRepository.findAllByAddress_City(city, getPageable());
             return addingRoomsToAHotel(hotels, dateArmored, departureDate);
         } else {
@@ -171,6 +172,8 @@ public class HotelService {
     }
 
     private ResponseEntity<?> addingRoomsToAHotel(List<Hotel> hotels, String dateArmored, String departureDate) {
+        List<HotelDTO> returnHotelDTO = new ArrayList<>();
+        List<Hotel> hotelsNew = new ArrayList<>();
         try {
             if (!hotels.isEmpty()) {
                 for (Hotel hotel : hotels) {
@@ -179,13 +182,31 @@ public class HotelService {
                                     !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
                                     room.getRoomStatus().equals("free"))
                             .collect(Collectors.toList()));
-                    return ResponseEntity.ok(hotels);
+                    hotelsNew.add(hotel);
                 }
-            }
-            return new ResponseEntity<>("В скором времени отели этого города появятся в нашем сервисе", HttpStatus.INTERNAL_SERVER_ERROR);
+                returnHotelDTO.addAll(hotelsNew.stream()
+                        .map(hotelReturn -> HotelDTO.builder()
+                                .rooms(hotelReturn.getRooms())
+                                .comments(hotelReturn.getComments())
+                                .grade(hotelReturn.getGrade())
+                                .name(hotelReturn.getName())
+                                .address(hotelReturn.getAddress())
+                                .build())
+                        .collect(Collectors.toList()));
+                return ResponseEntity.ok(returnHotelDTO);
+            } return new ResponseEntity<>("В скором времени отели этого города появятся в нашем сервисе", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (NullPointerException e) {
             log.error("null pointer exception: {}", e.getMessage());
-            return ResponseEntity.ok(hotels);
+            returnHotelDTO.addAll(hotels.stream()
+                    .map(hotelReturn -> HotelDTO.builder()
+                            .rooms(hotelReturn.getRooms())
+                            .comments(hotelReturn.getComments())
+                            .grade(hotelReturn.getGrade())
+                            .name(hotelReturn.getName())
+                            .address(hotelReturn.getAddress())
+                            .build())
+                    .collect(Collectors.toList()));
+            return ResponseEntity.ok(returnHotelDTO);
         }
     }
 }
