@@ -15,9 +15,9 @@ spring:
 logging:
   level:
     org:
-      hibernate: debug
+      hibernate: info
       springframework:
-        jdbc: debug
+        jdbc: info
     root: info
   file:
     name: createTable.log

@@ -3,12 +3,15 @@ package com.staygo.service.hotel_ser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.staygo.castom_exe.DateException;
 import com.staygo.enity.Address;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.HotelData;
-import com.staygo.enity.user.DTO.HotelDTO;
+import com.staygo.enity.DTO.HotelDTO;
+import com.staygo.enity.hotel.Room;
 import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.service.AddressService;
+import com.staygo.service.PayService;
 import com.staygo.service.user_ser.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -38,15 +37,19 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final AddressService addressService;
     private final UserService userService;
+    private final PayService payService;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         AddressService addressService,
-                        UserService userService) {
+                        UserService userService, PayService payService) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
+        this.payService = payService;
     }
+
+
 
     private Pageable getPageable() {
         return PageRequest.of(0, 10);
@@ -145,12 +148,23 @@ public class HotelService {
     @Cacheable("findAllHotelForArmored")
     public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, Integer grade) {
         List<Hotel> hotels;
-        if (grade == null) {
-            hotels = hotelRepository.findAllByAddress_City(city, getPageable());
-            return addingRoomsToAHotel(hotels, dateArmored, departureDate);
-        } else {
-            hotels = hotelRepository.findAllByGradeAndAddress_City(grade, city, getPageable());
-            return addingRoomsToAHotel(hotels, dateArmored, departureDate);
+        try {
+            if (grade == null) {
+                hotels = hotelRepository.findAllByAddress_City(city, getPageable());
+                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate));
+            } else {
+                hotels = hotelRepository.findAllByGradeAndAddress_City(grade, city, getPageable());
+                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate));
+            }
+        } catch (ParseException e) {
+            log.error("parse exception in method findAllHotelByCityAndDataArmoredAndTerm with data: {}", city,
+                    dateArmored,
+                    departureDate,
+                    grade, e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (DateException e) {
+            log.error("fatal user data: {}", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -171,15 +185,29 @@ public class HotelService {
         return hotelRepository.findById(id);
     }
 
-    private BigDecimal costCalculation(String armoredDare, String departureDate, BigDecimal price) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date armorDate = format.parse(armoredDare);
-        Date deparDate = format.parse(departureDate);
-        long millis = deparDate.getTime() - armorDate.getTime();
-        int date = (int) (millis / (24 * 60 * 60 * 1000));
-        BigDecimal priceDate = BigDecimal.valueOf(date);
-        return price.multiply(priceDate);
+    private HashMap<HotelDTO, BigDecimal> addingPriceToTheHotel(List<Hotel> hotels, String dateArmored, String departureDate) throws ParseException, DateException {
+        HashMap<HotelDTO, BigDecimal> hotelAndAvgPrice = new HashMap<>();
+        BigDecimal price = null;
+        long count = 0;
+        for (Hotel hotel : hotels) {
+            for (Room room : hotel.getRooms()) {
+                log.info("room price: {}", room.getPrice());
+                price = payService.costCalculation(dateArmored, departureDate, room.getPrice());
+                log.info("information working method costCalculation: {}", payService.costCalculation(dateArmored, departureDate, room.getPrice()));
+                count++;
+                log.info("count: {}", count);
+            }
+            hotelAndAvgPrice.put(HotelDTO.builder()
+                    .name(hotel.getName())
+                    .grade(hotel.getGrade())
+                    .comments(hotel.getComments())
+                    .rooms(hotel.getRooms())
+                    .address(hotel.getAddress())
+                    .build(), Objects.requireNonNull(price).subtract(BigDecimal.valueOf(count)));
+        }
+        return hotelAndAvgPrice;
     }
+
 
     private ResponseEntity<?> addingRoomsToAHotel(List<Hotel> hotels, String dateArmored, String departureDate) {
         List<HotelDTO> returnHotelDTO = new ArrayList<>();
@@ -202,7 +230,7 @@ public class HotelService {
                                 .name(hotelReturn.getName())
                                 .address(hotelReturn.getAddress())
                                 .build())
-                        .collect(Collectors.toList()));
+                        .toList());
                 return ResponseEntity.ok(returnHotelDTO);
             } return new ResponseEntity<>("В скором времени отели этого города появятся в нашем сервисе", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (NullPointerException e) {
@@ -215,7 +243,7 @@ public class HotelService {
                             .name(hotelReturn.getName())
                             .address(hotelReturn.getAddress())
                             .build())
-                    .collect(Collectors.toList()));
+                    .toList());
             return ResponseEntity.ok(returnHotelDTO);
         }
     }

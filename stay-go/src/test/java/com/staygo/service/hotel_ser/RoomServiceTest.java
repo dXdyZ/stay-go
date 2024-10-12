@@ -49,33 +49,20 @@ class RoomServiceTest {
         principal = () -> "testUser";
     }
 
-    @BeforeAll
-    @Transactional
-    void setUp() throws JsonProcessingException {
-        hotelRepository.deleteAll();
-        userRepository.deleteAll();
-        roomRepository.deleteAll();
-
-        Users users = Users.builder()
-                .username("testUser")
-                .role(Role.ROLE_ADMIN)
-                .email("test@example.com")
-                .password("password")
-                .build();
-        userRepository.save(users);
-        Hotel hotel = Hotel.builder()
-                .name("Test Hotel")
-                .address(Address.builder()
-                        .city("testCity")
-                        .country("testCountry")
-                        .zipCode("123123")
-                        .street("testStreet")
-                        .build())
-                .users(userRepository.findByUsername("testUser").get())
-                .grade(4)
-                .build();
-        hotelRepository.save(hotel);
-    }
+//    @BeforeAll
+//    @Transactional
+//    void setUp() throws JsonProcessingException {
+////        hotelRepository.deleteAll();
+////        userRepository.deleteAll();
+////        roomRepository.deleteAll();
+//
+//        Users users = Users.builder()
+//                .username("testUser")
+//                .email("test@example.com")
+//                .password("password")
+//                .build();
+//        userRepository.save(users);
+//    }
 
 
     @Test
@@ -83,17 +70,17 @@ class RoomServiceTest {
     @Rollback(false)
     void addedARoomToTheHotel() {
         Room room = Room.builder()
-                .roomName("001")
-                .prestige("President")
+                .roomName("004")
+                .prestige("Standart")
                 .price(BigDecimal.valueOf(1231))
                 .build();
 
-        MockMultipartFile roomFile = new MockMultipartFile("file", "001.txt",
+        MockMultipartFile roomFile = new MockMultipartFile("file", "004.txt",
                 "text/plain", "Test data".getBytes());
         List<MultipartFile> roomDataFiles = List.of(roomFile);
         List<Room> roomList = List.of(room);
 
-        ResponseEntity<?> response = roomService.addedARoomToTheHotel(principal, "testStreet", roomList, roomDataFiles);
+        ResponseEntity<?> response = roomService.addedARoomToTheHotel(principal, "testStreet12", roomList, roomDataFiles);
 
         assertEquals(ResponseEntity.ok(roomList), response);
     }

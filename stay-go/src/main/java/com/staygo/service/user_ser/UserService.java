@@ -1,6 +1,6 @@
 package com.staygo.service.user_ser;
 
-import com.staygo.enity.user.DTO.UserDTO;
+import com.staygo.enity.DTO.UserDTO;
 import com.staygo.enity.user.Payment;
 import com.staygo.enity.user.Role;
 import com.staygo.enity.user.Users;
