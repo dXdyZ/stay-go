@@ -19,23 +19,32 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PaymentService paymentService;
+    private final UserEmailExamination userEmailExamination;
 
     @Autowired
-    public UserService(UserRepository userRepository, PaymentService paymentService) {
+    public UserService(UserRepository userRepository, PaymentService paymentService, UserEmailExamination userEmailExamination) {
         this.userRepository = userRepository;
         this.paymentService = paymentService;
+        this.userEmailExamination = userEmailExamination;
     }
 
-    @Transactional
     public ResponseEntity<?> registerUser(Users users) {
         if (userRepository.findByUsername(users.getUsername()).isEmpty()) {
             users.setRole(Role.ROLE_USER);
-            userRepository.save(users);
             UserDTO userDTO = new UserDTO(users.getUsername(),
                     users.getPassword(), users.getEmail(),
                     users.getPhoneNumber(), users.getPayments());
+            userEmailExamination.sendGenerationCodeOnUserEmail(users);
             return ResponseEntity.ok(userDTO);
         } return new ResponseEntity<>("Пользователь с таким именем уже существует", HttpStatus.BAD_REQUEST);
+    }
+
+    @Transactional
+    public ResponseEntity<?> savedUser(Users users, Integer code) {
+        if (userEmailExamination.examinationCode(users, code) != null) {
+            userRepository.save(userEmailExamination.examinationCode(users, code));
+            return ResponseEntity.ok("Вы успешно зарегестированны");
+        } else return new ResponseEntity<>("Не привильный код", HttpStatus.BAD_REQUEST);
     }
 
     @Transactional
