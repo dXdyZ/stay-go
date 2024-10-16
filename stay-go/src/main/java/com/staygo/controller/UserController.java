@@ -20,4 +20,10 @@ public class UserController {
     public ResponseEntity<?> register(@RequestBody Users users) {
         return userService.registerUser(users);
     }
+
+    @PostMapping("/register/code")
+    public ResponseEntity<?> verifEmail(@RequestParam(name = "email") String email,
+                                        @RequestParam(name = "code") Integer code) {
+        return userService.savedUser(email, code);
+    }
 }

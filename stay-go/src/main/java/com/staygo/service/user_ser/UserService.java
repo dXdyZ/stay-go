@@ -40,9 +40,9 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<?> savedUser(Users users, Integer code) {
-        if (userEmailExamination.examinationCode(users, code) != null) {
-            userRepository.save(userEmailExamination.examinationCode(users, code));
+    public ResponseEntity<?> savedUser(String email, Integer code) {
+        if (userEmailExamination.examinationCode(email, code) != null) {
+            userRepository.save(userEmailExamination.examinationCode(email, code));
             return ResponseEntity.ok("Вы успешно зарегестированны");
         } else return new ResponseEntity<>("Не привильный код", HttpStatus.BAD_REQUEST);
     }

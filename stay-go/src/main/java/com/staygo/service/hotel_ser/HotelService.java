@@ -42,11 +42,11 @@ public class HotelService {
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         AddressService addressService,
-                        UserService userService, PayService payService) {
+                        UserService userService, PayService payService, PayService payService1) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
-        this.payService = payService;
+        this.payService = payService1;
     }
 
 

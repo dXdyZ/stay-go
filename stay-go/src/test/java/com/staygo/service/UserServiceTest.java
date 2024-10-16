@@ -62,4 +62,5 @@ public class UserServiceTest {
                 .phoneNumber("+323132" + number)
                 .build();
     }
+
 }

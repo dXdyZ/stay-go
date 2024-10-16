@@ -158,3 +158,135 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 2024-10-16T10:36:49.808+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-10-16T10:36:49.809+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
 2024-10-16T10:36:49.816+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2024-10-16T14:25:14.737+02:00  INFO 24037 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24037 (started by another in /media/another/work/developering/stay-go/stay-go)
+2024-10-16T14:25:14.759+02:00  INFO 24037 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
+2024-10-16T14:25:15.940+02:00  INFO 24037 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-16T14:25:16.227+02:00  INFO 24037 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 273 ms. Found 11 JPA repository interfaces.
+2024-10-16T14:25:16.470+02:00  INFO 24037 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-16T14:25:16.486+02:00  INFO 24037 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-16T14:25:17.244+02:00  INFO 24037 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-16T14:25:17.799+02:00  INFO 24037 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23bd047f
+2024-10-16T14:25:17.802+02:00  INFO 24037 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-16T14:25:17.964+02:00  INFO 24037 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-16T14:25:18.060+02:00  INFO 24037 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-16T14:25:18.128+02:00  INFO 24037 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-16T14:25:18.701+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-16T14:25:20.827+02:00  INFO 24037 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-16T14:25:21.196+02:00  INFO 24037 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:25:22.496+02:00  WARN 24037 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-16T14:25:23.511+02:00  INFO 24037 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-16T14:25:24.045+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:25:24.046+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-16T14:25:24.047+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:25:24.048+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:25:24.048+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-16T14:25:24.048+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:25:24.080+02:00  INFO 24037 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.84 seconds (process running for 11.828)
+2024-10-16T14:25:24.822+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:25:24.823+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-16T14:25:24.824+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:25:24.824+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:25:24.825+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-16T14:25:24.825+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:25:24.834+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:25:24.838+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-16T14:25:24.850+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-16T14:25:43.768+02:00  INFO 24276 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24276 (started by another in /media/another/work/developering/stay-go/stay-go)
+2024-10-16T14:25:43.770+02:00  INFO 24276 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
+2024-10-16T14:25:44.923+02:00  INFO 24276 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-16T14:25:45.180+02:00  INFO 24276 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 245 ms. Found 11 JPA repository interfaces.
+2024-10-16T14:25:45.423+02:00  INFO 24276 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-16T14:25:45.436+02:00  INFO 24276 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-16T14:25:46.166+02:00  INFO 24276 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-16T14:25:46.658+02:00  INFO 24276 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60f662bd
+2024-10-16T14:25:46.662+02:00  INFO 24276 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-16T14:25:46.828+02:00  INFO 24276 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-16T14:25:46.911+02:00  INFO 24276 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-16T14:25:46.970+02:00  INFO 24276 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-16T14:25:47.421+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-16T14:25:49.655+02:00  INFO 24276 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-16T14:25:50.031+02:00  INFO 24276 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:25:51.268+02:00  WARN 24276 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-16T14:25:52.160+02:00  INFO 24276 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-16T14:25:52.639+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:25:52.641+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-16T14:25:52.642+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:25:52.642+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:25:52.643+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-16T14:25:52.643+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:25:52.668+02:00  INFO 24276 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.374 seconds (process running for 11.164)
+2024-10-16T14:25:53.370+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:25:53.370+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-16T14:25:53.371+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:25:53.371+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:25:53.372+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-16T14:25:53.372+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:25:53.382+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:25:53.386+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-16T14:25:53.399+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-16T14:26:13.491+02:00  INFO 24528 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24528 (started by another in /media/another/work/developering/stay-go/stay-go)
+2024-10-16T14:26:13.494+02:00  INFO 24528 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
+2024-10-16T14:26:14.631+02:00  INFO 24528 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-16T14:26:14.909+02:00  INFO 24528 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 266 ms. Found 11 JPA repository interfaces.
+2024-10-16T14:26:15.150+02:00  INFO 24528 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-16T14:26:15.162+02:00  INFO 24528 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-16T14:26:15.937+02:00  INFO 24528 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-16T14:26:16.468+02:00  INFO 24528 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2bfc8558
+2024-10-16T14:26:16.471+02:00  INFO 24528 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-16T14:26:16.653+02:00  INFO 24528 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-16T14:26:16.744+02:00  INFO 24528 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-16T14:26:16.798+02:00  INFO 24528 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-16T14:26:17.260+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-16T14:26:19.267+02:00  INFO 24528 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-16T14:26:19.622+02:00  INFO 24528 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:26:20.859+02:00  WARN 24528 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-16T14:26:21.790+02:00  INFO 24528 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-16T14:26:22.309+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:26:22.310+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-16T14:26:22.311+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:26:22.311+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:26:22.312+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-16T14:26:22.312+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:26:22.337+02:00  INFO 24528 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.335 seconds (process running for 11.106)
+2024-10-16T14:26:23.063+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:26:23.063+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:26:23.073+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:26:23.077+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-16T14:26:23.089+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-16T14:26:34.215+02:00  INFO 24766 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24766 (started by another in /media/another/work/developering/stay-go/stay-go)
+2024-10-16T14:26:34.218+02:00  INFO 24766 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
+2024-10-16T14:26:35.326+02:00  INFO 24766 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-16T14:26:35.580+02:00  INFO 24766 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 242 ms. Found 11 JPA repository interfaces.
+2024-10-16T14:26:35.858+02:00  INFO 24766 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-16T14:26:35.870+02:00  INFO 24766 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-16T14:26:36.621+02:00  INFO 24766 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-16T14:26:37.102+02:00  INFO 24766 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3562e7c7
+2024-10-16T14:26:37.106+02:00  INFO 24766 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-16T14:26:37.264+02:00  INFO 24766 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-16T14:26:37.344+02:00  INFO 24766 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-16T14:26:37.400+02:00  INFO 24766 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-16T14:26:37.843+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-16T14:26:40.001+02:00  INFO 24766 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-16T14:26:40.344+02:00  INFO 24766 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:26:41.581+02:00  WARN 24766 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-16T14:26:42.475+02:00  INFO 24766 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-16T14:26:42.952+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:26:42.954+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-16T14:26:42.955+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:26:42.955+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:26:42.956+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-16T14:26:42.956+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:26:42.993+02:00  INFO 24766 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.249 seconds (process running for 10.995)
+2024-10-16T14:26:43.719+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-16T14:26:43.719+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-16T14:26:43.720+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-16T14:26:43.720+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-16T14:26:43.720+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-16T14:26:43.721+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-16T14:26:43.729+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-16T14:26:43.733+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-16T14:26:43.744+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

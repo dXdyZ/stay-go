@@ -24,34 +24,34 @@ public class UserEmailExamination {
         this.mailService = mailService;
     }
 
-    private final Map<Users, Integer> userCode = new HashMap<>();
+    private final Map<Integer, Users> userCode = new HashMap<>();
 
 
     public void sendGenerationCodeOnUserEmail(Users users) {
         Integer code = generationRandomNumberForCode();
-        userCode.put(users, code);
+        userCode.put(code, users);
         mailService.sendMail(users.getEmail(), "Verification code", code.toString());
     }
 
-    public Users examinationCode(Users users, Integer code) {
-        if (!userCode.isEmpty() && userCode.get(users) != null) {
-            Integer codeUser = userCode.get(users);
-            if (codeUser != null && code.equals(userCode.get(users))) {
+    public Users examinationCode(String email, Integer code) {
+        if (!userCode.isEmpty() && userCode.get(code) != null) {
+            Users codeUser = userCode.get(code);
+            if (codeUser != null && userCode.get(code).getEmail().equals(email)) {
                 ScheduledFuture<?> scheduledFuture = scheduler.schedule(() -> {
-                    clearMapWithUsersCode(users);
+                    clearMapWithUsersCode(code);
                 }, 10, TimeUnit.MINUTES);
-                return users;
+                return userCode.get(code);
             }
         }
         return null;
     }
 
-    private void clearMapWithUsersCode(Users users) {
-        userCode.remove(users);
+    private void clearMapWithUsersCode(Integer code) {
+        userCode.remove(code);
     }
 
     private int generationRandomNumberForCode() {
-        int max = 11111, min = 99999;
+        int max = 99999, min = 1111;
         return (int) (Math.random() * ++max) + min;
     }
 }
