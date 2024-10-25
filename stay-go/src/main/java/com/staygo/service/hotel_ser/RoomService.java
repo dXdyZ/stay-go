@@ -159,4 +159,18 @@ public class RoomService {
             return ResponseEntity.ok(room);
         } else return new ResponseEntity<>("Комнаты под таким именем нет", HttpStatus.BAD_REQUEST);
     }
+
+    @Transactional
+    public Room findNotArmoredRoom(String armoredDate, String departureDate, String city, String hotelName, String prestige) {
+        Hotel hotel = hotelService.findByCityAndName(city, hotelName);
+        for (Room room : hotel.getRooms()) {
+            if (room.getRoomStatus().equals("free") && room.getPrestige().equals(prestige)) {
+                Room updateRoom = roomRepository.findById(room.getId()).get();
+                updateRoom.setRoomStatus("armored");
+                roomRepository.save(updateRoom);
+                return room;
+            }
+        }
+        return null;
+    }
 }

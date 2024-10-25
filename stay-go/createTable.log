@@ -1,58 +1,400 @@
-2024-10-16T10:36:36.491+02:00  INFO 13201 --- [stay-go] [Test worker] com.staygo.service.UserServiceTest       : Starting UserServiceTest using Java 17.0.12 with PID 13201 (started by another in /media/another/work/developering/stay-go/stay-go)
-2024-10-16T10:36:36.499+02:00  INFO 13201 --- [stay-go] [Test worker] com.staygo.service.UserServiceTest       : No active profile set, falling back to 1 default profile: "default"
-2024-10-16T10:36:37.566+02:00  INFO 13201 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-16T10:36:37.819+02:00  INFO 13201 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 242 ms. Found 11 JPA repository interfaces.
-2024-10-16T10:36:38.043+02:00  INFO 13201 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2024-10-16T10:36:38.056+02:00  INFO 13201 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2024-10-16T10:36:38.767+02:00  INFO 13201 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-10-16T10:36:39.394+02:00  INFO 13201 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1cc9bd9b
-2024-10-16T10:36:39.397+02:00  INFO 13201 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-10-16T10:36:39.547+02:00  INFO 13201 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-16T10:36:39.631+02:00  INFO 13201 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-10-16T10:36:39.692+02:00  INFO 13201 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-16T10:36:40.146+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-16T10:36:42.270+02:00  INFO 13201 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-16T10:36:42.804+02:00  INFO 13201 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T10:36:44.167+02:00  WARN 13201 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-16T10:36:45.155+02:00  INFO 13201 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-10-16T10:36:45.489+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2024-10-16T10:36:45.490+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2024-10-16T10:36:45.492+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
-2024-10-16T10:36:45.723+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T10:36:45.724+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
-2024-10-16T10:36:45.725+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2024-10-16T10:36:45.725+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T10:36:45.726+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
-2024-10-16T10:36:45.726+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T10:36:45.752+02:00  INFO 13201 --- [stay-go] [Test worker] com.staygo.service.UserServiceTest       : Started UserServiceTest in 9.758 seconds (process running for 11.672)
-2024-10-16T10:36:46.799+02:00  WARN 13201 --- [stay-go] [Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1451, SQLState: 23000
-2024-10-16T10:36:46.800+02:00 ERROR 13201 --- [stay-go] [Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot delete or update a parent row: a foreign key constraint fails (`stay_go`.`hotel`, CONSTRAINT `FK7j29orh95kdchnlf8e9q3xvle` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`))
-2024-10-16T10:36:46.840+02:00  INFO 13201 --- [stay-go] [Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.staygo.service.hotel_ser.HotelServiceTest]: HotelServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-10-16T10:36:46.857+02:00  INFO 13201 --- [stay-go] [Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.staygo.StayGoApplication for test class com.staygo.service.hotel_ser.HotelServiceTest
-2024-10-16T10:36:46.904+02:00  INFO 13201 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.12 with PID 13201 (started by another in /media/another/work/developering/stay-go/stay-go)
-2024-10-16T10:36:46.904+02:00  INFO 13201 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
-2024-10-16T10:36:47.195+02:00  INFO 13201 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-16T10:36:47.224+02:00  INFO 13201 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 11 JPA repository interfaces.
-2024-10-16T10:36:47.301+02:00  INFO 13201 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2024-10-16T10:36:47.302+02:00  INFO 13201 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2024-10-16T10:36:47.449+02:00  INFO 13201 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2024-10-16T10:36:47.476+02:00  INFO 13201 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@659b0c20
-2024-10-16T10:36:47.476+02:00  INFO 13201 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2024-10-16T10:36:47.511+02:00  INFO 13201 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-16T10:36:47.515+02:00  INFO 13201 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-16T10:36:47.532+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-16T10:36:47.961+02:00  INFO 13201 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-16T10:36:48.241+02:00  INFO 13201 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T10:36:48.641+02:00  WARN 13201 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-16T10:36:48.997+02:00  INFO 13201 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-10-16T10:36:49.198+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T10:36:49.198+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
-2024-10-16T10:36:49.198+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2024-10-16T10:36:49.199+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T10:36:49.199+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
-2024-10-16T10:36:49.199+02:00  INFO 13201 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T10:36:49.206+02:00  INFO 13201 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 2.343 seconds (process running for 15.127)
-2024-10-16T10:36:49.480+02:00  WARN 13201 --- [stay-go] [Test worker] o.s.test.context.TestContextManager      : Caught exception while invoking 'afterTestMethod' callback on TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] for test method [public void com.staygo.service.hotel_ser.HotelServiceTest.testCreatedHotelSuccess() throws java.lang.Exception] and test instance [com.staygo.service.hotel_ser.HotelServiceTest@4b6fc615]
+2024-10-22T18:36:46.637+02:00  INFO 7073 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Starting StayGoApplication using Java 17.0.13 with PID 7073 (/home/another/dev/developering/stay-go/stay-go/build/classes/java/main started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T18:36:46.645+02:00  INFO 7073 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T18:36:46.725+02:00  INFO 7073 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-10-22T18:36:46.726+02:00  INFO 7073 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-10-22T18:36:47.793+02:00  INFO 7073 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T18:36:48.029+02:00  INFO 7073 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 226 ms. Found 11 JPA repository interfaces.
+2024-10-22T18:36:48.234+02:00  INFO 7073 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T18:36:48.247+02:00  INFO 7073 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T18:36:49.032+02:00  INFO 7073 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-22T18:36:49.049+02:00  INFO 7073 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-22T18:36:49.050+02:00  INFO 7073 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-10-22T18:36:49.109+02:00  INFO 7073 --- [stay-go] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-22T18:36:49.110+02:00  INFO 7073 --- [stay-go] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2383 ms
+2024-10-22T18:36:49.316+02:00  INFO 7073 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T18:36:50.802+02:00  WARN 7073 --- [stay-go] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'integrationDataSourceInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'integrationDataSourceInitializer' defined in class path resource [org/springframework/boot/autoconfigure/integration/IntegrationAutoConfiguration$IntegrationJdbcConfiguration.class]: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+2024-10-22T18:36:50.807+02:00  INFO 7073 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-10-22T18:36:50.830+02:00  INFO 7073 --- [stay-go] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-10-22T18:36:50.860+02:00 ERROR 7073 --- [stay-go] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'integrationDataSourceInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'integrationDataSourceInitializer' defined in class path resource [org/springframework/boot/autoconfigure/integration/IntegrationAutoConfiguration$IntegrationJdbcConfiguration.class]: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:326) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.3.jar:3.3.3]
+	at com.staygo.StayGoApplication.main(StayGoApplication.java:12) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.3.jar:3.3.3]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'integrationDataSourceInitializer' defined in class path resource [org/springframework/boot/autoconfigure/integration/IntegrationAutoConfiguration$IntegrationJdbcConfiguration.class]: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 15 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 25 common frames omitted
+Caused by: java.lang.IllegalStateException: Failed to determine DatabaseDriver
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.getDatabaseDriver(PlatformPlaceholderDatabaseDriverResolver.java:144) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.determinePlatform(PlatformPlaceholderDatabaseDriverResolver.java:132) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.lambda$resolveAll$0(PlatformPlaceholderDatabaseDriverResolver.java:97) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.resolveAll(PlatformPlaceholderDatabaseDriverResolver.java:122) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.resolveAll(PlatformPlaceholderDatabaseDriverResolver.java:97) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer.resolveSchemaLocations(IntegrationDataSourceScriptDatabaseInitializer.java:85) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer.getSettings(IntegrationDataSourceScriptDatabaseInitializer.java:73) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer.<init>(IntegrationDataSourceScriptDatabaseInitializer.java:47) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJdbcConfiguration.integrationDataSourceInitializer(IntegrationAutoConfiguration.java:257) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 26 common frames omitted
+Caused by: org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:357) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.getDatabaseDriver(PlatformPlaceholderDatabaseDriverResolver.java:140) ~[spring-boot-3.3.3.jar:3.3.3]
+	... 39 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:331) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	... 40 common frames omitted
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:815) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:438) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:189) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-5.1.0.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	... 41 common frames omitted
+
+2024-10-22T18:43:30.076+02:00  INFO 7910 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Starting StayGoApplication using Java 17.0.13 with PID 7910 (/home/another/dev/developering/stay-go/stay-go/build/classes/java/main started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T18:43:30.079+02:00  INFO 7910 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T18:43:30.141+02:00  INFO 7910 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-10-22T18:43:30.142+02:00  INFO 7910 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-10-22T18:43:31.055+02:00  INFO 7910 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T18:43:31.276+02:00  INFO 7910 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 211 ms. Found 11 JPA repository interfaces.
+2024-10-22T18:43:31.463+02:00  INFO 7910 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T18:43:31.474+02:00  INFO 7910 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T18:43:32.205+02:00  INFO 7910 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-22T18:43:32.222+02:00  INFO 7910 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-22T18:43:32.222+02:00  INFO 7910 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-10-22T18:43:32.279+02:00  INFO 7910 --- [stay-go] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-22T18:43:32.279+02:00  INFO 7910 --- [stay-go] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2136 ms
+2024-10-22T18:43:32.441+02:00  INFO 7910 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T18:43:33.918+02:00  WARN 7910 --- [stay-go] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'integrationDataSourceInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'integrationDataSourceInitializer' defined in class path resource [org/springframework/boot/autoconfigure/integration/IntegrationAutoConfiguration$IntegrationJdbcConfiguration.class]: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+2024-10-22T18:43:33.922+02:00  INFO 7910 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-10-22T18:43:33.943+02:00  INFO 7910 --- [stay-go] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-10-22T18:43:33.971+02:00 ERROR 7910 --- [stay-go] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'integrationDataSourceInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'integrationDataSourceInitializer' defined in class path resource [org/springframework/boot/autoconfigure/integration/IntegrationAutoConfiguration$IntegrationJdbcConfiguration.class]: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:326) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.3.jar:3.3.3]
+	at com.staygo.StayGoApplication.main(StayGoApplication.java:12) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.3.jar:3.3.3]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'integrationDataSourceInitializer' defined in class path resource [org/springframework/boot/autoconfigure/integration/IntegrationAutoConfiguration$IntegrationJdbcConfiguration.class]: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 15 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer]: Factory method 'integrationDataSourceInitializer' threw exception with message: Failed to determine DatabaseDriver
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 25 common frames omitted
+Caused by: java.lang.IllegalStateException: Failed to determine DatabaseDriver
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.getDatabaseDriver(PlatformPlaceholderDatabaseDriverResolver.java:144) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.determinePlatform(PlatformPlaceholderDatabaseDriverResolver.java:132) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.lambda$resolveAll$0(PlatformPlaceholderDatabaseDriverResolver.java:97) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.resolveAll(PlatformPlaceholderDatabaseDriverResolver.java:122) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.resolveAll(PlatformPlaceholderDatabaseDriverResolver.java:97) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer.resolveSchemaLocations(IntegrationDataSourceScriptDatabaseInitializer.java:85) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer.getSettings(IntegrationDataSourceScriptDatabaseInitializer.java:73) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer.<init>(IntegrationDataSourceScriptDatabaseInitializer.java:47) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJdbcConfiguration.integrationDataSourceInitializer(IntegrationAutoConfiguration.java:257) ~[spring-boot-autoconfigure-3.3.3.jar:3.3.3]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 26 common frames omitted
+Caused by: org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:357) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.boot.jdbc.init.PlatformPlaceholderDatabaseDriverResolver.getDatabaseDriver(PlatformPlaceholderDatabaseDriverResolver.java:140) ~[spring-boot-3.3.3.jar:3.3.3]
+	... 39 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:331) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	... 40 common frames omitted
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:815) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:438) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:189) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-5.1.0.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-6.1.12.jar:6.1.12]
+	... 41 common frames omitted
+
+2024-10-22T18:44:40.882+02:00  INFO 8223 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Starting StayGoApplication using Java 17.0.13 with PID 8223 (/home/another/dev/developering/stay-go/stay-go/build/classes/java/main started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T18:44:40.885+02:00  INFO 8223 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T18:44:40.945+02:00  INFO 8223 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-10-22T18:44:40.946+02:00  INFO 8223 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-10-22T18:44:41.883+02:00  INFO 8223 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T18:44:42.104+02:00  INFO 8223 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 210 ms. Found 11 JPA repository interfaces.
+2024-10-22T18:44:42.297+02:00  INFO 8223 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T18:44:42.306+02:00  INFO 8223 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T18:44:43.057+02:00  INFO 8223 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-22T18:44:43.073+02:00  INFO 8223 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-22T18:44:43.074+02:00  INFO 8223 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-10-22T18:44:43.130+02:00  INFO 8223 --- [stay-go] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-22T18:44:43.130+02:00  INFO 8223 --- [stay-go] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2184 ms
+2024-10-22T18:44:43.304+02:00  INFO 8223 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T18:44:43.809+02:00  INFO 8223 --- [stay-go] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7a5f5750
+2024-10-22T18:44:43.812+02:00  INFO 8223 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-22T18:44:43.942+02:00  INFO 8223 --- [stay-go] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-22T18:44:44.022+02:00  INFO 8223 --- [stay-go] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-22T18:44:44.074+02:00  INFO 8223 --- [stay-go] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-22T18:44:44.583+02:00  INFO 8223 --- [stay-go] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-22T18:44:44.650+02:00  WARN 8223 --- [stay-go] [restartedMain] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000339: Could not obtain connection metadata: java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'where clause'
+2024-10-22T18:44:44.650+02:00  WARN 8223 --- [stay-go] [restartedMain] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+
+org.hibernate.HibernateException: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:191) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:87) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentWithDefaults(JdbcEnvironmentInitiator.java:152) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$1.execute(JdbcEnvironmentInitiator.java:333) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$1.execute(JdbcEnvironmentInitiator.java:291) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.jdbc.WorkExecutor.executeReturningWork(WorkExecutor.java:58) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.jdbc.AbstractReturningWork.accept(AbstractReturningWork.java:34) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:70) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:290) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:123) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:77) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:221) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:189) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.3.jar:3.3.3]
+	at com.staygo.StayGoApplication.main(StayGoApplication.java:12) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.3.jar:3.3.3]
+
+2024-10-22T18:44:44.657+02:00 ERROR 8223 --- [stay-go] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+2024-10-22T18:44:44.658+02:00  WARN 8223 --- [stay-go] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+2024-10-22T18:44:44.660+02:00  INFO 8223 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-22T18:44:44.672+02:00  INFO 8223 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-22T18:44:44.676+02:00  INFO 8223 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-10-22T18:44:44.699+02:00  INFO 8223 --- [stay-go] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-10-22T18:44:44.727+02:00 ERROR 8223 --- [stay-go] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.12.jar:6.1.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.3.jar:3.3.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.3.jar:3.3.3]
+	at com.staygo.StayGoApplication.main(StayGoApplication.java:12) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.3.jar:3.3.3]
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:276) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:221) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:189) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.12.jar:6.1.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.12.jar:6.1.12]
+	... 20 common frames omitted
+Caused by: org.hibernate.HibernateException: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:191) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:87) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentWithDefaults(JdbcEnvironmentInitiator.java:152) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:362) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:123) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:77) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
+	... 35 common frames omitted
+
+2024-10-22T18:48:38.730+02:00  INFO 8832 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Starting StayGoApplication using Java 17.0.13 with PID 8832 (/home/another/dev/developering/stay-go/stay-go/build/classes/java/main started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T18:48:38.733+02:00  INFO 8832 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T18:48:38.805+02:00  INFO 8832 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-10-22T18:48:38.805+02:00  INFO 8832 --- [stay-go] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-10-22T18:48:39.925+02:00  INFO 8832 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T18:48:40.207+02:00  INFO 8832 --- [stay-go] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 271 ms. Found 11 JPA repository interfaces.
+2024-10-22T18:48:40.447+02:00  INFO 8832 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T18:48:40.458+02:00  INFO 8832 --- [stay-go] [restartedMain] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T18:48:41.419+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-22T18:48:41.439+02:00  INFO 8832 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-22T18:48:41.440+02:00  INFO 8832 --- [stay-go] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-10-22T18:48:41.511+02:00  INFO 8832 --- [stay-go] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-22T18:48:41.512+02:00  INFO 8832 --- [stay-go] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2706 ms
+2024-10-22T18:48:41.739+02:00  INFO 8832 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T18:48:41.884+02:00  INFO 8832 --- [stay-go] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4cf4c424
+2024-10-22T18:48:41.887+02:00  INFO 8832 --- [stay-go] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-22T18:48:42.024+02:00  INFO 8832 --- [stay-go] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-22T18:48:42.111+02:00  INFO 8832 --- [stay-go] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-22T18:48:42.166+02:00  INFO 8832 --- [stay-go] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-22T18:48:42.637+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-22T18:48:44.799+02:00  INFO 8832 --- [stay-go] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-22T18:48:45.330+02:00  INFO 8832 --- [stay-go] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T18:48:46.351+02:00  WARN 8832 --- [stay-go] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-22T18:48:47.160+02:00  INFO 8832 --- [stay-go] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-22T18:48:47.438+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-10-22T18:48:47.623+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T18:48:47.624+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-22T18:48:47.625+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-22T18:48:47.625+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T18:48:47.625+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-22T18:48:47.625+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T18:48:47.663+02:00  INFO 8832 --- [stay-go] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-22T18:48:47.686+02:00  INFO 8832 --- [stay-go] [restartedMain] com.staygo.StayGoApplication             : Started StayGoApplication in 9.675 seconds (process running for 10.611)
+2024-10-22T18:50:35.061+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T18:50:35.062+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-22T18:50:35.062+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-22T18:50:35.062+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T18:50:35.062+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-22T18:50:35.063+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T18:50:35.071+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T18:50:35.077+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-22T18:50:35.085+02:00  INFO 8832 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-22T22:47:17.051+02:00  INFO 5075 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 5075 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T22:47:17.089+02:00  INFO 5075 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T22:47:18.062+02:00  INFO 5075 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T22:47:18.293+02:00  INFO 5075 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 219 ms. Found 11 JPA repository interfaces.
+2024-10-22T22:47:18.492+02:00  INFO 5075 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T22:47:18.503+02:00  INFO 5075 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T22:47:19.173+02:00  INFO 5075 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T22:47:19.309+02:00  INFO 5075 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@77e9dca8
+2024-10-22T22:47:19.313+02:00  INFO 5075 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-22T22:47:19.455+02:00  INFO 5075 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-22T22:47:19.533+02:00  INFO 5075 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-22T22:47:19.583+02:00  INFO 5075 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-22T22:47:19.992+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-22T22:47:21.824+02:00  INFO 5075 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-22T22:47:21.935+02:00  INFO 5075 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T22:47:23.333+02:00  WARN 5075 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-22T22:47:24.173+02:00  INFO 5075 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-22T22:47:24.632+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T22:47:24.634+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-22T22:47:24.635+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-22T22:47:24.635+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T22:47:24.635+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-22T22:47:24.636+02:00  INFO 5075 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T22:47:24.659+02:00  INFO 5075 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 8.098 seconds (process running for 9.903)
+2024-10-22T22:47:25.826+02:00  WARN 5075 --- [stay-go] [Test worker] o.s.test.context.TestContextManager      : Caught exception while invoking 'afterTestMethod' callback on TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] for test method [public void com.staygo.service.hotel_ser.HotelServiceTest.testCreatedHotelSuccess() throws java.lang.Exception] and test instance [com.staygo.service.hotel_ser.HotelServiceTest@77199818]
 
 org.springframework.transaction.UnexpectedRollbackException: Transaction silently rolled back because it has been marked as rollback-only
 	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:804) ~[spring-tx-6.1.12.jar:6.1.12]
@@ -133,160 +475,162 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
 
-2024-10-16T10:36:49.549+02:00  INFO 13201 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 1231.00
-2024-10-16T10:36:49.551+02:00 ERROR 13201 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : fatal user data: Даты не могут быть в прошлом
-2024-10-16T10:36:49.553+02:00  INFO 13201 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <400 BAD_REQUEST Bad Request,Даты не могут быть в прошлом,[]>
-2024-10-16T10:36:49.629+02:00 ERROR 13201 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : json processing: Unexpected character ('i' (code 105)): was expecting double-quote to start field name
+2024-10-22T22:47:25.890+02:00  INFO 5075 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{},[]>
+2024-10-22T22:47:25.971+02:00 ERROR 5075 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : json processing: Unexpected character ('i' (code 105)): was expecting double-quote to start field name
  at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
-2024-10-16T10:36:49.638+02:00  INFO 13201 --- [stay-go] [Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.staygo.service.hotel_ser.RoomServiceTest]: RoomServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-10-16T10:36:49.641+02:00  INFO 13201 --- [stay-go] [Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.staygo.StayGoApplication for test class com.staygo.service.hotel_ser.RoomServiceTest
-2024-10-16T10:36:49.776+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T10:36:49.777+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
-2024-10-16T10:36:49.777+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2024-10-16T10:36:49.777+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T10:36:49.778+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
-2024-10-16T10:36:49.778+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T10:36:49.786+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T10:36:49.790+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-10-16T10:36:49.800+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-10-16T10:36:49.803+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T10:36:49.804+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
-2024-10-16T10:36:49.804+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2024-10-16T10:36:49.804+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T10:36:49.804+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
-2024-10-16T10:36:49.804+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T10:36:49.808+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T10:36:49.809+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2024-10-16T10:36:49.816+02:00  INFO 13201 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2024-10-16T14:25:14.737+02:00  INFO 24037 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24037 (started by another in /media/another/work/developering/stay-go/stay-go)
-2024-10-16T14:25:14.759+02:00  INFO 24037 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
-2024-10-16T14:25:15.940+02:00  INFO 24037 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-16T14:25:16.227+02:00  INFO 24037 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 273 ms. Found 11 JPA repository interfaces.
-2024-10-16T14:25:16.470+02:00  INFO 24037 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2024-10-16T14:25:16.486+02:00  INFO 24037 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2024-10-16T14:25:17.244+02:00  INFO 24037 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-10-16T14:25:17.799+02:00  INFO 24037 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23bd047f
-2024-10-16T14:25:17.802+02:00  INFO 24037 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-10-16T14:25:17.964+02:00  INFO 24037 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-16T14:25:18.060+02:00  INFO 24037 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-10-16T14:25:18.128+02:00  INFO 24037 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-16T14:25:18.701+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-16T14:25:20.827+02:00  INFO 24037 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-16T14:25:21.196+02:00  INFO 24037 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:25:22.496+02:00  WARN 24037 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-16T14:25:23.511+02:00  INFO 24037 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-10-16T14:25:24.045+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:25:24.046+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
-2024-10-16T14:25:24.047+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:25:24.048+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:25:24.048+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
-2024-10-16T14:25:24.048+02:00  INFO 24037 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:25:24.080+02:00  INFO 24037 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.84 seconds (process running for 11.828)
-2024-10-16T14:25:24.822+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:25:24.823+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
-2024-10-16T14:25:24.824+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:25:24.824+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:25:24.825+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
-2024-10-16T14:25:24.825+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:25:24.834+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:25:24.838+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-10-16T14:25:24.850+02:00  INFO 24037 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-10-16T14:25:43.768+02:00  INFO 24276 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24276 (started by another in /media/another/work/developering/stay-go/stay-go)
-2024-10-16T14:25:43.770+02:00  INFO 24276 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
-2024-10-16T14:25:44.923+02:00  INFO 24276 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-16T14:25:45.180+02:00  INFO 24276 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 245 ms. Found 11 JPA repository interfaces.
-2024-10-16T14:25:45.423+02:00  INFO 24276 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2024-10-16T14:25:45.436+02:00  INFO 24276 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2024-10-16T14:25:46.166+02:00  INFO 24276 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-10-16T14:25:46.658+02:00  INFO 24276 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60f662bd
-2024-10-16T14:25:46.662+02:00  INFO 24276 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-10-16T14:25:46.828+02:00  INFO 24276 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-16T14:25:46.911+02:00  INFO 24276 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-10-16T14:25:46.970+02:00  INFO 24276 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-16T14:25:47.421+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-16T14:25:49.655+02:00  INFO 24276 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-16T14:25:50.031+02:00  INFO 24276 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:25:51.268+02:00  WARN 24276 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-16T14:25:52.160+02:00  INFO 24276 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-10-16T14:25:52.639+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:25:52.641+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
-2024-10-16T14:25:52.642+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:25:52.642+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:25:52.643+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
-2024-10-16T14:25:52.643+02:00  INFO 24276 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:25:52.668+02:00  INFO 24276 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.374 seconds (process running for 11.164)
-2024-10-16T14:25:53.370+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:25:53.370+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
-2024-10-16T14:25:53.371+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:25:53.371+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:25:53.372+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
-2024-10-16T14:25:53.372+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:25:53.382+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:25:53.386+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-10-16T14:25:53.399+02:00  INFO 24276 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-10-16T14:26:13.491+02:00  INFO 24528 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24528 (started by another in /media/another/work/developering/stay-go/stay-go)
-2024-10-16T14:26:13.494+02:00  INFO 24528 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
-2024-10-16T14:26:14.631+02:00  INFO 24528 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-16T14:26:14.909+02:00  INFO 24528 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 266 ms. Found 11 JPA repository interfaces.
-2024-10-16T14:26:15.150+02:00  INFO 24528 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2024-10-16T14:26:15.162+02:00  INFO 24528 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2024-10-16T14:26:15.937+02:00  INFO 24528 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-10-16T14:26:16.468+02:00  INFO 24528 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2bfc8558
-2024-10-16T14:26:16.471+02:00  INFO 24528 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-10-16T14:26:16.653+02:00  INFO 24528 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-16T14:26:16.744+02:00  INFO 24528 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-10-16T14:26:16.798+02:00  INFO 24528 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-16T14:26:17.260+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-16T14:26:19.267+02:00  INFO 24528 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-16T14:26:19.622+02:00  INFO 24528 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:26:20.859+02:00  WARN 24528 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-16T14:26:21.790+02:00  INFO 24528 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-10-16T14:26:22.309+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:26:22.310+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
-2024-10-16T14:26:22.311+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:26:22.311+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:26:22.312+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
-2024-10-16T14:26:22.312+02:00  INFO 24528 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:26:22.337+02:00  INFO 24528 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.335 seconds (process running for 11.106)
-2024-10-16T14:26:23.063+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:26:23.063+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
-2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
-2024-10-16T14:26:23.064+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:26:23.073+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:26:23.077+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-10-16T14:26:23.089+02:00  INFO 24528 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-10-16T14:26:34.215+02:00  INFO 24766 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Starting UserEmailExaminationTest using Java 17.0.12 with PID 24766 (started by another in /media/another/work/developering/stay-go/stay-go)
-2024-10-16T14:26:34.218+02:00  INFO 24766 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : No active profile set, falling back to 1 default profile: "default"
-2024-10-16T14:26:35.326+02:00  INFO 24766 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-16T14:26:35.580+02:00  INFO 24766 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 242 ms. Found 11 JPA repository interfaces.
-2024-10-16T14:26:35.858+02:00  INFO 24766 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
-2024-10-16T14:26:35.870+02:00  INFO 24766 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
-2024-10-16T14:26:36.621+02:00  INFO 24766 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-10-16T14:26:37.102+02:00  INFO 24766 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3562e7c7
-2024-10-16T14:26:37.106+02:00  INFO 24766 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-10-16T14:26:37.264+02:00  INFO 24766 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-16T14:26:37.344+02:00  INFO 24766 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-10-16T14:26:37.400+02:00  INFO 24766 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-16T14:26:37.843+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-16T14:26:40.001+02:00  INFO 24766 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-16T14:26:40.344+02:00  INFO 24766 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:26:41.581+02:00  WARN 24766 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-16T14:26:42.475+02:00  INFO 24766 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-10-16T14:26:42.952+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:26:42.954+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
-2024-10-16T14:26:42.955+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:26:42.955+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:26:42.956+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
-2024-10-16T14:26:42.956+02:00  INFO 24766 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:26:42.993+02:00  INFO 24766 --- [stay-go] [Test worker] c.s.s.user_ser.UserEmailExaminationTest  : Started UserEmailExaminationTest in 9.249 seconds (process running for 10.995)
-2024-10-16T14:26:43.719+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2024-10-16T14:26:43.719+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
-2024-10-16T14:26:43.720+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
-2024-10-16T14:26:43.720+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
-2024-10-16T14:26:43.720+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
-2024-10-16T14:26:43.721+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
-2024-10-16T14:26:43.729+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-10-16T14:26:43.733+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-10-16T14:26:43.744+02:00  INFO 24766 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-22T22:47:25.994+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T22:47:25.994+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-22T22:47:25.995+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-22T22:47:25.995+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T22:47:25.995+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-22T22:47:25.995+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T22:47:26.004+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T22:47:26.007+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-22T22:47:26.012+02:00  INFO 5075 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-22T22:48:06.791+02:00  INFO 5330 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 5330 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T22:48:06.794+02:00  INFO 5330 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T22:48:07.889+02:00  INFO 5330 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T22:48:08.158+02:00  INFO 5330 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 257 ms. Found 11 JPA repository interfaces.
+2024-10-22T22:48:08.433+02:00  INFO 5330 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T22:48:08.446+02:00  INFO 5330 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T22:48:09.197+02:00  INFO 5330 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T22:48:09.342+02:00  INFO 5330 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@77ab5214
+2024-10-22T22:48:09.346+02:00  INFO 5330 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-22T22:48:09.512+02:00  INFO 5330 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-22T22:48:09.600+02:00  INFO 5330 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-22T22:48:09.657+02:00  INFO 5330 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-22T22:48:10.133+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-22T22:48:12.248+02:00  INFO 5330 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-22T22:48:12.373+02:00  INFO 5330 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T22:48:13.695+02:00  WARN 5330 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-22T22:48:14.685+02:00  INFO 5330 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-22T22:48:15.203+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T22:48:15.208+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-22T22:48:15.210+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-22T22:48:15.211+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T22:48:15.211+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-22T22:48:15.212+02:00  INFO 5330 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T22:48:15.241+02:00  INFO 5330 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 8.992 seconds (process running for 11.078)
+2024-10-22T22:48:16.441+02:00  WARN 5330 --- [stay-go] [Test worker] o.s.test.context.TestContextManager      : Caught exception while invoking 'afterTestMethod' callback on TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] for test method [public void com.staygo.service.hotel_ser.HotelServiceTest.testCreatedHotelSuccess() throws java.lang.Exception] and test instance [com.staygo.service.hotel_ser.HotelServiceTest@1e7edfb2]
+
+org.springframework.transaction.UnexpectedRollbackException: Transaction silently rolled back because it has been marked as rollback-only
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:804) ~[spring-tx-6.1.12.jar:6.1.12]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:758) ~[spring-tx-6.1.12.jar:6.1.12]
+	at org.springframework.test.context.transaction.TransactionContext.endTransaction(TransactionContext.java:135) ~[spring-test-6.1.12.jar:6.1.12]
+	at org.springframework.test.context.transaction.TransactionalTestExecutionListener.afterTestMethod(TransactionalTestExecutionListener.java:260) ~[spring-test-6.1.12.jar:6.1.12]
+	at org.springframework.test.context.TestContextManager.afterTestMethod(TestContextManager.java:487) ~[spring-test-6.1.12.jar:6.1.12]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.afterEach(SpringExtension.java:278) ~[spring-test-6.1.12.jar:6.1.12]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAfterEachCallbacks$12(TestMethodTestDescriptor.java:261) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAllAfterMethodsOrCallbacks$13(TestMethodTestDescriptor.java:277) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeAllAfterMethodsOrCallbacks$14(TestMethodTestDescriptor.java:277) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.platform.commons.util.CollectionUtils.forEachInReverseOrder(CollectionUtils.java:217) ~[junit-platform-commons-1.10.3.jar:1.10.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeAllAfterMethodsOrCallbacks(TestMethodTestDescriptor.java:276) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeAfterEachCallbacks(TestMethodTestDescriptor.java:260) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:145) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.10.3.jar:5.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.10.3.jar:1.10.3]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:124) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:99) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:94) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) ~[na:na]
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92) ~[na:na]
+	at jdk.proxy1/jdk.proxy1.$Proxy4.stop(Unknown Source) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63) ~[na:na]
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) ~[na:na]
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:121) ~[na:na]
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71) ~[na:na]
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) ~[gradle-worker.jar:na]
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) ~[gradle-worker.jar:na]
+
+2024-10-22T22:48:16.537+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T22:48:16.537+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-22T22:48:16.538+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-22T22:48:16.539+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T22:48:16.539+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-22T22:48:16.539+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T22:48:16.553+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T22:48:16.558+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-22T22:48:16.565+02:00  INFO 5330 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-22T22:48:40.728+02:00  INFO 5591 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 5591 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-10-22T22:48:40.734+02:00  INFO 5591 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-10-22T22:48:41.856+02:00  INFO 5591 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-22T22:48:42.130+02:00  INFO 5591 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 260 ms. Found 11 JPA repository interfaces.
+2024-10-22T22:48:42.419+02:00  INFO 5591 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-10-22T22:48:42.432+02:00  INFO 5591 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-10-22T22:48:43.214+02:00  INFO 5591 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-22T22:48:43.363+02:00  INFO 5591 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@55044b34
+2024-10-22T22:48:43.367+02:00  INFO 5591 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-22T22:48:43.530+02:00  INFO 5591 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-22T22:48:43.622+02:00  INFO 5591 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-22T22:48:43.681+02:00  INFO 5591 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-22T22:48:44.159+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-22T22:48:46.358+02:00  INFO 5591 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-22T22:48:46.514+02:00  INFO 5591 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T22:48:47.891+02:00  WARN 5591 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-22T22:48:48.819+02:00  INFO 5591 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-10-22T22:48:49.320+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T22:48:49.321+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-10-22T22:48:49.322+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-10-22T22:48:49.323+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T22:48:49.324+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-10-22T22:48:49.324+02:00  INFO 5591 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T22:48:49.351+02:00  INFO 5591 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.18 seconds (process running for 11.321)
+2024-10-22T22:48:50.663+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-10-22T22:48:50.664+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-10-22T22:48:50.665+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-10-22T22:48:50.665+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-10-22T22:48:50.665+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-10-22T22:48:50.666+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-10-22T22:48:50.677+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-22T22:48:50.681+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-22T22:48:50.687+02:00  INFO 5591 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

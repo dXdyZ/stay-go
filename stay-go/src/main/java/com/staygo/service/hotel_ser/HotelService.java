@@ -169,6 +169,11 @@ public class HotelService {
     }
 
     @Transactional
+    public Hotel findByCityAndName(String city, String name) {
+        return hotelRepository.findByAddress_CityAndName(city, name);
+    }
+
+    @Transactional
     public Optional<Hotel> findByUserAndStreet(String street, String username) {
         if (!username.isEmpty() && !street.isEmpty()) {
             return hotelRepository.findByUsers_UsernameAndAddress_Street(username, street);

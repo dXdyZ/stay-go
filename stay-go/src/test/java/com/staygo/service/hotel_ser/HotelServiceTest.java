@@ -110,7 +110,7 @@ public class HotelServiceTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    @Rollback(true)
     public void testCreatedHotelSuccess() throws Exception {
         // Настройка входных данных
         Hotel hotel = Hotel.builder()
