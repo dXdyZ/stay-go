@@ -5,10 +5,12 @@ import com.staygo.repository.hotel_repo.ArmoredRoomRepository;
 import com.staygo.repository.hotel_repo.RoomRepository;
 import com.staygo.service.user_ser.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,11 +36,11 @@ public class ArmoredRoomService {
 
     public ResponseEntity<?> armoredHotel(String city, String hotelName, String armoredDate,
                                           String departureDate, Principal principal, String prestige) {
+
         armoredRoomRepository.save(ArmoredRoom.builder()
                 .createDate(new Date())
                 .dateArmored(armoredDate)
                 .departureDate(departureDate)
-                .room(roomService.findNotArmoredRoom(armoredDate, departureDate, city, hotelName, prestige))
                 .users(userService.findByName(principal.getName()).get())
                 .build());
         return ResponseEntity.ok().build();

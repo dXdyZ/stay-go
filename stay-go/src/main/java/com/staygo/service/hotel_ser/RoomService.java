@@ -161,16 +161,14 @@ public class RoomService {
     }
 
     @Transactional
-    public Room findNotArmoredRoom(String armoredDate, String departureDate, String city, String hotelName, String prestige) {
+    public List<Long> findNotArmoredRoom(String armoredDate, String departureDate, String city, String hotelName, String prestige) {
         Hotel hotel = hotelService.findByCityAndName(city, hotelName);
+        List<Long> sortedByPrestige = new ArrayList<>();
         for (Room room : hotel.getRooms()) {
-            if (room.getRoomStatus().equals("free") && room.getPrestige().equals(prestige)) {
-                Room updateRoom = roomRepository.findById(room.getId()).get();
-                updateRoom.setRoomStatus("armored");
-                roomRepository.save(updateRoom);
-                return room;
+            if (room.getPrestige().equals(prestige)) {
+                sortedByPrestige.add(room.getId());
             }
         }
-        return null;
+        return sortedByPrestige;
     }
 }

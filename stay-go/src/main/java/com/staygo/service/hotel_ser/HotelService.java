@@ -64,24 +64,26 @@ public class HotelService {
             hotel.setUsers(userService.findByName(principal.getName()).get());
             log.info("hotel: {}", hotel);
             if (!addressService.findAllParameterize(hotel.getAddress().getStreet(), hotel.getAddress().getNumberHouse(), hotel.getAddress().getZipCode())) {
-                try {
-                    List<HotelData> hotelDataList = new ArrayList<>();
-                    for (MultipartFile hotelFiles : hotelDataFiles) {
-                        byte[] fileBytes = hotelFiles.getBytes();
-                        String fileName = hotelFiles.getOriginalFilename();
-                        hotelDataList.add(HotelData.builder()
-                                .name(fileName)
-                                .data(fileBytes)
-                                .createDate(new Date())
-                                .hotel(hotel)
-                                .build());
+                if (hotelDataFiles != null) {
+                    try {
+                        List<HotelData> hotelDataList = new ArrayList<>();
+                        for (MultipartFile hotelFiles : hotelDataFiles) {
+                            byte[] fileBytes = hotelFiles.getBytes();
+                            String fileName = hotelFiles.getOriginalFilename();
+                            hotelDataList.add(HotelData.builder()
+                                    .name(fileName)
+                                    .data(fileBytes)
+                                    .createDate(new Date())
+                                    .hotel(hotel)
+                                    .build());
+                        }
+                        hotel.setHotelData(hotelDataList);
+                    } catch (Exception e) {
+                        log.error("exception: {}", e.getMessage());
+                        return new ResponseEntity<>("Ошибка при добавление фото" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
                     }
-                    hotel.setHotelData(hotelDataList);
-                } catch (Exception e) {
-                    log.error("exception: {}", e.getMessage());
-                    return new ResponseEntity<>("Ошибка при добавление фото" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+                    log.info("hotel before: {}", hotel.toString());
                 }
-                log.info("hotel before: {}", hotel.toString());
 
                 hotelRepository.save(hotel);
 
