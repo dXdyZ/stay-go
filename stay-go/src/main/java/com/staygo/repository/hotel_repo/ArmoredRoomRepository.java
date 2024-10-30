@@ -13,6 +13,6 @@ public interface ArmoredRoomRepository extends CrudRepository<ArmoredRoom, Long>
     List<ArmoredRoom> findByDateArmoredAndDepartureDateAndRoom_Hotel_Address_City(String dateArmored, String departureDate, @NotNull @Size(
             min = 2,
             max = 255,
-            message = "Требуетяс название города, максимум 255 символов"
+            message = "Требуется название города, максимум 255 символов"
     ) String room_hotel_address_city);
 }

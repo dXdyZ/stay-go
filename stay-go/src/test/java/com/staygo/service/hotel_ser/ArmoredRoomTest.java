@@ -49,15 +49,6 @@ public class ArmoredRoomTest {
     }
 
 
-
-
-    @Test
-    void testMethodArmoredHotel() {
-        armoredRoomService.armoredHotel("kaliningrad", "Test hotel for the method",
-                "")
-    }
-
-
 //    @Test
 //    @Rollback(false)
 //    void createDataForTestMethodInArmoredClass() throws JsonProcessingException {

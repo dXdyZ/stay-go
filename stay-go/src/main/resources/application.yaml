@@ -18,6 +18,7 @@ logging:
       hibernate: info
       springframework:
         jdbc: info
+        security: debug
     root: info
   file:
     name: createTable.log

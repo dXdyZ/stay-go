@@ -30,6 +30,8 @@ public class UserEmailExamination {
     public void sendGenerationCodeOnUserEmail(Users users) {
         Integer code = generationRandomNumberForCode();
         userCode.put(code, users);
+        log.info("generated code: {}", code);
+        log.info("collection examination on empty: {}", !userCode.isEmpty() ? userCode.get(code) : "Collection is empty");
         mailService.sendMail(users.getEmail(), "Verification code", code.toString());
     }
 
