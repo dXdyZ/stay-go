@@ -138,7 +138,7 @@ public class HotelService {
     public ResponseEntity<?> getAllHotelUsers(Principal principal) {
         List<Hotel> allHotelUser = hotelRepository.findAllByUsers_Username(principal.getName(), getPageable());
         if (allHotelUser.isEmpty()) {
-            return new ResponseEntity<>("У вас нет зарегестрированных отелей", HttpStatus.OK);
+            return new ResponseEntity<>("У вас нет зарегистрированных отелей", HttpStatus.OK);
         } else return ResponseEntity.ok(allHotelUser);
     }
 

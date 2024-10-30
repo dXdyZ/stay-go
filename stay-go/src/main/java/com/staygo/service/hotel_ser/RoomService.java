@@ -1,5 +1,6 @@
 package com.staygo.service.hotel_ser;
 
+import com.staygo.enity.hotel.ArmoredRoom;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.Room;
 import com.staygo.enity.hotel.RoomData;
@@ -161,12 +162,13 @@ public class RoomService {
     }
 
     @Transactional
-    public List<Long> findNotArmoredRoom(String armoredDate, String departureDate, String city, String hotelName, String prestige) {
+    public Room findNotArmoredRoom(String armoredDate, String departureDate, String city, String hotelName, String prestige) {
         Hotel hotel = hotelService.findByCityAndName(city, hotelName);
-        List<Long> sortedByPrestige = new ArrayList<>();
+        Room sortedByPrestige = null;
         for (Room room : hotel.getRooms()) {
-            if (room.getPrestige().equals(prestige)) {
-                sortedByPrestige.add(room.getId());
+            if (room.getPrestige().equals(prestige) && !room.getArmoredRoom().getDateArmored().equals(armoredDate) &&
+                    !room.getArmoredRoom().getDepartureDate().equals(departureDate)) {
+                sortedByPrestige = room;
             }
         }
         return sortedByPrestige;

@@ -1,6 +1,7 @@
 package com.staygo.service.hotel_ser;
 
 import com.staygo.enity.hotel.ArmoredRoom;
+import com.staygo.enity.hotel.Room;
 import com.staygo.repository.hotel_repo.ArmoredRoomRepository;
 import com.staygo.repository.hotel_repo.RoomRepository;
 import com.staygo.service.user_ser.UserService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -41,6 +43,7 @@ public class ArmoredRoomService {
                 .createDate(new Date())
                 .dateArmored(armoredDate)
                 .departureDate(departureDate)
+                .room(roomService.findNotArmoredRoom(armoredDate, departureDate, city, hotelName, prestige))
                 .users(userService.findByName(principal.getName()).get())
                 .build());
         return ResponseEntity.ok().build();

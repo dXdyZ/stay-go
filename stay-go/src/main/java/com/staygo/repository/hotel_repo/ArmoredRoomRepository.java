@@ -15,6 +15,4 @@ public interface ArmoredRoomRepository extends CrudRepository<ArmoredRoom, Long>
             max = 255,
             message = "Требуетяс название города, максимум 255 символов"
     ) String room_hotel_address_city);
-
-    // List<ArmoredRoom> findAllBy
 }
