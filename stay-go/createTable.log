@@ -216,3 +216,945 @@
 2024-11-01T01:58:30.905+02:00  INFO 948983 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-11-01T01:58:30.912+02:00  INFO 948983 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-11-01T01:58:30.917+02:00  INFO 948983 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T18:56:52.432+02:00  INFO 181397 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 181397 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T18:56:52.461+02:00  INFO 181397 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T18:56:53.817+02:00  INFO 181397 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T18:56:54.140+02:00  INFO 181397 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 303 ms. Found 11 JPA repository interfaces.
+2024-11-01T18:56:54.422+02:00  INFO 181397 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T18:56:54.443+02:00  INFO 181397 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T18:56:55.300+02:00  INFO 181397 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T18:56:55.484+02:00  INFO 181397 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2cea921a
+2024-11-01T18:56:55.487+02:00  INFO 181397 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T18:56:55.667+02:00  INFO 181397 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T18:56:55.771+02:00  INFO 181397 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T18:56:55.832+02:00  INFO 181397 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T18:56:56.370+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T18:56:58.697+02:00  INFO 181397 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T18:56:58.829+02:00  INFO 181397 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T18:57:00.118+02:00  WARN 181397 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T18:57:00.186+02:00  INFO 181397 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T18:57:00.952+02:00 DEBUG 181397 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T18:57:02.000+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T18:57:02.002+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T18:57:02.003+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T18:57:02.003+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T18:57:02.004+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T18:57:02.004+02:00  INFO 181397 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T18:57:02.033+02:00  INFO 181397 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 10.219 seconds (process running for 12.757)
+2024-11-01T18:57:02.837+02:00  INFO 181397 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T18:57:03.123+02:00  INFO 181397 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T18:57:03.128+02:00  INFO 181397 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T18:57:03.128+02:00  INFO 181397 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T18:57:03.231+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T18:57:03.232+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T18:57:03.233+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T18:57:03.233+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T18:57:03.234+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T18:57:03.234+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T18:57:03.245+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T18:57:03.250+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T18:57:03.257+02:00  INFO 181397 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T18:58:27.188+02:00  INFO 184773 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 184773 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T18:58:27.192+02:00  INFO 184773 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T18:58:28.337+02:00  INFO 184773 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T18:58:28.612+02:00  INFO 184773 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 259 ms. Found 11 JPA repository interfaces.
+2024-11-01T18:58:28.864+02:00  INFO 184773 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T18:58:28.880+02:00  INFO 184773 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T18:58:29.661+02:00  INFO 184773 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T18:58:29.808+02:00  INFO 184773 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@7de3206d
+2024-11-01T18:58:29.812+02:00  INFO 184773 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T18:58:29.972+02:00  INFO 184773 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T18:58:30.054+02:00  INFO 184773 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T18:58:30.109+02:00  INFO 184773 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T18:58:30.593+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T18:58:32.845+02:00  INFO 184773 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T18:58:32.978+02:00  INFO 184773 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T18:58:34.186+02:00  WARN 184773 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T18:58:34.250+02:00  INFO 184773 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T18:58:34.944+02:00 DEBUG 184773 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T18:58:35.846+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T18:58:35.847+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T18:58:35.848+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T18:58:35.849+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T18:58:35.849+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T18:58:35.850+02:00  INFO 184773 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T18:58:35.877+02:00  INFO 184773 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.213 seconds (process running for 11.359)
+2024-11-01T18:58:36.628+02:00  INFO 184773 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T18:58:36.891+02:00  INFO 184773 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T18:58:36.893+02:00  INFO 184773 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T18:58:36.893+02:00  INFO 184773 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T18:58:36.974+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T18:58:36.974+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T18:58:36.975+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T18:58:36.976+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T18:58:36.976+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T18:58:36.977+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T18:58:36.992+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T18:58:36.996+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T18:58:37.003+02:00  INFO 184773 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:00:42.764+02:00  INFO 188796 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 188796 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:00:42.767+02:00  INFO 188796 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:00:43.944+02:00  INFO 188796 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:00:44.226+02:00  INFO 188796 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 269 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:00:44.495+02:00  INFO 188796 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:00:44.510+02:00  INFO 188796 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:00:45.299+02:00  INFO 188796 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:00:45.445+02:00  INFO 188796 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@6dece1f9
+2024-11-01T19:00:45.449+02:00  INFO 188796 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:00:45.610+02:00  INFO 188796 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:00:45.702+02:00  INFO 188796 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:00:45.756+02:00  INFO 188796 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:00:46.239+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:00:48.561+02:00  INFO 188796 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:00:48.683+02:00  INFO 188796 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:00:49.982+02:00  WARN 188796 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:00:50.047+02:00  INFO 188796 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:00:50.758+02:00 DEBUG 188796 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:00:51.719+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:00:51.720+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:00:51.721+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:00:51.722+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:00:51.723+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:00:51.723+02:00  INFO 188796 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:00:51.750+02:00  INFO 188796 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.514 seconds (process running for 11.61)
+2024-11-01T19:00:52.545+02:00  INFO 188796 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:00:52.812+02:00  INFO 188796 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:00:52.891+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:00:52.892+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:00:52.893+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:00:52.893+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:00:52.894+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:00:52.894+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:00:52.905+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:00:52.908+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:00:52.915+02:00  INFO 188796 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:03:32.993+02:00  INFO 193905 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 193905 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:03:32.996+02:00  INFO 193905 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:03:34.287+02:00  INFO 193905 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:03:34.568+02:00  INFO 193905 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 268 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:03:34.808+02:00  INFO 193905 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:03:34.821+02:00  INFO 193905 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:03:35.615+02:00  INFO 193905 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:03:35.776+02:00  INFO 193905 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@e881e46
+2024-11-01T19:03:35.780+02:00  INFO 193905 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:03:35.947+02:00  INFO 193905 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:03:36.036+02:00  INFO 193905 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:03:36.092+02:00  INFO 193905 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:03:36.563+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:03:38.920+02:00  INFO 193905 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:03:39.044+02:00  INFO 193905 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:03:40.254+02:00  WARN 193905 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:03:40.323+02:00  INFO 193905 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:03:41.067+02:00 DEBUG 193905 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:03:42.174+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:03:42.176+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:03:42.177+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:03:42.177+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:03:42.178+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:03:42.178+02:00  INFO 193905 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:03:42.209+02:00  INFO 193905 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.795 seconds (process running for 12.025)
+2024-11-01T19:03:43.011+02:00  INFO 193905 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:03:43.275+02:00  INFO 193905 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:03:43.278+02:00  INFO 193905 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T19:03:43.279+02:00  INFO 193905 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T19:03:43.371+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:03:43.371+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:03:43.372+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:03:43.373+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:03:43.373+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:03:43.373+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:03:43.384+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:03:43.388+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:03:43.394+02:00  INFO 193905 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:04:57.622+02:00  INFO 196508 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 196508 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:04:57.625+02:00  INFO 196508 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:04:58.774+02:00  INFO 196508 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:04:59.046+02:00  INFO 196508 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 259 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:04:59.248+02:00  INFO 196508 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:04:59.261+02:00  INFO 196508 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:05:00.054+02:00  INFO 196508 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:05:00.203+02:00  INFO 196508 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@78128dd0
+2024-11-01T19:05:00.207+02:00  INFO 196508 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:05:00.365+02:00  INFO 196508 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:05:00.451+02:00  INFO 196508 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:05:00.509+02:00  INFO 196508 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:05:00.986+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:05:03.234+02:00  INFO 196508 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:05:03.355+02:00  INFO 196508 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:05:04.579+02:00  WARN 196508 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:05:04.639+02:00  INFO 196508 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:05:05.474+02:00 DEBUG 196508 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:05:06.485+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:05:06.486+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:05:06.487+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:05:06.487+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:05:06.488+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:05:06.488+02:00  INFO 196508 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:05:06.513+02:00  INFO 196508 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.463 seconds (process running for 11.632)
+2024-11-01T19:05:07.236+02:00  INFO 196508 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:05:07.501+02:00  INFO 196508 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:05:07.503+02:00  INFO 196508 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date: 10.11.2024
+2024-11-01T19:05:07.503+02:00  INFO 196508 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date: 24.11.2024
+2024-11-01T19:05:07.504+02:00  INFO 196508 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date: 10.11.2024
+2024-11-01T19:05:07.504+02:00  INFO 196508 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date: 24.11.2024
+2024-11-01T19:05:07.505+02:00  INFO 196508 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T19:05:07.505+02:00  INFO 196508 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T19:05:07.507+02:00  INFO 196508 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date: 01.11.2024
+2024-11-01T19:05:07.507+02:00  INFO 196508 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date: 10.11.2024
+2024-11-01T19:05:07.590+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:05:07.591+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:05:07.592+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:05:07.592+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:05:07.592+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:05:07.592+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:05:07.605+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:05:07.609+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:05:07.615+02:00  INFO 196508 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:07:11.421+02:00  INFO 200476 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 200476 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:07:11.424+02:00  INFO 200476 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:07:12.444+02:00  INFO 200476 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:07:12.680+02:00  INFO 200476 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 225 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:07:12.866+02:00  INFO 200476 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:07:12.877+02:00  INFO 200476 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:07:13.576+02:00  INFO 200476 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:07:13.700+02:00  INFO 200476 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@144a5e6e
+2024-11-01T19:07:13.703+02:00  INFO 200476 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:07:13.857+02:00  INFO 200476 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:07:13.931+02:00  INFO 200476 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:07:13.984+02:00  INFO 200476 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:07:14.405+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:07:16.313+02:00  INFO 200476 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:07:16.422+02:00  INFO 200476 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:07:17.439+02:00  WARN 200476 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:07:17.492+02:00  INFO 200476 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:07:18.061+02:00 DEBUG 200476 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:07:18.872+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:07:18.873+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:07:18.874+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:07:18.874+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:07:18.875+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:07:18.875+02:00  INFO 200476 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:07:18.901+02:00  INFO 200476 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 7.923 seconds (process running for 9.744)
+2024-11-01T19:07:19.587+02:00  INFO 200476 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:07:19.809+02:00  INFO 200476 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:07:19.810+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024
+2024-11-01T19:07:19.810+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method check for the present: 24.11.2024
+2024-11-01T19:07:19.811+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : string date transformation in date: Sun Nov 10 00:00:00 EET 2024
+2024-11-01T19:07:19.812+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024
+2024-11-01T19:07:19.812+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method check for the present: 24.11.2024
+2024-11-01T19:07:19.813+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : string date transformation in date: Sun Nov 10 00:00:00 EET 2024
+2024-11-01T19:07:19.813+02:00  INFO 200476 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T19:07:19.814+02:00  INFO 200476 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T19:07:19.815+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024
+2024-11-01T19:07:19.815+02:00  INFO 200476 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method check for the present: 10.11.2024
+2024-11-01T19:07:19.892+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:07:19.893+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:07:19.894+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:07:19.895+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:07:19.895+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:07:19.895+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:07:19.908+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:07:19.914+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:07:19.920+02:00  INFO 200476 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:08:03.362+02:00  INFO 202169 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 202169 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:08:03.365+02:00  INFO 202169 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:08:04.461+02:00  INFO 202169 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:08:04.714+02:00  INFO 202169 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 238 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:08:04.922+02:00  INFO 202169 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:08:04.934+02:00  INFO 202169 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:08:05.647+02:00  INFO 202169 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:08:05.776+02:00  INFO 202169 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2cea921a
+2024-11-01T19:08:05.779+02:00  INFO 202169 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:08:05.916+02:00  INFO 202169 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:08:05.988+02:00  INFO 202169 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:08:06.035+02:00  INFO 202169 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:08:06.453+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:08:08.352+02:00  INFO 202169 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:08:08.463+02:00  INFO 202169 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:08:09.514+02:00  WARN 202169 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:08:09.566+02:00  INFO 202169 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:08:10.161+02:00 DEBUG 202169 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:08:10.926+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:08:10.927+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:08:10.928+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:08:10.928+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:08:10.929+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:08:10.929+02:00  INFO 202169 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:08:10.956+02:00  INFO 202169 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 8.108 seconds (process running for 10.011)
+2024-11-01T19:08:11.619+02:00  INFO 202169 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:08:11.886+02:00  INFO 202169 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:08:11.887+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T19:08:11.888+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method check for the present: 24.11.2024, 10.11.2024
+2024-11-01T19:08:11.889+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : string date transformation in date: Sun Nov 10 00:00:00 EET 2024, Sun Nov 24 00:00:00 EET 2024
+2024-11-01T19:08:11.890+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T19:08:11.890+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method check for the present: 24.11.2024, 10.11.2024
+2024-11-01T19:08:11.891+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : string date transformation in date: Sun Nov 10 00:00:00 EET 2024, Sun Nov 24 00:00:00 EET 2024
+2024-11-01T19:08:11.891+02:00  INFO 202169 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T19:08:11.892+02:00  INFO 202169 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T19:08:11.893+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T19:08:11.893+02:00  INFO 202169 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method check for the present: 10.11.2024, 01.11.2024
+2024-11-01T19:08:11.965+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:08:11.966+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:08:11.966+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:08:11.967+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:08:11.967+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:08:11.967+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:08:11.977+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:08:11.981+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:08:11.986+02:00  INFO 202169 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:12:57.078+02:00  INFO 210729 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 210729 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:12:57.081+02:00  INFO 210729 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:12:58.530+02:00  INFO 210729 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:12:58.864+02:00  INFO 210729 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 313 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:12:59.110+02:00  INFO 210729 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:12:59.126+02:00  INFO 210729 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:13:01.814+02:00  INFO 210729 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:13:02.325+02:00  INFO 210729 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@a2df0d5
+2024-11-01T19:13:02.339+02:00  INFO 210729 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:13:02.659+02:00  INFO 210729 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:13:02.891+02:00  INFO 210729 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:13:03.038+02:00  INFO 210729 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:13:04.341+02:00  INFO 210729 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:13:09.525+02:00  INFO 210729 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:13:09.751+02:00  INFO 210729 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:13:49.615+02:00  INFO 212458 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 212458 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:13:49.618+02:00  INFO 212458 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:13:50.697+02:00  INFO 212458 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:13:50.954+02:00  INFO 212458 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 245 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:13:51.189+02:00  INFO 212458 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:13:51.201+02:00  INFO 212458 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:13:53.071+02:00  INFO 212458 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:13:53.407+02:00  INFO 212458 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5834198f
+2024-11-01T19:13:53.418+02:00  INFO 212458 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:13:53.627+02:00  INFO 212458 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:13:53.783+02:00  INFO 212458 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:13:53.887+02:00  INFO 212458 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:13:54.766+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:13:58.644+02:00  INFO 212458 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:13:58.853+02:00  INFO 212458 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:14:38.769+02:00  WARN 212458 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:14:38.892+02:00  INFO 212458 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:14:40.028+02:00 DEBUG 212458 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:14:41.667+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:14:41.669+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:14:41.671+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:14:41.672+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:14:41.672+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:14:41.672+02:00  INFO 212458 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:14:41.744+02:00  INFO 212458 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 52.602 seconds (process running for 54.804)
+2024-11-01T19:14:43.058+02:00  INFO 212458 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:14:43.630+02:00  INFO 212458 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:54:35.430+02:00  INFO 282928 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 282928 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:54:35.436+02:00  INFO 282928 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:54:36.532+02:00  INFO 282928 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:54:36.810+02:00  INFO 282928 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 260 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:54:37.059+02:00  INFO 282928 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:54:37.077+02:00  INFO 282928 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:54:37.808+02:00  INFO 282928 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:54:37.954+02:00  INFO 282928 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5635bcd2
+2024-11-01T19:54:37.957+02:00  INFO 282928 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:54:38.116+02:00  INFO 282928 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:54:38.203+02:00  INFO 282928 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:54:38.256+02:00  INFO 282928 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:54:38.715+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:54:40.980+02:00  INFO 282928 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:54:41.115+02:00  INFO 282928 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:54:42.448+02:00  WARN 282928 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:54:42.522+02:00  INFO 282928 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:54:43.205+02:00 DEBUG 282928 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:54:44.149+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:54:44.150+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:54:44.151+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:54:44.152+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:54:44.152+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:54:44.153+02:00  INFO 282928 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:54:44.179+02:00  INFO 282928 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.259 seconds (process running for 11.376)
+2024-11-01T19:54:44.900+02:00  INFO 282928 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : date method map date: 01.11.2024
+2024-11-01T19:54:45.161+02:00  INFO 282928 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:54:45.163+02:00  INFO 282928 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T19:54:45.164+02:00  INFO 282928 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T19:54:45.164+02:00  INFO 282928 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T19:54:45.165+02:00  INFO 282928 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T19:54:45.166+02:00  INFO 282928 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T19:54:45.242+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:54:45.242+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:54:45.243+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:54:45.243+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:54:45.244+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:54:45.244+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:54:45.254+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:54:45.258+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:54:45.264+02:00  INFO 282928 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T19:59:35.841+02:00  INFO 291972 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 291972 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T19:59:35.845+02:00  INFO 291972 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T19:59:36.846+02:00  INFO 291972 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T19:59:37.079+02:00  INFO 291972 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 219 ms. Found 11 JPA repository interfaces.
+2024-11-01T19:59:37.261+02:00  INFO 291972 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T19:59:37.272+02:00  INFO 291972 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T19:59:37.942+02:00  INFO 291972 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T19:59:38.064+02:00  INFO 291972 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2707c790
+2024-11-01T19:59:38.067+02:00  INFO 291972 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T19:59:38.205+02:00  INFO 291972 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T19:59:38.280+02:00  INFO 291972 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T19:59:38.327+02:00  INFO 291972 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T19:59:38.725+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T19:59:40.542+02:00  INFO 291972 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T19:59:40.641+02:00  INFO 291972 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:59:41.650+02:00  WARN 291972 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T19:59:41.700+02:00  INFO 291972 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T19:59:42.289+02:00 DEBUG 291972 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T19:59:43.072+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:59:43.073+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T19:59:43.075+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:59:43.075+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:59:43.075+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T19:59:43.076+02:00  INFO 291972 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:59:43.099+02:00  INFO 291972 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 7.702 seconds (process running for 9.559)
+2024-11-01T19:59:43.743+02:00  INFO 291972 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T19:59:43.744+02:00  INFO 291972 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T19:59:43.959+02:00  INFO 291972 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T19:59:43.961+02:00  INFO 291972 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T19:59:43.961+02:00  INFO 291972 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T19:59:43.962+02:00  INFO 291972 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T19:59:43.963+02:00  INFO 291972 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T19:59:43.964+02:00  INFO 291972 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T19:59:44.029+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T19:59:44.030+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T19:59:44.030+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T19:59:44.030+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T19:59:44.031+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T19:59:44.031+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T19:59:44.039+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T19:59:44.042+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T19:59:44.048+02:00  INFO 291972 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T20:01:42.977+02:00  INFO 295785 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 295785 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T20:01:42.980+02:00  INFO 295785 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T20:01:43.939+02:00  INFO 295785 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T20:01:44.165+02:00  INFO 295785 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 215 ms. Found 11 JPA repository interfaces.
+2024-11-01T20:01:44.342+02:00  INFO 295785 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T20:01:44.353+02:00  INFO 295785 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T20:01:45.015+02:00  INFO 295785 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T20:01:45.137+02:00  INFO 295785 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@32b112a1
+2024-11-01T20:01:45.140+02:00  INFO 295785 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T20:01:45.296+02:00  INFO 295785 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T20:01:45.372+02:00  INFO 295785 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T20:01:45.421+02:00  INFO 295785 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T20:01:45.863+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T20:01:47.808+02:00  INFO 295785 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T20:01:47.908+02:00  INFO 295785 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:01:48.916+02:00  WARN 295785 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T20:01:48.967+02:00  INFO 295785 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T20:01:49.570+02:00 DEBUG 295785 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T20:01:50.362+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:01:50.363+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T20:01:50.364+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:01:50.364+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:01:50.364+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T20:01:50.365+02:00  INFO 295785 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:01:50.388+02:00  INFO 295785 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 7.872 seconds (process running for 9.765)
+2024-11-01T20:01:51.036+02:00  INFO 295785 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T20:01:51.037+02:00  INFO 295785 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T20:01:51.240+02:00  INFO 295785 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T20:01:51.241+02:00  INFO 295785 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T20:01:51.242+02:00  INFO 295785 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 24.11.2024
+2024-11-01T20:01:51.243+02:00  INFO 295785 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 172200.00
+2024-11-01T20:01:51.244+02:00  INFO 295785 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T20:01:51.245+02:00  INFO 295785 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T20:01:56.271+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:01:56.272+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T20:01:56.273+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:01:56.273+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:01:56.273+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T20:01:56.274+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:01:56.285+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:01:56.290+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T20:01:56.297+02:00  INFO 295785 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T20:03:21.087+02:00  INFO 298794 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 298794 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T20:03:21.091+02:00  INFO 298794 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T20:03:22.121+02:00  INFO 298794 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T20:03:22.356+02:00  INFO 298794 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 225 ms. Found 11 JPA repository interfaces.
+2024-11-01T20:03:22.570+02:00  INFO 298794 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T20:03:22.581+02:00  INFO 298794 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T20:03:23.245+02:00  INFO 298794 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T20:03:23.376+02:00  INFO 298794 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2cea921a
+2024-11-01T20:03:23.380+02:00  INFO 298794 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T20:03:23.517+02:00  INFO 298794 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T20:03:23.592+02:00  INFO 298794 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T20:03:23.638+02:00  INFO 298794 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T20:03:24.037+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T20:03:25.936+02:00  INFO 298794 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T20:03:26.043+02:00  INFO 298794 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:03:27.069+02:00  WARN 298794 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T20:03:27.119+02:00  INFO 298794 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T20:03:27.772+02:00 DEBUG 298794 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T20:03:28.529+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:03:28.530+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T20:03:28.531+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:03:28.531+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:03:28.532+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T20:03:28.532+02:00  INFO 298794 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:03:28.559+02:00  INFO 298794 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 7.924 seconds (process running for 9.787)
+2024-11-01T20:03:29.238+02:00  INFO 298794 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T20:03:29.239+02:00  INFO 298794 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T20:03:29.457+02:00  INFO 298794 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T20:03:29.458+02:00  INFO 298794 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T20:03:29.459+02:00  INFO 298794 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T20:03:29.460+02:00  INFO 298794 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T20:03:29.461+02:00  INFO 298794 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T20:03:29.462+02:00  INFO 298794 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T20:03:32.368+02:00  INFO 298794 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=49199.00}
+{day: 4=5.670833333333333, day: 3=5.670833333333333, day: 2=5.670833333333333, day: 1=5.783333333333334},[]>
+2024-11-01T20:03:32.417+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:03:32.418+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T20:03:32.419+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:03:32.419+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:03:32.419+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T20:03:32.419+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:03:32.429+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:03:32.433+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T20:03:32.439+02:00  INFO 298794 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T20:46:46.852+02:00  INFO 371588 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 371588 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T20:46:46.856+02:00  INFO 371588 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T20:46:48.037+02:00  INFO 371588 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T20:46:48.310+02:00  INFO 371588 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 257 ms. Found 11 JPA repository interfaces.
+2024-11-01T20:46:48.584+02:00  INFO 371588 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T20:46:48.597+02:00  INFO 371588 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T20:46:49.462+02:00  INFO 371588 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T20:46:49.659+02:00  INFO 371588 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5635bcd2
+2024-11-01T20:46:49.664+02:00  INFO 371588 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T20:46:49.882+02:00  INFO 371588 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T20:46:49.983+02:00  INFO 371588 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T20:46:50.040+02:00  INFO 371588 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T20:46:50.554+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T20:46:52.841+02:00  INFO 371588 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T20:46:52.975+02:00  INFO 371588 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:46:54.237+02:00  WARN 371588 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T20:46:54.306+02:00  INFO 371588 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T20:46:54.949+02:00 DEBUG 371588 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T20:46:55.818+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:46:55.819+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T20:46:55.820+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:46:55.821+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:46:55.821+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T20:46:55.822+02:00  INFO 371588 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:46:55.851+02:00  INFO 371588 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.586 seconds (process running for 11.649)
+2024-11-01T20:46:56.599+02:00  INFO 371588 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T20:46:56.600+02:00  INFO 371588 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T20:46:56.855+02:00  INFO 371588 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T20:46:56.856+02:00  INFO 371588 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T20:46:56.857+02:00  INFO 371588 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T20:46:56.858+02:00  INFO 371588 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T20:46:56.859+02:00  INFO 371588 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T20:46:56.861+02:00  INFO 371588 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T20:46:56.863+02:00  INFO 371588 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 14.11.2024
+2024-11-01T20:46:59.323+02:00  INFO 371588 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=49199.00}
+{day: 4=5.670833333333333, day: 3=5.670833333333333, day: 2=5.670833333333333, day: 1=5.783333333333334},[]>
+2024-11-01T20:46:59.368+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:46:59.368+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T20:46:59.369+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:46:59.369+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:46:59.369+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T20:46:59.370+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:46:59.379+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:46:59.383+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T20:46:59.388+02:00  INFO 371588 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T20:47:23.640+02:00  INFO 372887 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 372887 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T20:47:23.643+02:00  INFO 372887 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T20:47:24.787+02:00  INFO 372887 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T20:47:25.074+02:00  INFO 372887 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 269 ms. Found 11 JPA repository interfaces.
+2024-11-01T20:47:25.318+02:00  INFO 372887 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T20:47:25.335+02:00  INFO 372887 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T20:47:26.142+02:00  INFO 372887 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T20:47:26.289+02:00  INFO 372887 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@65753724
+2024-11-01T20:47:26.293+02:00  INFO 372887 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T20:47:26.451+02:00  INFO 372887 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T20:47:26.535+02:00  INFO 372887 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T20:47:26.589+02:00  INFO 372887 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T20:47:27.061+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T20:47:29.241+02:00  INFO 372887 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T20:47:29.361+02:00  INFO 372887 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:47:30.528+02:00  WARN 372887 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T20:47:30.583+02:00  INFO 372887 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T20:47:31.264+02:00 DEBUG 372887 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T20:47:32.134+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:47:32.135+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T20:47:32.136+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:47:32.137+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:47:32.137+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T20:47:32.138+02:00  INFO 372887 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:47:32.165+02:00  INFO 372887 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.049 seconds (process running for 11.113)
+2024-11-01T20:47:32.874+02:00  INFO 372887 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T20:47:32.875+02:00  INFO 372887 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T20:47:33.150+02:00  INFO 372887 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T20:47:33.152+02:00  INFO 372887 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T20:47:33.153+02:00  INFO 372887 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T20:47:33.154+02:00  INFO 372887 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T20:47:33.155+02:00  INFO 372887 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T20:47:33.156+02:00  INFO 372887 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T20:47:33.157+02:00  INFO 372887 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 14.11.2024
+2024-11-01T20:47:35.274+02:00  INFO 372887 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=49199.00}
+{day: 4=5.670833333333333, day: 3=5.670833333333333, day: 2=5.670833333333333, day: 1=5.783333333333334},[]>
+2024-11-01T20:47:35.325+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T20:47:35.326+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T20:47:35.327+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T20:47:35.327+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T20:47:35.327+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T20:47:35.327+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T20:47:35.336+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T20:47:35.340+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T20:47:35.345+02:00  INFO 372887 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:00:28.090+02:00  INFO 395282 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 395282 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:00:28.092+02:00  INFO 395282 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:00:29.204+02:00  INFO 395282 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:00:29.473+02:00  INFO 395282 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 257 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:00:29.673+02:00  INFO 395282 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:00:29.685+02:00  INFO 395282 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:00:30.440+02:00  INFO 395282 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:00:30.584+02:00  INFO 395282 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@d66502
+2024-11-01T21:00:30.588+02:00  INFO 395282 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:00:30.745+02:00  INFO 395282 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:00:30.829+02:00  INFO 395282 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:00:30.884+02:00  INFO 395282 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:00:31.365+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:00:33.521+02:00  INFO 395282 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:00:33.658+02:00  INFO 395282 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:00:34.887+02:00  WARN 395282 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:00:34.949+02:00  INFO 395282 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:00:35.609+02:00 DEBUG 395282 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:00:36.478+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:00:36.479+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:00:36.481+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:00:36.481+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:00:36.482+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:00:36.482+02:00  INFO 395282 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:00:36.508+02:00  INFO 395282 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 8.918 seconds (process running for 10.912)
+2024-11-01T21:00:37.181+02:00  INFO 395282 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:00:37.181+02:00  INFO 395282 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:00:37.390+02:00  INFO 395282 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:00:37.391+02:00  INFO 395282 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T21:00:37.392+02:00  INFO 395282 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T21:00:37.393+02:00  INFO 395282 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T21:00:37.393+02:00  INFO 395282 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:00:37.395+02:00  INFO 395282 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:00:37.396+02:00  INFO 395282 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 14.11.2024
+2024-11-01T21:00:39.842+02:00  INFO 395282 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=49199.00}
+{day: 4=5.670833333333333, day: 3=5.670833333333333, day: 2=5.670833333333333, day: 1=5.783333333333334},[]>
+2024-11-01T21:00:39.887+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:00:39.887+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:00:39.887+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:00:39.888+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:00:39.888+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:00:39.888+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:00:39.896+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:00:39.900+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:00:39.904+02:00  INFO 395282 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:01:52.531+02:00  INFO 398076 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 398076 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:01:52.535+02:00  INFO 398076 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:01:53.701+02:00  INFO 398076 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:01:53.975+02:00  INFO 398076 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 261 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:01:54.250+02:00  INFO 398076 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:01:54.263+02:00  INFO 398076 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:01:55.087+02:00  INFO 398076 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:01:55.238+02:00  INFO 398076 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5635bcd2
+2024-11-01T21:01:55.242+02:00  INFO 398076 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:01:55.427+02:00  INFO 398076 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:01:55.535+02:00  INFO 398076 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:01:55.599+02:00  INFO 398076 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:01:56.113+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:01:58.361+02:00  INFO 398076 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:01:58.478+02:00  INFO 398076 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:01:59.701+02:00  WARN 398076 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:01:59.766+02:00  INFO 398076 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:02:00.544+02:00 DEBUG 398076 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:02:01.722+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:02:01.723+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:02:01.725+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:02:01.725+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:02:01.726+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:02:01.726+02:00  INFO 398076 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:02:01.759+02:00  INFO 398076 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.818 seconds (process running for 11.905)
+2024-11-01T21:02:02.572+02:00  INFO 398076 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:02:02.573+02:00  INFO 398076 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:02:02.835+02:00  INFO 398076 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:02:02.839+02:00  INFO 398076 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T21:02:02.840+02:00  INFO 398076 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 10.11.2024, 14.11.2024
+2024-11-01T21:02:02.841+02:00  INFO 398076 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T21:02:02.841+02:00  INFO 398076 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:02:02.842+02:00  INFO 398076 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:02:02.843+02:00  INFO 398076 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 14.11.2024
+2024-11-01T21:02:05.222+02:00  INFO 398076 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=49199.00}
+{day: 4=5.670833333333333, day: 3=5.670833333333333, day: 2=5.670833333333333, day: 1=5.783333333333334},[]>
+2024-11-01T21:02:05.272+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:02:05.272+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:02:05.273+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:02:05.273+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:02:05.274+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:02:05.274+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:02:05.283+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:02:05.287+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:02:05.292+02:00  INFO 398076 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:02:53.813+02:00  INFO 400053 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 400053 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:02:53.816+02:00  INFO 400053 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:02:54.980+02:00  INFO 400053 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:02:55.264+02:00  INFO 400053 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 272 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:02:55.461+02:00  INFO 400053 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:02:55.473+02:00  INFO 400053 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:02:56.254+02:00  INFO 400053 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:02:56.399+02:00  INFO 400053 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5635bcd2
+2024-11-01T21:02:56.403+02:00  INFO 400053 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:02:56.570+02:00  INFO 400053 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:02:56.668+02:00  INFO 400053 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:02:56.726+02:00  INFO 400053 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:02:57.225+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:02:59.373+02:00  INFO 400053 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:02:59.492+02:00  INFO 400053 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:03:00.685+02:00  WARN 400053 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:03:00.751+02:00  INFO 400053 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:03:01.443+02:00 DEBUG 400053 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:03:02.415+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:03:02.416+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:03:02.417+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:03:02.417+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:03:02.418+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:03:02.418+02:00  INFO 400053 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:03:02.445+02:00  INFO 400053 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.143 seconds (process running for 11.387)
+2024-11-01T21:03:03.166+02:00  INFO 400053 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:03:03.167+02:00  INFO 400053 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:03:03.427+02:00  INFO 400053 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:03:03.429+02:00  INFO 400053 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 26.11.2024, 30.11.2024
+2024-11-01T21:03:03.430+02:00  INFO 400053 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 26.11.2024, 30.11.2024
+2024-11-01T21:03:03.431+02:00  INFO 400053 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 49200.00
+2024-11-01T21:03:03.431+02:00  INFO 400053 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:03:03.433+02:00  INFO 400053 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 26.11.2024
+2024-11-01T21:03:03.457+02:00  INFO 400053 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=49199.00}
+null,[]>
+2024-11-01T21:03:03.502+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:03:03.503+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:03:03.503+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:03:03.503+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:03:03.504+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:03:03.504+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:03:03.513+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:03:03.517+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:03:03.522+02:00  INFO 400053 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:10:29.787+02:00  INFO 413222 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 413222 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:10:29.792+02:00  INFO 413222 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:10:31.152+02:00  INFO 413222 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:10:31.455+02:00  INFO 413222 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 289 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:10:31.732+02:00  INFO 413222 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:10:31.747+02:00  INFO 413222 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:10:32.557+02:00  INFO 413222 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:10:32.715+02:00  INFO 413222 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2cea921a
+2024-11-01T21:10:32.719+02:00  INFO 413222 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:10:32.891+02:00  INFO 413222 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:10:32.990+02:00  INFO 413222 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:10:33.050+02:00  INFO 413222 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:10:33.557+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:10:35.803+02:00  INFO 413222 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:10:35.927+02:00  INFO 413222 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:10:37.172+02:00  WARN 413222 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:10:37.236+02:00  INFO 413222 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:10:37.957+02:00 DEBUG 413222 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:10:38.965+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:10:38.966+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:10:38.967+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:10:38.968+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:10:38.968+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:10:38.969+02:00  INFO 413222 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:10:38.996+02:00  INFO 413222 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.801 seconds (process running for 11.909)
+2024-11-01T21:10:39.789+02:00  INFO 413222 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:10:39.790+02:00  INFO 413222 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:10:40.064+02:00  INFO 413222 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:10:40.065+02:00  INFO 413222 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:10:40.067+02:00  INFO 413222 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:10:40.067+02:00  INFO 413222 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 86100.00
+2024-11-01T21:10:40.068+02:00  INFO 413222 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:10:40.069+02:00  INFO 413222 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 03.11.2024
+2024-11-01T21:10:40.070+02:00  INFO 413222 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:10:43.126+02:00  INFO 413222 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=86099.00}
+{day: 5=7.604166666666665, day: 4=7.604166666666665, day: 3=7.604166666666665, day: 2=7.604166666666665, day: 7=7.604166666666665, day: 6=7.604166666666665, day: 1=7.795833333333332},[]>
+2024-11-01T21:10:43.181+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:10:43.182+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:10:43.182+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:10:43.183+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:10:43.183+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:10:43.183+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:10:43.194+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:10:43.200+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:10:43.206+02:00  INFO 413222 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:16:08.945+02:00  INFO 423171 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 423171 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:16:08.948+02:00  INFO 423171 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:16:10.115+02:00  INFO 423171 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:16:10.386+02:00  INFO 423171 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 260 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:16:10.598+02:00  INFO 423171 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:16:10.611+02:00  INFO 423171 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:16:11.386+02:00  INFO 423171 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:16:11.536+02:00  INFO 423171 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@78545d40
+2024-11-01T21:16:11.540+02:00  INFO 423171 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:16:11.694+02:00  INFO 423171 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:16:11.791+02:00  INFO 423171 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:16:11.847+02:00  INFO 423171 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:16:12.342+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:16:14.518+02:00  INFO 423171 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:16:14.647+02:00  INFO 423171 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:16:15.857+02:00  WARN 423171 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:16:15.915+02:00  INFO 423171 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:16:16.614+02:00 DEBUG 423171 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:16:17.540+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:16:17.541+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:16:17.542+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:16:17.543+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:16:17.543+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:16:17.543+02:00  INFO 423171 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:16:17.570+02:00  INFO 423171 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.183 seconds (process running for 11.412)
+2024-11-01T21:16:18.321+02:00  INFO 423171 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:16:18.322+02:00  INFO 423171 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:16:18.586+02:00  INFO 423171 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:16:18.588+02:00  INFO 423171 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:16:18.589+02:00  INFO 423171 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:16:18.590+02:00  INFO 423171 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 86100.00
+2024-11-01T21:16:18.590+02:00  INFO 423171 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:16:18.592+02:00  INFO 423171 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 03.11.2024
+2024-11-01T21:16:18.593+02:00  INFO 423171 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:16:21.468+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:16:21.469+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:16:21.470+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:16:21.470+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:16:21.470+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:16:21.470+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:16:21.481+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:16:21.485+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:16:21.492+02:00  INFO 423171 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:20:16.619+02:00  INFO 430499 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 430499 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:20:16.625+02:00  INFO 430499 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:20:17.592+02:00  INFO 430499 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:20:17.825+02:00  INFO 430499 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 222 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:20:18.002+02:00  INFO 430499 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:20:18.013+02:00  INFO 430499 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:20:18.661+02:00  INFO 430499 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:20:18.784+02:00  INFO 430499 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5635bcd2
+2024-11-01T21:20:18.787+02:00  INFO 430499 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:20:18.919+02:00  INFO 430499 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:20:18.996+02:00  INFO 430499 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:20:19.050+02:00  INFO 430499 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:20:19.453+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:20:21.325+02:00  INFO 430499 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:20:21.429+02:00  INFO 430499 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:20:22.449+02:00  WARN 430499 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:20:22.501+02:00  INFO 430499 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:20:23.119+02:00 DEBUG 430499 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:20:23.912+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:20:23.913+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:20:23.914+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:20:23.915+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:20:23.915+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:20:23.915+02:00  INFO 430499 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:20:23.938+02:00  INFO 430499 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 7.749 seconds (process running for 9.488)
+2024-11-01T21:20:24.587+02:00  INFO 430499 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:20:24.588+02:00  INFO 430499 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:20:24.816+02:00  INFO 430499 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:20:24.818+02:00  INFO 430499 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:20:24.819+02:00  INFO 430499 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:20:24.820+02:00  INFO 430499 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 86100.00
+2024-11-01T21:20:24.820+02:00  INFO 430499 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:20:24.821+02:00  INFO 430499 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 03.11.2024
+2024-11-01T21:20:24.822+02:00  INFO 430499 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:20:28.341+02:00  INFO 430499 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=86099.00}
+{day: 5=7, day: 4=7, day: 3=7, day: 2=7, day: 7=7, day: 6=7, day: 1=7},[]>
+2024-11-01T21:20:28.387+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:20:28.387+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:20:28.388+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:20:28.388+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:20:28.388+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:20:28.388+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:20:28.398+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:20:28.401+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:20:28.407+02:00  INFO 430499 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:27:39.696+02:00  INFO 443152 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 443152 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:27:39.699+02:00  INFO 443152 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:27:40.789+02:00  INFO 443152 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:27:41.041+02:00  INFO 443152 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 241 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:27:41.272+02:00  INFO 443152 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:27:41.283+02:00  INFO 443152 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:27:41.970+02:00  INFO 443152 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:27:42.099+02:00  INFO 443152 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@7de3206d
+2024-11-01T21:27:42.102+02:00  INFO 443152 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:27:42.239+02:00  INFO 443152 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:27:42.324+02:00  INFO 443152 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:27:42.378+02:00  INFO 443152 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:27:42.822+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:27:44.761+02:00  INFO 443152 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:27:44.867+02:00  INFO 443152 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:27:45.861+02:00  WARN 443152 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:27:45.913+02:00  INFO 443152 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:27:46.478+02:00 DEBUG 443152 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:27:47.244+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:27:47.245+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:27:47.246+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:27:47.246+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:27:47.246+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:27:47.247+02:00  INFO 443152 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:27:47.273+02:00  INFO 443152 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 8.046 seconds (process running for 9.927)
+2024-11-01T21:27:47.922+02:00  INFO 443152 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:27:47.923+02:00  INFO 443152 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:27:48.156+02:00  INFO 443152 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:27:48.157+02:00  INFO 443152 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:27:48.159+02:00  INFO 443152 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:27:48.159+02:00  INFO 443152 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 86100.00
+2024-11-01T21:27:48.160+02:00  INFO 443152 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:27:48.161+02:00  INFO 443152 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 03.11.2024
+2024-11-01T21:27:48.162+02:00  INFO 443152 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:27:51.296+02:00  INFO 443152 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : response: <200 OK OK,{HotelDTO(name=Test hotel for the method, grade=4, address=Address(id=1, street=Gorkogo, city=kaliningrad, zipCode=236006, country=Russian, numberHouse=45), rooms=[Room(id=1, roomName=001, roomStatus=free, price=12300.00, prestige=president, armoredRoom=null)], comments=[])=86099.00}
+{},[]>
+2024-11-01T21:27:51.345+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:27:51.345+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:27:51.346+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:27:51.346+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:27:51.347+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:27:51.347+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:27:51.357+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:27:51.361+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:27:51.367+02:00  INFO 443152 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-01T21:28:48.727+02:00  INFO 445334 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Starting HotelServiceTest using Java 17.0.13 with PID 445334 (started by another in /home/another/dev/developering/stay-go/stay-go)
+2024-11-01T21:28:48.730+02:00  INFO 445334 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-11-01T21:28:49.958+02:00  INFO 445334 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-01T21:28:50.256+02:00  INFO 445334 --- [stay-go] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 284 ms. Found 11 JPA repository interfaces.
+2024-11-01T21:28:50.465+02:00  INFO 445334 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-11-01T21:28:50.478+02:00  INFO 445334 --- [stay-go] [Test worker] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-11-01T21:28:51.242+02:00  INFO 445334 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-01T21:28:51.400+02:00  INFO 445334 --- [stay-go] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@144a5e6e
+2024-11-01T21:28:51.403+02:00  INFO 445334 --- [stay-go] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-01T21:28:51.572+02:00  INFO 445334 --- [stay-go] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-01T21:28:51.668+02:00  INFO 445334 --- [stay-go] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-01T21:28:51.724+02:00  INFO 445334 --- [stay-go] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-01T21:28:52.217+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-01T21:28:54.448+02:00  INFO 445334 --- [stay-go] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-01T21:28:54.569+02:00  INFO 445334 --- [stay-go] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:28:55.749+02:00  WARN 445334 --- [stay-go] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-01T21:28:55.809+02:00  INFO 445334 --- [stay-go] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name authUserService
+2024-11-01T21:28:56.487+02:00 DEBUG 445334 --- [stay-go] [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-11-01T21:28:57.415+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:28:57.416+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 1 subscriber(s).
+2024-11-01T21:28:57.417+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:28:57.417+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : Adding {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:28:57.418+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 1 subscriber(s).
+2024-11-01T21:28:57.418+02:00  INFO 445334 --- [stay-go] [Test worker] o.s.i.endpoint.EventDrivenConsumer       : started bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:28:57.446+02:00  INFO 445334 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Started HotelServiceTest in 9.244 seconds (process running for 11.421)
+2024-11-01T21:28:58.172+02:00  INFO 445334 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Текущая дата (mapNowDateInString): 01.11.2024
+2024-11-01T21:28:58.173+02:00  INFO 445334 --- [stay-go] [Test worker] c.s.service.hotel_ser.HotelServiceTest   : Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024
+2024-11-01T21:28:58.431+02:00  INFO 445334 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : room price: 12300.00
+2024-11-01T21:28:58.433+02:00  INFO 445334 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:28:58.434+02:00  INFO 445334 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 03.11.2024, 10.11.2024
+2024-11-01T21:28:58.434+02:00  INFO 445334 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : information working method costCalculation: 86100.00
+2024-11-01T21:28:58.435+02:00  INFO 445334 --- [stay-go] [Test worker] c.staygo.service.hotel_ser.HotelService  : count: 1
+2024-11-01T21:28:58.436+02:00  INFO 445334 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 03.11.2024
+2024-11-01T21:28:58.437+02:00  INFO 445334 --- [stay-go] [Test worker] com.staygo.service.DateCheck             : date in method difference: 01.11.2024, 10.11.2024
+2024-11-01T21:29:01.073+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-11-01T21:29:01.073+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'stay-go.errorChannel' has 0 subscriber(s).
+2024-11-01T21:29:01.074+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-11-01T21:29:01.074+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {message-handler:mailOutboundAdapter.serviceActivator} as a subscriber to the 'emailChannel' channel
+2024-11-01T21:29:01.074+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] o.s.integration.channel.DirectChannel    : Channel 'stay-go.emailChannel' has 0 subscriber(s).
+2024-11-01T21:29:01.075+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'mailOutboundAdapter.serviceActivator'
+2024-11-01T21:29:01.084+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-01T21:29:01.089+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-01T21:29:01.095+02:00  INFO 445334 --- [stay-go] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

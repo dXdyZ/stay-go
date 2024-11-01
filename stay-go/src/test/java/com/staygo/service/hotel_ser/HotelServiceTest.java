@@ -98,8 +98,10 @@ public class HotelServiceTest {
     @Test
     @Transactional
     public void testFindAllHotelSuccessAllParameters() {
-        log.info("date method map date: {}", dateCheck.mapNowDateInString());
-        ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("Russian", "kaliningrad", "20.11.2024", "24.11.2024", null);
+        log.info("Текущая дата (mapNowDateInString): {}", dateCheck.mapNowDateInString());
+        log.info("Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024");
+
+        ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("Russian", "kaliningrad", "03.11.2024", "10.11.2024", null);
         log.info("response: {}", response.toString());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }

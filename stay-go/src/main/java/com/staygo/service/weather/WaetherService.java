@@ -1,19 +1,18 @@
 package com.staygo.service.weather;
 
-import com.staygo.castom_exe.DateException;
 import com.staygo.enity.weather.Country;
+import com.staygo.enity.weather.Weather;
 import com.staygo.service.DateCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.staygo.enity.weather.Weather;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -29,8 +28,8 @@ public class WaetherService {
         this.dateCheck = dateCheck;
     }
 
-    public Map<String, Double> sortedTimeByDay(String armoredDate, String departureDate, String city, String county) throws ParseException{
-        if (weatherLimitDate(armoredDate)) {
+    public Map<String, Integer> sortedTimeByDay(String armoredDate, String departureDate, String city, String county) throws ParseException{
+        if (weatherLimitDate(armoredDate, departureDate)) {
             List<String> dateForURI = dateCheck.mapDate(armoredDate, departureDate);
             Country country = cityCoordinates.getCoordinateByCityAndCountry(city, county);
             URI uri = null;
@@ -41,36 +40,33 @@ public class WaetherService {
                 throw new RuntimeException(e);
             }
             Weather weather = restTemplate.getForObject(uri, Weather.class);
-            List<String> time = Objects.requireNonNull(weather).getHourly().getTime();
-            List<Double> weatherInDay = Objects.requireNonNull(weather).getHourly().getTemperature_2m();
-            return calculationWeather(time, weatherInDay);
+            List<Integer> weatherInDay = Objects.requireNonNull(weather).getHourly().getTemperature_2m().stream().map(Integer::valueOf).collect(Collectors.toCollection(ArrayList::new));
+            return calculationWeather(weatherInDay);
         } else return null;
     }
 
-    private boolean weatherLimitDate(String armoredDate) {
+    private boolean weatherLimitDate(String armoredDate, String departureDate) {
         try {
-            if (dateCheck.mapNowDateInString().equals(armoredDate) || dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), armoredDate) <= 14) {
-                return true;
-            } else return false;
+            return dateCheck.mapNowDateInString().equals(armoredDate) || dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), armoredDate) <= 14 &&
+                    dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), departureDate) <= 14;
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Map<String, Double> calculationWeather(List<String> time, List<Double> weatherInDay) {
-        int quantityDay = time.size() / 24;
+    private Map<String, Integer> calculationWeather(List<Integer> weatherInDay) {
         double ma = 0;
         int day = 1;
-        Map<String, Double> allWeather = new HashMap<>();
+        Map<String, Integer> allWeather = new HashMap<>();
         for (int i = 0; i < weatherInDay.size(); i++) {
             if (i != 24) {
                 ma += weatherInDay.get(i);
             } else {
                 ma /= 24;
                 if (allWeather.isEmpty()) {
-                    allWeather.put("day: " + day, ma);
+                    allWeather.put("day: " + day, (int) ma);
                 } else  {
-                    allWeather.put("day: " + (allWeather.size() + 1), ma);
+                    allWeather.put("day: " + (allWeather.size() + 1), (int) ma);
                 }
                 for (int j = 0; j < 24; j++) {
                     weatherInDay.remove(i);

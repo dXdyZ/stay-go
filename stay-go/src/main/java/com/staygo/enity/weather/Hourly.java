@@ -12,5 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 public class Hourly {
     private List<String> time;
-    private List<Double> temperature_2m;
+    private List<Integer> temperature_2m;
 }
