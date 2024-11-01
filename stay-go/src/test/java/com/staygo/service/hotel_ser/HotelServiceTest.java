@@ -7,6 +7,7 @@ import com.staygo.enity.user.Users;
 import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.repository.user_repo.UserRepository;
 import com.staygo.service.AddressService;
+import com.staygo.service.DateCheck;
 import com.staygo.service.user_ser.UserService;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
@@ -75,12 +76,12 @@ public class HotelServiceTest {
 //        userRepository.deleteAll();
 
         // Создаем и сохраняем пользователя
-        Users user = Users.builder()
-                .username("testUser")
-                .email("test@example.com")
-                .password("password")
-                .build();
-        userRepository.save(user);
+//        Users user = Users.builder()
+//                .username("testUser")
+//                .email("test@example.com")
+//                .password("password")
+//                .build();
+//        userRepository.save(user);
     }
 
 //    @AfterAll
@@ -91,11 +92,14 @@ public class HotelServiceTest {
 //        userRepository.deleteAll();
 //    }
 
+    @Autowired
+    private DateCheck dateCheck;
 
     @Test
     @Transactional
     public void testFindAllHotelSuccessAllParameters() {
-        ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("testCity", "20.02.2023", "20.03.2023", null);
+        log.info("date method map date: {}", dateCheck.mapNowDateInString());
+        ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("Russian", "kaliningrad", "20.11.2024", "24.11.2024", null);
         log.info("response: {}", response.toString());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }

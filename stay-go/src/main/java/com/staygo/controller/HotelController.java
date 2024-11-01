@@ -38,10 +38,11 @@ public class HotelController {
 
     @GetMapping("/findHotel/{city}")
     public ResponseEntity<?> findHotelByCityAndGradeAndArmoredDate(@PathVariable("city") String city,
+                                                                   @PathVariable("country") String country,
                                                                    @RequestParam(name = "dateArmored") String dateArmored,
                                                                    @RequestParam(name = "departureDate") String departureDate,
                                                                    @RequestParam(name = "grade", required = false) Integer grade) {
-        return hotelService.findAllHotelByCityAndDataArmoredAndTerm(city, dateArmored, departureDate, grade);
+        return hotelService.findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored, departureDate, grade);
     }
 
     @PostMapping("/addedRoom/{street}")

@@ -13,6 +13,7 @@ import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.service.AddressService;
 import com.staygo.service.PayService;
 import com.staygo.service.user_ser.UserService;
+import com.staygo.service.weather.WaetherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.*;
@@ -38,15 +40,17 @@ public class HotelService {
     private final AddressService addressService;
     private final UserService userService;
     private final PayService payService;
+    private final WaetherService waetherService;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         AddressService addressService,
-                        UserService userService, PayService payService, PayService payService1) {
+                        UserService userService, PayService payService, PayService payService1, WaetherService waetherService) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
         this.payService = payService1;
+        this.waetherService = waetherService;
     }
 
 
@@ -148,15 +152,15 @@ public class HotelService {
 
     @Transactional
     @Cacheable("findAllHotelForArmored")
-    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String city, String dateArmored, String departureDate, Integer grade) {
+    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String country, String city, String dateArmored, String departureDate, Integer grade) {
         List<Hotel> hotels;
         try {
             if (grade == null) {
-                hotels = hotelRepository.findAllByAddress_City(city, getPageable());
-                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate));
+                hotels = hotelRepository.findAllByAddress_CityAndAddress_Country(city, country ,getPageable());
+                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate) + "\n" + waetherService.sortedTimeByDay(dateArmored, departureDate, city, country));
             } else {
-                hotels = hotelRepository.findAllByGradeAndAddress_City(grade, city, getPageable());
-                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate));
+                hotels = hotelRepository.findAllByGradeAndAddress_CityAndAddress_Country(grade, city, country ,getPageable());
+                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate) + "\n" + waetherService.sortedTimeByDay(dateArmored, departureDate, city, country));
             }
         } catch (ParseException e) {
             log.error("parse exception in method findAllHotelByCityAndDataArmoredAndTerm with data: {}", city,
