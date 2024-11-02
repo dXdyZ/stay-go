@@ -1,4 +1,4 @@
-package com.staygo.enity;
+package com.staygo.enity.address;
 
 
 import jakarta.persistence.Entity;

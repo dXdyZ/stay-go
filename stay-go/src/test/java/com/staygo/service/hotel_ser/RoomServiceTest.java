@@ -1,12 +1,7 @@
 package com.staygo.service.hotel_ser;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.staygo.enity.Address;
-import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.Room;
-import com.staygo.enity.user.Role;
-import com.staygo.enity.user.Users;
 import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.repository.hotel_repo.RoomRepository;
 import com.staygo.repository.user_repo.UserRepository;

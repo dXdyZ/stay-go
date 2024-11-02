@@ -1,6 +1,6 @@
-package com.staygo.repository;
+package com.staygo.repository.address_repo;
 
-import com.staygo.enity.Address;
+import com.staygo.enity.address.Address;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

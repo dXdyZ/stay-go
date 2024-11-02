@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.staygo.castom_exe.DateException;
-import com.staygo.enity.Address;
+import com.staygo.enity.address.Address;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.HotelData;
 import com.staygo.enity.DTO.HotelDTO;
@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.*;

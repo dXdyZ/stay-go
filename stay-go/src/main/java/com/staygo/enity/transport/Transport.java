@@ -1,6 +1,6 @@
 package com.staygo.enity.transport;
 
-import com.staygo.enity.Address;
+import com.staygo.enity.address.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

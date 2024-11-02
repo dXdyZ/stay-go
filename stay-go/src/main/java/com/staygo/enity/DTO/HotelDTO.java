@@ -1,6 +1,6 @@
 package com.staygo.enity.DTO;
 
-import com.staygo.enity.Address;
+import com.staygo.enity.address.Address;
 import com.staygo.enity.hotel.Comments;
 import com.staygo.enity.hotel.Room;
 import lombok.AllArgsConstructor;

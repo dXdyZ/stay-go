@@ -1,7 +1,7 @@
 package com.staygo.service;
 
-import com.staygo.enity.Address;
-import com.staygo.repository.AddressRepository;
+import com.staygo.enity.address.Address;
+import com.staygo.repository.address_repo.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

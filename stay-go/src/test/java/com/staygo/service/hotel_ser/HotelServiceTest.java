@@ -1,7 +1,7 @@
 package com.staygo.service.hotel_ser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.staygo.enity.Address;
+import com.staygo.enity.address.Address;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.user.Users;
 import com.staygo.repository.hotel_repo.HotelRepository;
@@ -24,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;

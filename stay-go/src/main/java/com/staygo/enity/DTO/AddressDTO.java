@@ -1,6 +1,5 @@
 package com.staygo.enity.DTO;
 
-import com.staygo.enity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
