@@ -3,6 +3,7 @@ package com.staygo.enity.hotel;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.staygo.enity.address.Address;
 import com.staygo.enity.user.Users;
+import com.staygo.repository.hotel_repo.HotelRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;

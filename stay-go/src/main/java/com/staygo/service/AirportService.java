@@ -1,4 +1,4 @@
-package com.staygo.service.map;
+package com.staygo.service;
 
 import com.staygo.enity.address.AddressForAirport;
 import com.staygo.repository.address_repo.AirportAddressRepository;
@@ -22,6 +22,13 @@ public class AirportService {
     public AddressForAirport getAddressAirportById(Long id) {
         return airportAddressRepository.findById(id).orElseThrow(() -> {
             new NullPointerException("Такого аэропорта нету");
+            return null;
+        });
+    }
+
+    public AddressForAirport getAddressAirportByCityAndCounty(String city, String county) {
+        return airportAddressRepository.findByCityAndCountry(city, county).orElseThrow(() -> {
+            new NullPointerException("Аэропорта по такому адресу нету или его вовсе не существует");
             return null;
         });
     }

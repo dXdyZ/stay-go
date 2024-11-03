@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HotelServiceTest {
 
-    private static final Logger log = LoggerFactory.getLogger(HotelServiceTest.class);
+    public static final Logger log = LoggerFactory.getLogger(HotelServiceTest.class);
     @Autowired
     private UserService userService;
 

@@ -1,0 +1,71 @@
+package com.staygo.service;
+
+import com.staygo.enity.address.Address;
+import com.staygo.enity.address.AddressForAirport;
+import com.staygo.enity.address.ResponseMapAip;
+import com.staygo.service.component.MapAddressForLink;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+@Service
+public class GenerateLinkForMap {
+    private final MapAddressForLink mapAddressForLink;
+    private final RestTemplate restTemplate;
+    private final AirportService airportService;
+
+    @Autowired
+    public GenerateLinkForMap(MapAddressForLink mapAddressForLink, RestTemplate restTemplate, AirportService airportService) {
+        this.mapAddressForLink = mapAddressForLink;
+        this.restTemplate = restTemplate;
+        this.airportService = airportService;
+    }
+
+    public String generateLink(String city, String country, Address address) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("User-Agent", "MyApp (myemail@example.com)");
+        httpHeaders.set("Accept", "application/json");
+
+        AddressForAirport airport = airportService.getAddressAirportByCityAndCounty(city, country);
+
+        String hotelAddress = URLEncoder.encode(mapAddressForLink.mappingAddressForAirport(null, address.getStreet(), address.getCity(), address.getCountry(), address.getNumberHouse()),
+                StandardCharsets.UTF_8);
+        String airAddress = URLEncoder.encode(mapAddressForLink.mappingAddressForAirport(airport.getName(), address.getStreet(), airport.getCity(), airport.getCountry(), null),
+                StandardCharsets.UTF_8);
+
+        URI uriHotel = null;
+        URI uriAir = null;
+
+
+        try {
+            uriHotel = new URI("https://nominatim.openstreetmap.org/search?q=" + hotelAddress + "&format=json&limit=1&addressdetails=1");
+            uriAir = new URI("https://nominatim.openstreetmap.org/search?q=" + airAddress + "&format=json&limit=1&addressdetails=1");
+
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResponseEntity<ResponseMapAip[]> responseHotel = restTemplate.exchange(
+                uriHotel,
+                HttpMethod.GET,
+                new HttpEntity<>(httpHeaders),
+                ResponseMapAip[].class);
+        ResponseEntity<ResponseMapAip[]> responseAir = restTemplate.exchange(
+                uriAir,
+                HttpMethod.GET,
+                new HttpEntity<>(httpHeaders),
+                ResponseMapAip[].class);
+
+        return "https://www.google.com/maps/dir/?api=1&origin=" + responseAir.getBody()[0].getLat() +"," + responseAir.getBody()[0].getLon() +
+                "&destination=" + responseHotel.getBody()[0].getLat() + "," + responseHotel.getBody()[0].getLon();
+    }
+}
