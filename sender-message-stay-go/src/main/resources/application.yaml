@@ -11,3 +11,9 @@ spring:
       root: info
     file:
       name: createTable.log
+staygo:
+  email:
+    host: smtp.yandex.com
+    username: AnotherSc@yandex.ru
+    port: 465
+    password: cufzeqevxzjpwozi

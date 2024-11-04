@@ -49,7 +49,7 @@ class RabbitBookingMessageTest {
                         .username("testController")
                         .email("ttttilinn85@gmail.com")
                         .build())
-                                                .build();
+                .build();
         rabbitBookingMessage.sendDataBooking(armoredRoomService.createArmoredDTO(armoredRoom, "Gorkogo", "kaliningrad", "Test hotel for the method"));
     }
 }
