@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sender-message-stay-go
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: werpipl15
+  logging:
+    level:
+      root: info
+    file:
+      name: createTable.log

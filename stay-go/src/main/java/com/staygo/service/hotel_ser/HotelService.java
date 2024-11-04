@@ -174,8 +174,8 @@ public class HotelService {
     }
 
     @Transactional
-    public Hotel findByCityAndName(String city, String name) {
-        return hotelRepository.findByAddress_CityAndName(city, name);
+    public Hotel findByCityAndNameAndStreet(String street, String city, String name) {
+        return hotelRepository.findByAddress_CityAndNameAndAddress_Street(city, name, street);
     }
 
     @Transactional

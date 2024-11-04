@@ -145,12 +145,6 @@ public class RoomService {
     }
 
     @Transactional
-    public void forTestDeleteAll() {
-        roomRepository.deleteAll();
-    }
-
-
-    @Transactional
     public ResponseEntity<?> modifyRoomName(String oldName, String newName) {
         Optional<Room> room = roomRepository.findByRoomName(oldName);
         if (room.isPresent()) {
@@ -162,8 +156,8 @@ public class RoomService {
     }
 
     @Transactional
-    public Room findNotArmoredRoom(String armoredDate, String departureDate, String city, String hotelName, String prestige) {
-        Hotel hotel = hotelService.findByCityAndName(city, hotelName);
+    public Room findNotArmoredRoom(String street, String armoredDate, String departureDate, String city, String hotelName, String prestige) {
+        Hotel hotel = findHotelForBookingRoom(street, city, hotelName);
         Room sortedByPrestige = null;
         for (Room room : hotel.getRooms()) {
             if (room.getPrestige().equals(prestige) && !room.getArmoredRoom().getDateArmored().equals(armoredDate) &&
@@ -172,5 +166,9 @@ public class RoomService {
             }
         }
         return sortedByPrestige;
+    }
+
+    public Hotel findHotelForBookingRoom(String street, String city, String hotelName) {
+        return hotelService.findByCityAndNameAndStreet(street, city, hotelName);
     }
 }

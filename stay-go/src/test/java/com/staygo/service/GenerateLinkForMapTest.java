@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -54,6 +57,11 @@ class GenerateLinkForMapTest {
         when(airportService.getAddressAirportByCityAndCounty(city, country)).thenReturn(airport);
         String result = generateLinkForMap.generateLink(city, country, address);
         log.info("test na null: {}", result);
+    }
+
+    @Test
+    void testEncode() {
+        log.info("encode: {}", URLEncoder.encode("Храброво+Калининград"), StandardCharsets.UTF_8);
     }
 }
 

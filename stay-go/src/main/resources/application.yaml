@@ -12,6 +12,11 @@ spring:
     user:
       name: user
       password: werpipl15
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: werpipl15
 logging:
   level:
     org:
@@ -22,6 +27,8 @@ logging:
     root: info
   file:
     name: createTable.log
+server:
+  port: 8080
 
 staygo:
   email:

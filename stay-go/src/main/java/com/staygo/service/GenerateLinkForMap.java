@@ -4,6 +4,7 @@ import com.staygo.enity.address.Address;
 import com.staygo.enity.address.AddressForAirport;
 import com.staygo.enity.address.ResponseMapAip;
 import com.staygo.service.component.MapAddressForLink;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,7 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 @Service
 public class GenerateLinkForMap {
     private final MapAddressForLink mapAddressForLink;
@@ -39,8 +41,9 @@ public class GenerateLinkForMap {
 
         String hotelAddress = URLEncoder.encode(mapAddressForLink.mappingAddressForAirport(null, address.getStreet(), address.getCity(), address.getCountry(), address.getNumberHouse()),
                 StandardCharsets.UTF_8);
-        String airAddress = URLEncoder.encode(mapAddressForLink.mappingAddressForAirport(airport.getName(), address.getStreet(), airport.getCity(), airport.getCountry(), null),
+        String airAddress = URLEncoder.encode(mapAddressForLink.mappingAddressForAirport(airport.getName(), null, airport.getCity(), airport.getCountry(), null),
                 StandardCharsets.UTF_8);
+
 
         URI uriHotel = null;
         URI uriAir = null;
@@ -49,6 +52,8 @@ public class GenerateLinkForMap {
         try {
             uriHotel = new URI("https://nominatim.openstreetmap.org/search?q=" + hotelAddress + "&format=json&limit=1&addressdetails=1");
             uriAir = new URI("https://nominatim.openstreetmap.org/search?q=" + airAddress + "&format=json&limit=1&addressdetails=1");
+            log.info("uri hotel out: {}", uriHotel);
+            log.info("uri air out: {}", uriAir);
 
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
@@ -65,7 +70,7 @@ public class GenerateLinkForMap {
                 new HttpEntity<>(httpHeaders),
                 ResponseMapAip[].class);
 
-        return "https://www.google.com/maps/dir/?api=1&origin=" + responseAir.getBody()[0].getLat() +"," + responseAir.getBody()[0].getLon() +
-                "&destination=" + responseHotel.getBody()[0].getLat() + "," + responseHotel.getBody()[0].getLon();
+        return responseAir.getBody()[0] != null && responseHotel.getBody()[0] != null ? "https://www.google.com/maps/dir/?api=1&origin=" + responseAir.getBody()[0].getLat() +"," + responseAir.getBody()[0].getLon() +
+                "&destination=" + responseHotel.getBody()[0].getLat() + "," + responseHotel.getBody()[0].getLon() : null;
     }
 }

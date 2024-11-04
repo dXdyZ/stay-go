@@ -14,7 +14,7 @@ public interface HotelRepository extends CrudRepository<Hotel, Long> {
     Optional<Hotel> findByAddress_CountryAndAddress_CityAndAddress_Street(String country, String city, String street);
     Optional<Hotel> findByUsers_UsernameAndAddress_Street(String username, String street);
     List<Hotel> findAllByUsers_Username(String username, Pageable pageable);
-    Hotel findByAddress_CityAndName(String city, String name);
+    Hotel findByAddress_CityAndNameAndAddress_Street(String city, String name, String street);
     List<Hotel> findAllByOrderByGradeDesc(Pageable pageable);
     List<Hotel> findAllByAddress_CityAndAddress_Country(String city, String country,Pageable pageable);
     List<Hotel> findAllByGradeAndAddress_CityAndAddress_Country(Integer grade, String city, String county ,Pageable pageable);

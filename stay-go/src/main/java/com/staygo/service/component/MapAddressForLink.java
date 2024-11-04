@@ -13,9 +13,9 @@ public class MapAddressForLink {
         List<String> allParam = new ArrayList<>() {{
             add(name);
             add(street);
+            add(houseNumber);
             add(city);
             add(country);
-            add(houseNumber);
         }};
         List<String> mapList = allParam.stream()
                 .filter(Objects::nonNull)

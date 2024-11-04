@@ -26,7 +26,7 @@ public class ArmoredRoomController {
 
     @PostMapping
     public ResponseEntity<?> armoredRoom(@RequestBody ArmoredData armoredData, Principal principal) {
-        return armoredRoomService.armoredHotel(armoredData.getCity(), armoredData.getHotelName(),
+        return armoredRoomService.armoredHotel(armoredData.getStreet(), armoredData.getCity(), armoredData.getHotelName(),
                 armoredData.getArmoredDate(), armoredData.getDepartureDate(), principal, armoredData.getPrestige());
     }
 }
@@ -36,6 +36,7 @@ public class ArmoredRoomController {
 @AllArgsConstructor
 class ArmoredData {
     private String city;
+    private String street;
     private String hotelName;
     private String armoredDate;
     private String departureDate;
