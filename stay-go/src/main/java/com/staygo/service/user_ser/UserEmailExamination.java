@@ -1,7 +1,9 @@
 package com.staygo.service.user_ser;
 
+import com.staygo.enity.DTO.rabbit.UserRegCodeDTO;
 import com.staygo.enity.user.Users;
 import com.staygo.service.mail.MailService;
+import com.staygo.service.rabbit.RabbitMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class UserEmailExamination {
-    private final MailService mailService;
+    private final RabbitMessage rabbitMessage;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     @Autowired
-    public UserEmailExamination(MailService mailService) {
-        this.mailService = mailService;
+    public UserEmailExamination(RabbitMessage rabbitMessage) {
+        this.rabbitMessage = rabbitMessage;
     }
 
     private final Map<Integer, Users> userCode = new HashMap<>();
@@ -32,7 +34,11 @@ public class UserEmailExamination {
         userCode.put(code, users);
         log.info("generated code: {}", code);
         log.info("collection examination on empty: {}", !userCode.isEmpty() ? userCode.get(code) : "Collection is empty");
-        mailService.sendMail(users.getEmail(), "Verification code", code.toString());
+        rabbitMessage.sendDataCodeForUserAuth(UserRegCodeDTO.builder()
+                .email(users.getEmail())
+                .code(code)
+                .build());
+
     }
 
     public Users examinationCode(String email, Integer code) {

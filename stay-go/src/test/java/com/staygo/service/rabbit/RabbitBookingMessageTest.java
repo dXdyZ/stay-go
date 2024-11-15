@@ -14,15 +14,13 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RabbitBookingMessageTest {
 
     @Autowired
-    private RabbitBookingMessage rabbitBookingMessage;
+    private RabbitMessage rabbitBookingMessage;
 
     @Autowired
     private ArmoredRoomService armoredRoomService;

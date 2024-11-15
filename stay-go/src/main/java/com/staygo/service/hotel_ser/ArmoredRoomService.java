@@ -4,7 +4,7 @@ import com.staygo.enity.DTO.rabbit.ArmoredRoomDTO;
 import com.staygo.enity.hotel.ArmoredRoom;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.repository.hotel_repo.ArmoredRoomRepository;
-import com.staygo.service.rabbit.RabbitBookingMessage;
+import com.staygo.service.rabbit.RabbitMessage;
 import com.staygo.service.user_ser.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +20,11 @@ public class ArmoredRoomService {
     private final ArmoredRoomRepository armoredRoomRepository;
     private final UserService userService;
     private final RoomService roomService;
-    private final RabbitBookingMessage rabbitBookingMessage;
+    private final RabbitMessage rabbitBookingMessage;
 
     @Autowired
     public ArmoredRoomService(ArmoredRoomRepository armoredRoomRepository,
-                              UserService userService, RoomService roomService, RabbitBookingMessage rabbitBookingMessage) {
+                              UserService userService, RoomService roomService, RabbitMessage rabbitBookingMessage) {
         this.armoredRoomRepository = armoredRoomRepository;
         this.userService = userService;
         this.roomService = roomService;

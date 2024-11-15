@@ -30,6 +30,11 @@ logging:
 server:
   port: 8080
 
+queue:
+  name:
+    booking: MessageAboutBooking
+    verefEmail: MassageAboutCodeForUser
+
 staygo:
   email:
     host: smtp.yandex.com
