@@ -19,7 +19,7 @@ public class SendMailService {
         return armoredRoomDTO.toString();
     }
 
-    private String sendMailCodeForUserAuth(UserRegCodeDTO userRegCodeDTO) {
+    public String sendMailCodeForUserAuth(UserRegCodeDTO userRegCodeDTO) {
         mailService.sendMail(userRegCodeDTO.getEmail(), "Verification email", userRegCodeDTO.getCode().toString());
         return userRegCodeDTO.getCode() + "----" + userRegCodeDTO.getEmail();
     }

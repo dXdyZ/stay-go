@@ -17,3 +17,5 @@ staygo:
     username: AnotherSc@yandex.ru
     port: 465
     password: cufzeqevxzjpwozi
+server:
+  port: 9090
