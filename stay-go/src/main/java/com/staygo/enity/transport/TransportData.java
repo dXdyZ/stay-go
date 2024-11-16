@@ -1,6 +1,5 @@
 package com.staygo.enity.transport;
 
-import com.staygo.enity.hotel.Hotel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
-
 
 @Entity
 @Data
