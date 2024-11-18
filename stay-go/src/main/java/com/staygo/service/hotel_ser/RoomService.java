@@ -159,9 +159,20 @@ public class RoomService {
     public Room findNotArmoredRoom(String street, String armoredDate, String departureDate, String city, String hotelName, String prestige) {
         Hotel hotel = findHotelForBookingRoom(street, city, hotelName);
         Room sortedByPrestige = null;
+
         for (Room room : hotel.getRooms()) {
-            if (room.getPrestige().equals(prestige) && !room.getArmoredRoom().getDateArmored().equals(armoredDate) &&
-                    !room.getArmoredRoom().getDepartureDate().equals(departureDate)) {
+            boolean isAvailable = true;
+            // Проверяем все бронирования этой комнаты
+            for (ArmoredRoom booking : room.getArmoredRoom()) {
+                // Если даты пересекаются, комната недоступна
+                if (booking.getDateArmored().equals(armoredDate) ||
+                        booking.getDepartureDate().equals(departureDate)) {
+                    isAvailable = false;
+                    break;
+                }
+            }
+            // Если комната подходит по престижу и доступна, выбираем её
+            if (room.getPrestige().equals(prestige) && isAvailable) {
                 sortedByPrestige = room;
             }
         }

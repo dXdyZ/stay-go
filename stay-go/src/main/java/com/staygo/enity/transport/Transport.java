@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -21,6 +22,10 @@ public class Transport implements Serializable {
     private Long id;
     private String transportName;
     private String status;
+    private BigDecimal price;
+
+    @OneToMany
+    private List<ArmoredTransport> armoredTransport;
 
     @OneToMany(mappedBy = "transport")
     private List<TransportData> transportData;

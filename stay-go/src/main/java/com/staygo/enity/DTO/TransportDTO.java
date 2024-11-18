@@ -15,4 +15,5 @@ public class TransportDTO {
     private String city;
     private String street;
     private String numberHouse;
+    private String price;
 }

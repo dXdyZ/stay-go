@@ -1,24 +1,29 @@
 package com.staygo.service.car;
 
+import com.staygo.castom_exe.DateException;
 import com.staygo.enity.DTO.TransportDTO;
+import com.staygo.enity.transport.ArmoredTransport;
 import com.staygo.enity.transport.Transport;
 import com.staygo.enity.transport.TransportData;
-import com.staygo.repository.transport_repo.TransportDataRepository;
 import com.staygo.repository.transport_repo.TransportRepository;
+import com.staygo.service.DateCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CarService {
     private final TransportRepository transportRepository;
+    private final DateCheck dateCheck;
 
     @Autowired
-    public CarService(TransportRepository transportRepository) {
+    public CarService(TransportRepository transportRepository, DateCheck dateCheck) {
         this.transportRepository = transportRepository;
+        this.dateCheck = dateCheck;
     }
 
     @Transactional
@@ -37,7 +42,7 @@ public class CarService {
         } else if (transport.getAddress().getNumberHouse().isBlank()) {
             return "Address number house shouldn`t empty";
         }
-        if ((transportData != null) || !transportData.isEmpty()) {
+        if ((transportData != null)) {
             for (TransportData transportDatum : transportData) {
                 transportDatum.setTransport(transport);
             }
@@ -67,6 +72,37 @@ public class CarService {
                 .city(transport.getAddress().getCity())
                 .numberHouse(transport.getAddress().getCity())
                 .country(transport.getAddress().getCountry())
+                .price(String.valueOf(transport.getPrice()))
                 .build();
+    }
+
+
+    @Transactional
+    public TransportDTO getUserDataTransport(String carName, String country, String city, String reservationDate, String dueDate) {
+        return getTransportDTO(getNoReservationTransport(carName, country, city, reservationDate, dueDate));
+    }
+
+    @Transactional
+    public Transport getNoReservationTransport(String carName, String country, String city, String reservationDate, String dueDate) {
+        try {
+            dateCheck.checkForThePresent(dueDate, reservationDate);
+            List<Transport> transportList = getCarByNameAndCountryAndCity(carName, country, city);
+            Transport transportForReservation = null;
+            for (Transport transport : transportList) {
+                boolean isAvailable = true;
+                for (ArmoredTransport armoredTransport : transport.getArmoredTransport()) {
+                    if (armoredTransport.getArmoredDate().equals(reservationDate) || armoredTransport.getEndDateArmored().equals(dueDate)) {
+                        isAvailable = false;
+                        break;
+                    }
+                }
+                if (isAvailable) {
+                    transportForReservation = transport;
+                }
+            }
+            return transportForReservation;
+        } catch (DateException | ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

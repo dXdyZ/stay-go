@@ -1,6 +1,7 @@
 package com.example.sendermessagestaygo.receiver;
 
 import com.example.sendermessagestaygo.enity.ArmoredRoomDTO;
+import com.example.sendermessagestaygo.enity.CarReservationDTO;
 import com.example.sendermessagestaygo.enity.UserRegCodeDTO;
 import com.example.sendermessagestaygo.service.SendMailService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -27,5 +28,10 @@ public class Receiver {
     @RabbitListener(queues = "MassageAboutCodeForUser")
     public void receiveCodeForUserAuthMessage(@Payload UserRegCodeDTO userRegCodeDTO) {
         sendBookingMail.sendMailCodeForUserAuth(userRegCodeDTO);
+    }
+
+    @RabbitListener(queues = "MessageCarReservation")
+    public void receiveCarReservation(@Payload CarReservationDTO carReservationDTO) {
+        sendBookingMail.sendMailCarReservation(carReservationDTO);
     }
 }

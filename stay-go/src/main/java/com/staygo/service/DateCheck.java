@@ -17,18 +17,6 @@ public class DateCheck {
     private final String pattern = "dd.MM.yyyy";
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-    @Deprecated
-    public boolean checkForThePresent1(String departureDate, String armoredDate) throws ParseException, DateException {
-        Date armorDate = simpleDateFormat.parse(armoredDate);
-        Date deparDate = simpleDateFormat.parse(departureDate);
-        Date presentDate = new Date();
-        if (deparDate.getTime() > presentDate.getTime() && armorDate.getTime() >= presentDate.getTime()) {
-            return true;
-        } else {
-            throw new DateException("Даты не могут быть в прошлом");
-        }
-    }
-
     public boolean checkForThePresent(String departureDate, String armoredDate) throws ParseException, DateException {
         Date armorDate = simpleDateFormat.parse(armoredDate);
         Date deparDate = simpleDateFormat.parse(departureDate);
@@ -46,10 +34,12 @@ public class DateCheck {
         return simpleDateFormat.format(dateForMap);
     }
 
-    public Integer differenceCalculationDate(String startDate, String finishDate) throws ParseException {
-        Date armorDate = simpleDateFormat.parse(startDate);
-        Date deparDate = simpleDateFormat.parse(finishDate);
+    public Integer differenceCalculationDate(String startDate, String finishDate) {
+        Date armorDate;
+        Date deparDate;
         try {
+            armorDate = simpleDateFormat.parse(startDate);
+            deparDate = simpleDateFormat.parse(finishDate);
             log.info("date in method difference: {}, {}", startDate, finishDate);
             if (checkForThePresent(finishDate, startDate)) {
                 long millis = deparDate.getTime() - armorDate.getTime();
@@ -57,7 +47,7 @@ public class DateCheck {
             } else {
                 throw new DateException("Даты не могут быть в прошлом");
             }
-        } catch (DateException e) {
+        } catch (DateException | ParseException e) {
             throw new RuntimeException(e);
         }
     }

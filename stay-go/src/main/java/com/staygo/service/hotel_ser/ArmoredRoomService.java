@@ -51,7 +51,6 @@ public class ArmoredRoomService {
 
         armoredRoomRepository.save(armoredRoom);
 
-
         rabbitBookingMessage.sendDataBooking(createArmoredDTO(armoredRoom, street, city, hotelName));
 
         return ResponseEntity.ok().build();

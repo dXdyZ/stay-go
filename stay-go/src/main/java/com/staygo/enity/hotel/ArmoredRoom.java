@@ -23,7 +23,7 @@ public class ArmoredRoom implements Serializable {
     @ManyToOne
     private Users users;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Room room;
 
     private Date createDate;

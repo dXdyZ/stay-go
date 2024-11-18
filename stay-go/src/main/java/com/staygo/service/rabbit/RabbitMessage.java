@@ -1,6 +1,8 @@
 package com.staygo.service.rabbit;
 
 import com.staygo.enity.DTO.rabbit.ArmoredRoomDTO;
+import com.staygo.enity.DTO.rabbit.CarDTO;
+import com.staygo.enity.DTO.rabbit.CarReservationDTO;
 import com.staygo.enity.DTO.rabbit.UserRegCodeDTO;
 import lombok.Setter;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,6 +21,9 @@ public class RabbitMessage {
     @Value("${queue.name.verefEmail}")
     private String verefEmail;
 
+    @Value("${queue.name.carDataEmail}")
+    private String messageCarReservation;
+
     @Autowired
     public RabbitMessage(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
@@ -26,6 +31,10 @@ public class RabbitMessage {
 
     public void sendDataBooking(ArmoredRoomDTO armoredRoomDTO) {
         rabbitTemplate.convertAndSend(messageAboutBooking, armoredRoomDTO);
+    }
+
+    public void sendDataReservationCar(CarReservationDTO carDTO) {
+        rabbitTemplate.convertAndSend(messageCarReservation, carDTO);
     }
 
     public void sendDataCodeForUserAuth(UserRegCodeDTO userRegCodeDTO) {

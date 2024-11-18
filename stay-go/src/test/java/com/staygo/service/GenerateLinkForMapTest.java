@@ -2,12 +2,9 @@ package com.staygo.service;
 
 import com.staygo.enity.address.Address;
 import com.staygo.enity.address.AddressForAirport;
-import com.staygo.service.component.MapAddressForLink;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -21,7 +21,7 @@ public class PayService {
         this.dateCheck = dateCheck;
     }
 
-    public BigDecimal costCalculation(String armoredDare, String departureDate, BigDecimal price) throws ParseException, DateException {
+    public BigDecimal costCalculation(String armoredDare, String departureDate, BigDecimal price){
         if (!armoredDare.equals(departureDate)) {
             BigDecimal priceDate = BigDecimal.valueOf(dateCheck.differenceCalculationDate(armoredDare, departureDate));
             return price.multiply(priceDate);
