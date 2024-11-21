@@ -1,6 +1,6 @@
 package com.staygo.service.car;
 
-import com.staygo.castom_exe.DateException;
+import com.staygo.custom_exception.DateException;
 import com.staygo.enity.DTO.TransportDTO;
 import com.staygo.enity.transport.ArmoredTransport;
 import com.staygo.enity.transport.Transport;
@@ -8,6 +8,7 @@ import com.staygo.enity.transport.TransportData;
 import com.staygo.repository.transport_repo.TransportRepository;
 import com.staygo.service.DateCheck;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,7 @@ public class CarService {
     }
 
     @Transactional
+    @Cacheable("findCarByNameAndCityAndCountry")
     public List<Transport> getCarByNameAndCountryAndCity(String name, String country, String city) {
         return transportRepository.findAllByTransportNameAndAddress_CountryAndAddress_City(name, country, city);
     }

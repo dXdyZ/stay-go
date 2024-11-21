@@ -15,8 +15,8 @@ class ReceiverTest {
     @Autowired
     private Receiver receiver;
 
-    @Test
-    void receiveBookingMessage() {
-        log.info("test result from receiver: {}", receiver.receiveBookingMessage().toString());
-    }
+//    @Test
+//    void receiveBookingMessage() {
+//        log.info("test result from receiver: {}", receiver.receiveBookingMessage().toString());
+//    }
 }

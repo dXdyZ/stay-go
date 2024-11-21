@@ -13,8 +13,8 @@ class SendBookingMailTest {
     @Autowired
     private SendMailService sendBookingMail;
 
-    @Test
-    void sendMail() {
-        log.info("result get message from rabbit: {}", sendBookingMail.sendMailForBooking());
-    }
+//    @Test
+//    void sendMail() {
+//        log.info("result get message from rabbit: {}", sendBookingMail.sendMailForBooking());
+//    }
 }

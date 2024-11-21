@@ -3,7 +3,7 @@ package com.staygo.service.hotel_ser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.staygo.castom_exe.DateException;
+import com.staygo.custom_exception.DateException;
 import com.staygo.enity.address.Address;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.HotelData;
@@ -226,9 +226,8 @@ public class HotelService {
             if (!hotels.isEmpty()) {
                 for (Hotel hotel : hotels) {
                     hotel.setRooms(hotel.getRooms().stream()
-                            .filter(room -> !room.getArmoredRoom().getDateArmored().equals(dateArmored) &&
-                                    !room.getArmoredRoom().getDepartureDate().equals(departureDate) &&
-                                    room.getRoomStatus().equals("free"))
+                            .filter(room -> !room.getArmoredRoom().iterator().next().getDateArmored().equals(dateArmored))
+                            .filter(room -> !room.getArmoredRoom().iterator().next().getDepartureDate().equals(departureDate))
                             .collect(Collectors.toList()));
                     hotelsNew.add(hotel);
                 }

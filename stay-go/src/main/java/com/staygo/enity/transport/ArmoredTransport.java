@@ -17,7 +17,6 @@ import java.io.Serializable;
 public class ArmoredTransport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
 
     private String armoredDate;

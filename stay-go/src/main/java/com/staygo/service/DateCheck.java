@@ -1,6 +1,6 @@
 package com.staygo.service;
 
-import com.staygo.castom_exe.DateException;
+import com.staygo.custom_exception.DateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

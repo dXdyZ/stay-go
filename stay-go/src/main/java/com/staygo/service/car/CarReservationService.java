@@ -1,10 +1,7 @@
 package com.staygo.service.car;
 
-import com.staygo.castom_exe.DateException;
-import com.staygo.enity.DTO.rabbit.ArmoredRoomDTO;
 import com.staygo.enity.DTO.rabbit.CarReservationDTO;
 import com.staygo.enity.transport.ArmoredTransport;
-import com.staygo.enity.transport.Transport;
 import com.staygo.repository.transport_repo.ArmoredTransportRepository;
 import com.staygo.service.DateCheck;
 import com.staygo.service.PayService;
@@ -16,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -25,18 +21,17 @@ public class CarReservationService {
     private final CarService carService;
     private final ArmoredTransportRepository armoredTransportRepository;
     private final UserService userService;
-    private final RabbitMessage rabbitMessage;
-    private final DateCheck dateCheck;
+    private final RabbitMessage rabbitMessage;;
     private final PayService payService;
 
 
     @Autowired
-    public CarReservationService(CarService carService, ArmoredTransportRepository armoredTransportRepository, UserService userService, RabbitMessage rabbitMessage, DateCheck dateCheck, PayService payService) {
+    public CarReservationService(CarService carService, ArmoredTransportRepository armoredTransportRepository,
+                                 UserService userService, RabbitMessage rabbitMessage, PayService payService) {
         this.carService = carService;
         this.armoredTransportRepository = armoredTransportRepository;
         this.userService = userService;
         this.rabbitMessage = rabbitMessage;
-        this.dateCheck = dateCheck;
         this.payService = payService;
     }
 
@@ -49,17 +44,19 @@ public class CarReservationService {
                         .get())
                 .transport(carService.getNoReservationTransport(carName, country, city, reservationDate, dueDate))
                 .build();
-        armoredTransportRepository.save(armoredTransport);
+        ArmoredTransport savedReservation = armoredTransportRepository.save(armoredTransport);
 
-        rabbitMessage.sendDataReservationCar(getCarReservationDTO(armoredTransport));
+        rabbitMessage.sendDataReservationCar(getCarReservationDTO(savedReservation));
     }
 
     public CarReservationDTO getCarReservationDTO(ArmoredTransport armoredTransport){
         return CarReservationDTO.builder()
+                .id(armoredTransport.getId())
                 .careteDate(new Date())
                 .username(armoredTransport.getUsers().getUsername())
                 .email(armoredTransport.getUsers().getEmail())
-                .price(String.valueOf(payService.costCalculation(armoredTransport.getArmoredDate(), armoredTransport.getEndDateArmored(), armoredTransport.getTransport().getPrice())))
+                .price(String.valueOf(payService.costCalculation(armoredTransport.getArmoredDate(),
+                        armoredTransport.getEndDateArmored(), armoredTransport.getTransport().getPrice())))
                 .build();
     }
 

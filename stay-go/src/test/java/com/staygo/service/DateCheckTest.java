@@ -1,6 +1,6 @@
 package com.staygo.service;
 
-import com.staygo.castom_exe.DateException;
+import com.staygo.custom_exception.DateException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

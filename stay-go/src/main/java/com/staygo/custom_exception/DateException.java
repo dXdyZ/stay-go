@@ -1,4 +1,4 @@
-package com.staygo.castom_exe;
+package com.staygo.custom_exception;
 
 
 public class DateException extends Exception{

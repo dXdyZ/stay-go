@@ -1,7 +1,6 @@
 package com.staygo.service.rabbit;
 
 import com.staygo.enity.DTO.rabbit.ArmoredRoomDTO;
-import com.staygo.enity.DTO.rabbit.CarDTO;
 import com.staygo.enity.DTO.rabbit.CarReservationDTO;
 import com.staygo.enity.DTO.rabbit.UserRegCodeDTO;
 import lombok.Setter;
