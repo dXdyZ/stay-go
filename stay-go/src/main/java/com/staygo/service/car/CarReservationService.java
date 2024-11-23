@@ -3,11 +3,9 @@ package com.staygo.service.car;
 import com.staygo.enity.DTO.rabbit.CarReservationDTO;
 import com.staygo.enity.transport.ArmoredTransport;
 import com.staygo.repository.transport_repo.ArmoredTransportRepository;
-import com.staygo.service.DateCheck;
 import com.staygo.service.PayService;
 import com.staygo.service.rabbit.RabbitMessage;
 import com.staygo.service.user_ser.UserService;
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,16 +56,5 @@ public class CarReservationService {
                 .price(String.valueOf(payService.costCalculation(armoredTransport.getArmoredDate(),
                         armoredTransport.getEndDateArmored(), armoredTransport.getTransport().getPrice())))
                 .build();
-    }
-
-
-    @Transactional
-    public List<ArmoredTransport> getAllTransportByCityAndCountryAndTransportName(String city, String country, String transportName) {
-        return armoredTransportRepository.findAllTransport_Address_CityAndTransport_Address_CountryAndTransport_TransportName(city, country, transportName);
-    }
-
-    @Transactional
-    public List<ArmoredTransport> getAllReservationTransport() {
-        return Lists.newArrayList(armoredTransportRepository.findAll());
     }
 }

@@ -150,7 +150,7 @@ public class HotelService {
     }
 
     @Transactional
-    @Cacheable("findAllHotelForArmored")
+    @Cacheable(value = "findAllHotelForArmored", key = "#id") //key смотри на то по чему мы будем кэшировать
     public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String country, String city, String dateArmored, String departureDate, Integer grade) {
         List<Hotel> hotels;
         try {

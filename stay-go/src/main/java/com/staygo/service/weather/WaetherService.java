@@ -46,12 +46,8 @@ public class WaetherService {
     }
 
     private boolean weatherLimitDate(String armoredDate, String departureDate) {
-        try {
-            return dateCheck.mapNowDateInString().equals(armoredDate) || dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), armoredDate) <= 14 &&
-                    dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), departureDate) <= 14;
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return dateCheck.mapNowDateInString().equals(armoredDate) || dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), armoredDate) <= 14 &&
+                dateCheck.differenceCalculationDate(dateCheck.mapNowDateInString(), departureDate) <= 14;
     }
 
     private Map<String, Integer> calculationWeather(List<Integer> weatherInDay) {

@@ -27,6 +27,9 @@ public class RabbitConfig {
     @Value("${spring.rabbitmq.password}")
     private String password;
 
+    @Value("${spring.rabbitmq.host}")
+    private String host;
+
     /**
      * @return Очередь
      */
@@ -51,9 +54,9 @@ public class RabbitConfig {
      */
     @Bean
     public CachingConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
-        connectionFactory().setUsername(username);
-        connectionFactory().setPassword(password);
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(host);
+        cachingConnectionFactory.setUsername(username);
+        cachingConnectionFactory.setPassword(password);
         return cachingConnectionFactory;
     }
 

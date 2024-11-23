@@ -9,5 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface ArmoredTransportRepository extends CrudRepository<ArmoredTransport, Long> {
-    List<ArmoredTransport> findAllTransport_Address_CityAndTransport_Address_CountryAndTransport_TransportName(String city, String country, String transportName);
 }

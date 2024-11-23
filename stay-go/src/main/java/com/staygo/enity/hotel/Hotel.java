@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 @Data
 @Builder
+@RedisHash("Hotel")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hotel implements Serializable {

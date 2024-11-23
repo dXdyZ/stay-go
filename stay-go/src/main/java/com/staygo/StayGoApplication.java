@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@EnableCaching //Включает кеширование Spring
 public class StayGoApplication {
 
     private final RabbitAdmin rabbitAdmin;
