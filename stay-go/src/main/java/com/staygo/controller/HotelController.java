@@ -1,5 +1,6 @@
 package com.staygo.controller;
 
+import com.staygo.enity.DTO.HotelDTO;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.Room;
 import com.staygo.service.hotel_ser.HotelService;
@@ -36,13 +37,25 @@ public class HotelController {
         return hotelService.createdHotel(hotel, hotelFiles, principal);
     }
 
-    @GetMapping("/findHotel/{city}")
+    @GetMapping("/test")
+    public String test() {
+        return "hello";
+    }
+
+    @GetMapping("/findHotel/{country}/{city}")
     public ResponseEntity<?> findHotelByCityAndGradeAndArmoredDate(@PathVariable("city") String city,
                                                                    @PathVariable("country") String country,
                                                                    @RequestParam(name = "dateArmored") String dateArmored,
                                                                    @RequestParam(name = "departureDate") String departureDate,
-                                                                   @RequestParam(name = "grade", required = false) Integer grade) {
-        return hotelService.findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored, departureDate, grade);
+                                                                   @RequestParam(name = "grade", required = false) Integer grade,
+                                                                   Principal principal) {
+        List<HotelDTO> hotelDTOS = hotelService.findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored,
+                departureDate, grade, principal);
+        if (hotelDTOS != null) {
+            return ResponseEntity.ok(hotelDTOS);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/addedRoom/{street}")

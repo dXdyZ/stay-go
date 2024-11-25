@@ -21,6 +21,9 @@ public class RabbitConfig {
     @Value("${queue.name.carDataEmail}")
     private String messageCarReservation;
 
+    @Value("${queue.name.userFindHotel}")
+    private String userFindHotel;
+
     @Value("${spring.rabbitmq.username}")
     private String username;
 
@@ -29,6 +32,11 @@ public class RabbitConfig {
 
     @Value("${spring.rabbitmq.host}")
     private String host;
+
+    @Bean
+    public Queue findUserHotel() {
+        return new Queue(userFindHotel, false);
+    }
 
     /**
      * @return Очередь

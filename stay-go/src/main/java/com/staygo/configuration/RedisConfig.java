@@ -25,7 +25,7 @@ public class RedisConfig {
                         .SerializationPair
                         .fromSerializer(new GenericJackson2JsonRedisSerializer())
                 );
-        return RedisCacheManager.builder()
+        return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(configuration)
                 .build();
     }

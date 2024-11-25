@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.staygo.custom_exception.DateException;
-import com.staygo.enity.address.Address;
+import com.staygo.enity.DTO.CommentsDTO;
+import com.staygo.enity.DTO.RoomDTO;
+import com.staygo.enity.DTO.rabbit.UserFindHotelDTO;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.HotelData;
 import com.staygo.enity.DTO.HotelDTO;
@@ -12,8 +14,9 @@ import com.staygo.enity.hotel.Room;
 import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.service.AddressService;
 import com.staygo.service.PayService;
+import com.staygo.service.rabbit.RabbitMessage;
 import com.staygo.service.user_ser.UserService;
-import com.staygo.service.weather.WaetherService;
+import com.staygo.service.weather.WeatherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -39,20 +42,20 @@ public class HotelService {
     private final AddressService addressService;
     private final UserService userService;
     private final PayService payService;
-    private final WaetherService waetherService;
+    private final WeatherService waetherService;
+    private final RabbitMessage rabbitMessage;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         AddressService addressService,
-                        UserService userService, PayService payService, PayService payService1, WaetherService waetherService) {
+                        UserService userService, PayService payService, PayService payService1, WeatherService waetherService, RabbitMessage rabbitMessage) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
         this.payService = payService1;
         this.waetherService = waetherService;
+        this.rabbitMessage = rabbitMessage;
     }
-
-
 
     private Pageable getPageable() {
         return PageRequest.of(0, 10);
@@ -94,8 +97,11 @@ public class HotelService {
                         HotelDTO.builder()
                             .name(hotel.getName())
                             .grade(hotel.getGrade())
-                            .address(hotel.getAddress())
-                            .rooms(hotel.getRooms())
+                            .country(hotel.getAddress().getCountry())
+                            .city(hotel.getAddress().getCity())
+                            .street(hotel.getAddress().getStreet())
+                            .houseNumber(hotel.getAddress().getNumberHouse())
+                            .rooms(sampleFirstByPrestige(hotel.getRooms()))
                             .build(),  HttpStatus.OK);
             } else return new ResponseEntity<>("Отель по этому адресу уже существет", HttpStatus.BAD_REQUEST);
         } catch (JsonMappingException e) {
@@ -107,10 +113,24 @@ public class HotelService {
         }
     }
 
+    public List<RoomDTO> sampleFirstByPrestige(List<Room> rooms) {
+        List<Room> roomList = rooms.stream()
+                .collect(Collectors.toMap(
+                        Room::getPrestige,
+                        room -> room,
+                        (existing, replacement) -> existing
+                ))
+                .values().stream()
+                .toList();
+        return roomList.stream().map(room -> new RoomDTO(room.getRoomName(),
+                room.getRoomStatus(), room.getPrice(), room.getPrestige())).toList();
+    }
+
     @Transactional
     @CachePut(value = "findAllHotelForArmored", key = "#hotelNew.address")
     public ResponseEntity<?> updateToDataHotel(HotelDTO hotelNew) {
-        Optional<Hotel> hotel = hotelRepository.findByAddress_CountryAndAddress_CityAndAddress_Street(hotelNew.getAddress().getCountry(), hotelNew.getAddress().getCity(), hotelNew.getAddress().getStreet());
+        Optional<Hotel> hotel = hotelRepository.findByAddress_CountryAndAddress_CityAndAddress_Street(hotelNew.getCountry(),
+                hotelNew.getCity(), hotelNew.getStreet());
         if (hotel.isPresent()) {
             if (hotelNew.getName() != null) {
                 hotel.get().setName(hotelNew.getName());
@@ -118,23 +138,28 @@ public class HotelService {
             if (hotelNew.getGrade() != null) {
                 hotel.get().setGrade(hotelNew.getGrade());
             }
-            if (hotelNew.getAddress() != null) {
-                Address existingAddress = hotel.get().getAddress();
-                Address newAddress = hotelNew.getAddress();
-
-                if (newAddress.getCountry() != null) existingAddress.setCountry(newAddress.getCountry());
-                if (newAddress.getCity() != null) existingAddress.setCity(newAddress.getCity());
-                if (newAddress.getStreet() != null) existingAddress.setStreet(newAddress.getStreet());
-                if (newAddress.getZipCode() != null) existingAddress.setZipCode(newAddress.getZipCode());
+            if (!hotelNew.getCity().isBlank()) {
+                hotel.get().getAddress().setCity(hotelNew.getCity());
+            }
+            if (!hotelNew.getCountry().isBlank()) {
+                hotel.get().getAddress().setCountry(hotelNew.getCountry());
+            }
+            if (!hotelNew.getStreet().isBlank()) {
+                hotel.get().getAddress().setStreet(hotelNew.getStreet());
+            }
+            if (!hotelNew.getHouseNumber().isBlank()) {
+                hotel.get().getAddress().setStreet(hotelNew.getHouseNumber());
             }
             hotelRepository.save(hotel.get());
-            HotelDTO returnHotel = HotelDTO.builder()
+            return ResponseEntity.ok(HotelDTO.builder()
                     .name(hotel.get().getName())
                     .grade(hotel.get().getGrade())
-                    .rooms(hotel.get().getRooms())
-                    .address(hotel.get().getAddress())
-                    .build();
-            return ResponseEntity.ok(returnHotel);
+                    .rooms(sampleFirstByPrestige(hotel.get().getRooms()))
+                    .street(hotel.get().getAddress().getStreet())
+                    .city(hotel.get().getAddress().getCity())
+                    .country(hotel.get().getAddress().getCountry())
+                    .houseNumber(hotel.get().getAddress().getNumberHouse())
+                    .build());
         } else return new ResponseEntity<>("Отеля с такими данными нету, либо добавьте его либо обратитесь в техподдержку", HttpStatus.BAD_REQUEST);
     }
 
@@ -150,26 +175,38 @@ public class HotelService {
     }
 
     @Transactional
-    @Cacheable(value = "findAllHotelForArmored", key = "#id") //key смотри на то по чему мы будем кэшировать
-    public ResponseEntity<?> findAllHotelByCityAndDataArmoredAndTerm(String country, String city, String dateArmored, String departureDate, Integer grade) {
+    @Cacheable(value = "findAllHotelForArmored",  key = "#country + '-' + #city + '-' + #dateArmored + '-' + #departureDate + '-' + (#grade != null ? #grade : 'null')") //key смотри на то по чему мы будем кэшировать
+    public List<HotelDTO> findAllHotelByCityAndDataArmoredAndTerm(String country, String city,
+                                                                  String dateArmored, String departureDate,
+                                                                  Integer grade, Principal principal) {
+        if (principal != null) {
+            rabbitMessage.sendDataUserFindHotel(new UserFindHotelDTO(city, country, dateArmored, departureDate, grade,
+                    principal.getName()));
+        } else {
+            rabbitMessage.sendDataUserFindHotel(new UserFindHotelDTO(city, country, dateArmored, departureDate, grade,
+                    "no auth user"));
+        }
+
         List<Hotel> hotels;
+
         try {
             if (grade == null) {
                 hotels = hotelRepository.findAllByAddress_CityAndAddress_Country(city, country ,getPageable());
-                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate) + "\n" + waetherService.sortedTimeByDay(dateArmored, departureDate, city, country));
+                return addingPriceToTheHotel(hotels, dateArmored, departureDate);
+
             } else {
                 hotels = hotelRepository.findAllByGradeAndAddress_CityAndAddress_Country(grade, city, country ,getPageable());
-                return ResponseEntity.ok(addingPriceToTheHotel(hotels, dateArmored, departureDate) + "\n" + waetherService.sortedTimeByDay(dateArmored, departureDate, city, country));
+                return addingPriceToTheHotel(hotels, dateArmored, departureDate);
             }
         } catch (ParseException e) {
             log.error("parse exception in method findAllHotelByCityAndDataArmoredAndTerm with data: {}", city,
                     dateArmored,
                     departureDate,
                     grade, e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return null;
         } catch (DateException e) {
             log.error("fatal user data: {}", e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return null;
         }
     }
 
@@ -182,7 +219,7 @@ public class HotelService {
     public Optional<Hotel> findByUserAndStreet(String street, String username) {
         if (!username.isEmpty() && !street.isEmpty()) {
             return hotelRepository.findByUsers_UsernameAndAddress_Street(username, street);
-        } else throw new NullPointerException("Поля не должны быть путыми");
+        } else throw new NullPointerException("Поля не должны быть пустыми");
     }
 
     @Transactional
@@ -195,9 +232,9 @@ public class HotelService {
         return hotelRepository.findById(id);
     }
 
-    private HashMap<HotelDTO, BigDecimal> addingPriceToTheHotel(List<Hotel> hotels, String dateArmored, String departureDate) throws ParseException, DateException {
-        HashMap<HotelDTO, BigDecimal> hotelAndAvgPrice = new HashMap<>();
+    private List<HotelDTO> addingPriceToTheHotel(List<Hotel> hotels, String dateArmored, String departureDate) throws ParseException, DateException {
         BigDecimal price = null;
+        List<HotelDTO> hotelDTO = new ArrayList<>();
         long count = 0;
         for (Hotel hotel : hotels) {
             for (Room room : hotel.getRooms()) {
@@ -207,15 +244,21 @@ public class HotelService {
                 count++;
                 log.info("count: {}", count);
             }
-            hotelAndAvgPrice.put(HotelDTO.builder()
+            hotelDTO.add(HotelDTO.builder()
                     .name(hotel.getName())
                     .grade(hotel.getGrade())
-                    .comments(hotel.getComments())
-                    .rooms(hotel.getRooms())
-                    .address(hotel.getAddress())
-                    .build(), Objects.requireNonNull(price).subtract(BigDecimal.valueOf(count)));
+                    .comments(hotel.getComments().stream().map(comments -> new CommentsDTO(comments.getComment(),
+                            comments.getCreatDate(), comments.getUsers().getUsername(), comments.getHotel().getName())).toList())
+                    .rooms(sampleFirstByPrestige(hotel.getRooms()))
+                    .city(hotel.getAddress().getCity())
+                    .country(hotel.getAddress().getCountry())
+                    .street(hotel.getAddress().getStreet())
+                    .houseNumber(hotel.getAddress().getNumberHouse())
+                    .allPrice(String.valueOf(Objects.requireNonNull(price).subtract(BigDecimal.valueOf(count))))
+                    .weather( waetherService.sortedTimeByDay(dateArmored, departureDate, hotel.getAddress().getCity(), hotel.getAddress().getCountry()))
+                    .build());
         }
-        return hotelAndAvgPrice;
+        return hotelDTO;
     }
 
 
@@ -233,11 +276,11 @@ public class HotelService {
                 }
                 returnHotelDTO.addAll(hotelsNew.stream()
                         .map(hotelReturn -> HotelDTO.builder()
-                                .rooms(hotelReturn.getRooms())
-                                .comments(hotelReturn.getComments())
+                                //.rooms(hotelReturn.getRooms())
+                               // .comments(hotelReturn.getComments())
                                 .grade(hotelReturn.getGrade())
                                 .name(hotelReturn.getName())
-                                .address(hotelReturn.getAddress())
+                               // .address(hotelReturn.getAddress())
                                 .build())
                         .toList());
                 return ResponseEntity.ok(returnHotelDTO);
@@ -246,11 +289,11 @@ public class HotelService {
             log.error("null pointer exception: {}", e.getMessage());
             returnHotelDTO.addAll(hotels.stream()
                     .map(hotelReturn -> HotelDTO.builder()
-                            .rooms(hotelReturn.getRooms())
-                            .comments(hotelReturn.getComments())
+                            //.rooms(hotelReturn.getRooms())
+                            //.comments(hotelReturn.getComments())
                             .grade(hotelReturn.getGrade())
                             .name(hotelReturn.getName())
-                            .address(hotelReturn.getAddress())
+                            //.address(hotelReturn.getAddress())
                             .build())
                     .toList());
             return ResponseEntity.ok(returnHotelDTO);

@@ -17,11 +17,11 @@ class WaetherServiceTest {
 
     private static final Logger log = LoggerFactory.getLogger(WaetherServiceTest.class);
     @Autowired
-    private WaetherService waetherService;
+    private WeatherService waetherService;
 
     @Test
     void sortedTimeByDaySuccessData() throws ParseException {
-        Map<String, Integer> weatherData = waetherService.sortedTimeByDay("02.11.2024", "10.11.2024", "kaliningrad", "Russian");
+        Map<String, Integer> weatherData = waetherService.sortedTimeByDay("25.11.2024", "01.12.2024", "Moscow", "Russia");
+        log.info("weather data: {}", weatherData);
     }
-
 }

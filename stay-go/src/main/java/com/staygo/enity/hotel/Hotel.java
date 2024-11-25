@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Data
 @Builder
-@RedisHash("Hotel")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hotel implements Serializable {

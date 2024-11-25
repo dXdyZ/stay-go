@@ -16,14 +16,18 @@ public class StayGoApplication {
     private final Queue queueRoom;
     private final Queue queueCar;
     private final Queue queueCode;
+    private final Queue queueUserFindHotel;
 
-    public StayGoApplication(RabbitAdmin rabbitAdmin, @Qualifier("roomBookingQueue") Queue queueRoom,
+    public StayGoApplication(RabbitAdmin rabbitAdmin,
+                             @Qualifier("roomBookingQueue") Queue queueRoom,
                              @Qualifier("messageCarReservation") Queue queueCar,
-                             @Qualifier("massageAboutCodeForUser") Queue queueCode) {
+                             @Qualifier("massageAboutCodeForUser") Queue queueCode,
+                             @Qualifier("findUserHotel") Queue queueUserFindHotel) {
         this.rabbitAdmin = rabbitAdmin;
         this.queueRoom = queueRoom;
         this.queueCar = queueCar;
         this.queueCode = queueCode;
+        this.queueUserFindHotel = queueUserFindHotel;
     }
 
 
@@ -32,6 +36,7 @@ public class StayGoApplication {
         rabbitAdmin.declareQueue(queueCar);
         rabbitAdmin.declareQueue(queueCode);
         rabbitAdmin.declareQueue(queueRoom);
+        rabbitAdmin.declareQueue(queueUserFindHotel);
     }
 
     public static void main(String[] args) {

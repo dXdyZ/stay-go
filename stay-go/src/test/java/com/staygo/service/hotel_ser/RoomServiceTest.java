@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -79,6 +80,7 @@ class RoomServiceTest {
 
         assertEquals(ResponseEntity.ok(roomList), response);
     }
+
 
     @Test
     void addedPhotosToRooms() {

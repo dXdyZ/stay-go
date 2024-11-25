@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +22,20 @@ public class UserService {
     private final UserRepository userRepository;
     private final PaymentService paymentService;
     private final UserEmailExamination userEmailExamination;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PaymentService paymentService, UserEmailExamination userEmailExamination) {
+    public UserService(UserRepository userRepository, PaymentService paymentService, UserEmailExamination userEmailExamination, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.paymentService = paymentService;
         this.userEmailExamination = userEmailExamination;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ResponseEntity<?> registerUser(Users users) {
         if (userRepository.findByUsername(users.getUsername()).isEmpty()) {
             users.setRole(Role.ROLE_USER);
+            users.setPassword(passwordEncoder.encode(users.getPassword()));
             UserDTO userDTO = new UserDTO(users.getUsername(),
                     users.getPassword(), users.getEmail(),
                     users.getPhoneNumber(), users.getPayments());
@@ -43,7 +48,7 @@ public class UserService {
     public ResponseEntity<?> savedUser(String email, Integer code) {
         if (userEmailExamination.examinationCode(email, code) != null) {
             userRepository.save(userEmailExamination.examinationCode(email, code));
-            return ResponseEntity.ok("Вы успешно зарегистрированны");
+            return ResponseEntity.ok("Вы успешно зарегистрированные");
         } else return new ResponseEntity<>("Не привольный код", HttpStatus.BAD_REQUEST);
     }
 

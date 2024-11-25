@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class WaetherService {
+public class WeatherService {
     private final RestTemplate restTemplate;
     private final CityCoordinates cityCoordinates;
     private final DateCheck dateCheck;
 
     @Autowired
-    public WaetherService(RestTemplate restTemplate, CityCoordinates cityCoordinates, DateCheck dateCheck) {
+    public WeatherService(RestTemplate restTemplate, CityCoordinates cityCoordinates, DateCheck dateCheck) {
         this.restTemplate = restTemplate;
         this.cityCoordinates = cityCoordinates;
         this.dateCheck = dateCheck;
@@ -32,17 +32,18 @@ public class WaetherService {
         if (weatherLimitDate(armoredDate, departureDate)) {
             List<String> dateForURI = dateCheck.mapDate(armoredDate, departureDate);
             Country country = cityCoordinates.getCoordinateByCityAndCountry(city, county);
-            URI uri = null;
+            URI uri;
             try {
                 uri = new URI("https://api.open-meteo.com/v1/forecast?latitude=" + country.getLatitude() +
                         "&longitude=" + country.getLongitude() + "&hourly=temperature_2m&start_date=" + dateForURI.get(0) +"&end_date=" + dateForURI.get(1));
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
-            Weather weather = restTemplate.getForObject(uri, Weather.class);
-            List<Integer> weatherInDay = Objects.requireNonNull(weather).getHourly().getTemperature_2m().stream().map(Integer::valueOf).collect(Collectors.toCollection(ArrayList::new));
+            log.info("weather generation uri: {}", uri);
+            Weather weather = restTemplate.getForObject(uri, Weather.class);;
+            List<Integer> weatherInDay = Objects.requireNonNull(weather).getHourly().getTemperature_2m().stream().collect(Collectors.toCollection(ArrayList::new));
             return calculationWeather(weatherInDay);
-        } else return null;
+        } else return Map.of("1", 2);
     }
 
     private boolean weatherLimitDate(String armoredDate, String departureDate) {

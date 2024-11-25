@@ -1,5 +1,7 @@
 package com.staygo.service.hotel_ser;
 
+import com.staygo.enity.DTO.HotelDTO;
+import com.staygo.enity.DTO.RoomDTO;
 import com.staygo.enity.hotel.ArmoredRoom;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.Room;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -120,6 +123,7 @@ public class RoomService {
         roomRepository.saveAll(roomUpdate);
         return ResponseEntity.ok().build();
     }
+
 
     private List<Room> addedPhoto(List<MultipartFile> files, List<Room> rooms) throws IOException {
         if (!files.isEmpty()) {

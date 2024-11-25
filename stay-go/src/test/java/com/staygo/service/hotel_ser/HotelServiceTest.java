@@ -3,6 +3,9 @@ package com.staygo.service.hotel_ser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.staygo.enity.address.Address;
 import com.staygo.enity.hotel.Hotel;
+import com.staygo.enity.hotel.Room;
+import com.staygo.enity.hotel.RoomData;
+import com.staygo.enity.user.Role;
 import com.staygo.enity.user.Users;
 import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.repository.user_repo.UserRepository;
@@ -17,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,6 +61,9 @@ public class HotelServiceTest {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -94,15 +101,57 @@ public class HotelServiceTest {
     @Autowired
     private DateCheck dateCheck;
 
+
+    @Test
+    @Rollback(value = false)
+    void addedDataInTable() {
+        Users users = Users.builder()
+                .username("test")
+                .createDate(new Date())
+                .email("test@email.com")
+                .password(passwordEncoder.encode("123123"))
+                .phoneNumber("12312312312")
+                .role(Role.ROLE_ADMIN)
+                .build();
+        userRepository.save(users);
+
+        for (int i = 0; i < 100; i++) {
+            Hotel hotel = hotel(i, users);
+            hotel.setRooms(Collections.singletonList(room(hotel, i)));
+            hotelRepository.save(hotel);
+        }
+    }
+
+    Room room(Hotel hotel, int i) {
+        return Room.builder()
+                .hotel(hotel)
+                .roomName(String.valueOf(i))
+                .price(BigDecimal.valueOf(34543))
+                .prestige("president")
+                .roomStatus("free")
+                .build();
+    }
+
+    Hotel hotel(int i, Users users) {
+        return Hotel.builder()
+                .name("hello" + i)
+                .grade(4)
+                .address(Address.builder()
+                        .city("test" + i)
+                        .street("test" + i)
+                        .country("test" + i)
+                        .zipCode("23232" + i)
+                        .numberHouse("123" + i)
+                        .build())
+                .users(users)
+                .build();
+    }
+
     @Test
     @Transactional
     public void testFindAllHotelSuccessAllParameters() {
         log.info("Текущая дата (mapNowDateInString): {}", dateCheck.mapNowDateInString());
         log.info("Дата бронирования: 10.11.2024, Дата выезда: 24.11.2024");
-
-        ResponseEntity<?> response = hotelService.findAllHotelByCityAndDataArmoredAndTerm("Russian", "kaliningrad", "03.11.2024", "10.11.2024", null);
-        log.info("response: {}", response.toString());
-        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test

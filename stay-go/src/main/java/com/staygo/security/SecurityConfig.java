@@ -1,6 +1,5 @@
 package com.staygo.security;
 
-import com.staygo.enity.user.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -24,13 +23,12 @@ public class SecurityConfig {
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/user/**").anonymous()
-                        .requestMatchers("/hotel/**").authenticated()
+                        .requestMatchers("/hotel/**").permitAll()
                         .requestMatchers("/room/**").hasRole("MANAGER")
                         .requestMatchers("/armored").authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .build();
-
     }
 }
