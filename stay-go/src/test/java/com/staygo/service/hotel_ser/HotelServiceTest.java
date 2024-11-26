@@ -122,6 +122,34 @@ public class HotelServiceTest {
         }
     }
 
+    @Test
+    @Rollback(false)
+    void testValidData() {
+        Users users = Users.builder()
+                .id(102L)
+                .username("test")
+                .createDate(new Date())
+                .email("test@email.com")
+                .password(passwordEncoder.encode("123123"))
+                .phoneNumber("12312312312")
+                .role(Role.ROLE_ADMIN)
+                .build();
+        Hotel hotel = Hotel.builder()
+                .name("test valid data")
+                .grade(4)
+                .address(Address.builder()
+                        .city("Moscow")
+                        .street("test")
+                        .country("Russia")
+                        .zipCode("23232")
+                        .numberHouse("123")
+                        .build())
+                .users(users)
+                .build();
+        hotel.setRooms(Collections.singletonList(room(hotel, 1)));
+        hotelRepository.save(hotel);
+    }
+
     Room room(Hotel hotel, int i) {
         return Room.builder()
                 .hotel(hotel)

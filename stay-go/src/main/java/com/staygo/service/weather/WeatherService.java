@@ -39,11 +39,12 @@ public class WeatherService {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
-            log.info("weather generation uri: {}", uri);
+            log.info("weather uri: {}", uri);
             Weather weather = restTemplate.getForObject(uri, Weather.class);;
             List<Integer> weatherInDay = Objects.requireNonNull(weather).getHourly().getTemperature_2m().stream().collect(Collectors.toCollection(ArrayList::new));
+            log.info("weather in day: {}", weatherInDay);
             return calculationWeather(weatherInDay);
-        } else return Map.of("1", 2);
+        } else return Map.of("unknown", 0);
     }
 
     private boolean weatherLimitDate(String armoredDate, String departureDate) {

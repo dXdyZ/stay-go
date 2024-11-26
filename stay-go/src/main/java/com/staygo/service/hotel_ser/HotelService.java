@@ -127,8 +127,8 @@ public class HotelService {
     }
 
     @Transactional
-    @CachePut(value = "findAllHotelForArmored", key = "#hotelNew.address")
-    public ResponseEntity<?> updateToDataHotel(HotelDTO hotelNew) {
+    @CachePut(value = "findAllHotelForArmored",  key = "#country + '-' + #city + '-' + #dateArmored + '-' + #departureDate + '-' + (#grade != null ? #grade : 'null')")
+    public HotelDTO updateToDataHotel(HotelDTO hotelNew) {
         Optional<Hotel> hotel = hotelRepository.findByAddress_CountryAndAddress_CityAndAddress_Street(hotelNew.getCountry(),
                 hotelNew.getCity(), hotelNew.getStreet());
         if (hotel.isPresent()) {
@@ -151,7 +151,7 @@ public class HotelService {
                 hotel.get().getAddress().setStreet(hotelNew.getHouseNumber());
             }
             hotelRepository.save(hotel.get());
-            return ResponseEntity.ok(HotelDTO.builder()
+            return HotelDTO.builder()
                     .name(hotel.get().getName())
                     .grade(hotel.get().getGrade())
                     .rooms(sampleFirstByPrestige(hotel.get().getRooms()))
@@ -159,8 +159,10 @@ public class HotelService {
                     .city(hotel.get().getAddress().getCity())
                     .country(hotel.get().getAddress().getCountry())
                     .houseNumber(hotel.get().getAddress().getNumberHouse())
-                    .build());
-        } else return new ResponseEntity<>("Отеля с такими данными нету, либо добавьте его либо обратитесь в техподдержку", HttpStatus.BAD_REQUEST);
+                    .build();
+        } else {
+            throw new NullPointerException();
+        }
     }
 
     public ResponseEntity<?> getAllHotelUsers(Principal principal) {
@@ -174,11 +176,9 @@ public class HotelService {
         return hotelRepository.findAllByOrderByGradeDesc(getPageable());
     }
 
-    @Transactional
-    @Cacheable(value = "findAllHotelForArmored",  key = "#country + '-' + #city + '-' + #dateArmored + '-' + #departureDate + '-' + (#grade != null ? #grade : 'null')") //key смотри на то по чему мы будем кэшировать
-    public List<HotelDTO> findAllHotelByCityAndDataArmoredAndTerm(String country, String city,
-                                                                  String dateArmored, String departureDate,
-                                                                  Integer grade, Principal principal) {
+    public List<HotelDTO> findHotelForSendMessage(String country, String city,
+                                                  String dateArmored, String departureDate,
+                                                  Integer grade, Principal principal) {
         if (principal != null) {
             rabbitMessage.sendDataUserFindHotel(new UserFindHotelDTO(city, country, dateArmored, departureDate, grade,
                     principal.getName()));
@@ -186,9 +186,15 @@ public class HotelService {
             rabbitMessage.sendDataUserFindHotel(new UserFindHotelDTO(city, country, dateArmored, departureDate, grade,
                     "no auth user"));
         }
+        return findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored, departureDate, grade);
+    }
 
+    @Transactional
+    @Cacheable(value = "findAllHotelForArmored",  key = "#country + '-' + #city + '-' + #dateArmored + '-' + #departureDate + '-' + (#grade != null ? #grade : 'null')") //key смотри на то по чему мы будем кэшировать
+    public List<HotelDTO> findAllHotelByCityAndDataArmoredAndTerm(String country, String city,
+                                                                  String dateArmored, String departureDate,
+                                                                  Integer grade) {
         List<Hotel> hotels;
-
         try {
             if (grade == null) {
                 hotels = hotelRepository.findAllByAddress_CityAndAddress_Country(city, country ,getPageable());
@@ -216,9 +222,9 @@ public class HotelService {
     }
 
     @Transactional
-    public Optional<Hotel> findByUserAndStreet(String street, String username) {
-        if (!username.isEmpty() && !street.isEmpty()) {
-            return hotelRepository.findByUsers_UsernameAndAddress_Street(username, street);
+    public Optional<Hotel> findByUserAndStreetAndCityAndCountry(String city, String country, String hotelName, String street, String username) {
+        if (!username.isBlank() && !street.isBlank() && !city.isBlank() && !country.isBlank() && !hotelName.isBlank()) {
+            return hotelRepository.findByNameAndAddress_CityAndAddress_CountryAndAddress_StreetAndUsers_Username(hotelName, city, country, street, username);
         } else throw new NullPointerException("Поля не должны быть пустыми");
     }
 
@@ -255,7 +261,7 @@ public class HotelService {
                     .street(hotel.getAddress().getStreet())
                     .houseNumber(hotel.getAddress().getNumberHouse())
                     .allPrice(String.valueOf(Objects.requireNonNull(price).subtract(BigDecimal.valueOf(count))))
-                    .weather( waetherService.sortedTimeByDay(dateArmored, departureDate, hotel.getAddress().getCity(), hotel.getAddress().getCountry()))
+                    .weather(waetherService.sortedTimeByDay(dateArmored, departureDate, hotel.getAddress().getCity(), hotel.getAddress().getCountry()))
                     .build());
         }
         return hotelDTO;
