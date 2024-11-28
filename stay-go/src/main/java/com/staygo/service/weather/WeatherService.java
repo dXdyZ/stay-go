@@ -5,6 +5,7 @@ import com.staygo.enity.weather.Weather;
 import com.staygo.service.DateCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,7 +29,8 @@ public class WeatherService {
         this.dateCheck = dateCheck;
     }
 
-    public Map<String, Integer> sortedTimeByDay(String armoredDate, String departureDate, String city, String county) throws ParseException{
+    @Cacheable(value = "weatherValue", key = "#armoredDate + '-' + #departureDate + '-' + #city + '-' + #county")
+    public Map<String, Integer> sortedTimeByDay(String armoredDate, String departureDate, String city, String county){
         if (weatherLimitDate(armoredDate, departureDate)) {
             List<String> dateForURI = dateCheck.mapDate(armoredDate, departureDate);
             Country country = cityCoordinates.getCoordinateByCityAndCountry(city, county);
@@ -55,24 +57,18 @@ public class WeatherService {
     private Map<String, Integer> calculationWeather(List<Integer> weatherInDay) {
         double ma = 0;
         int day = 1;
+        log.info("inner data: {}", weatherInDay);
         Map<String, Integer> allWeather = new HashMap<>();
         for (int i = 0; i < weatherInDay.size(); i++) {
-            if (i != 24) {
-                ma += weatherInDay.get(i);
-            } else {
-                ma /= 24;
-                if (allWeather.isEmpty()) {
-                    allWeather.put("day: " + day, (int) ma);
-                } else  {
-                    allWeather.put("day: " + (allWeather.size() + 1), (int) ma);
-                }
-                for (int j = 0; j < 24; j++) {
-                    weatherInDay.remove(i);
-                }
-                i = 0;
-                ma = 0;
+            ma += weatherInDay.get(i);
+            // Если обработано 24 часа или достигнут конец списка
+            if ((i + 1) % 24 == 0 || i == weatherInDay.size() - 1) {
+                ma /= 24; // Среднее значение за день
+                allWeather.put("day: " + day++, (int) ma);
+                ma = 0; // Сброс среднего
             }
         }
+        log.info("all calculation weather: {}", allWeather);
         return allWeather;
     }
 }

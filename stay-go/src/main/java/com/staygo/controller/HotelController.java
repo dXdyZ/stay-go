@@ -7,6 +7,7 @@ import com.staygo.service.hotel_ser.HotelService;
 import com.staygo.service.hotel_ser.RoomService;
 import jakarta.servlet.annotation.HttpConstraint;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/hotel")
 public class HotelController {
@@ -44,9 +46,18 @@ public class HotelController {
                                                                    @RequestParam(name = "dateArmored") String dateArmored,
                                                                    @RequestParam(name = "departureDate") String departureDate,
                                                                    @RequestParam(name = "grade", required = false) Integer grade,
+                                                                   @RequestParam(name = "size", required = false) Integer size,
                                                                    Principal principal) {
-        List<HotelDTO> hotelDTOS = hotelService.findHotelForSendMessage(country, city, dateArmored,
-                departureDate, grade, principal);
+        List<HotelDTO> hotelDTOS;
+        log.info("size value: {}", size);
+        if (size != null) {
+            hotelDTOS = hotelService.findHotelForSendMessage(country, city, dateArmored,
+                    departureDate, grade, principal, size);
+        } else {
+            hotelDTOS = hotelService.findHotelForSendMessage(country, city, dateArmored,
+                    departureDate, grade, principal, 5);
+        }
+
         if (hotelDTOS != null) {
             return ResponseEntity.ok(hotelDTOS);
         } else {
@@ -75,8 +86,8 @@ public class HotelController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<?> getAllHotelUser(Principal principal) {
-        return hotelService.getAllHotelUsers(principal);
+    public ResponseEntity<?> getAllHotelUser(@RequestParam("quantity") Integer quantity, Principal principal) {
+        return hotelService.getAllHotelUsers(principal, quantity);
     }
 
     @DeleteMapping("/delete")

@@ -3,35 +3,28 @@ package com.staygo.service.hotel_ser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.staygo.custom_exception.DateException;
-import com.staygo.enity.DTO.CommentsDTO;
-import com.staygo.enity.DTO.RoomDTO;
+import com.staygo.component.Page;
+import com.staygo.enity.DTO.HotelDTO;
 import com.staygo.enity.DTO.rabbit.UserFindHotelDTO;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.HotelData;
-import com.staygo.enity.DTO.HotelDTO;
-import com.staygo.enity.hotel.Room;
 import com.staygo.repository.hotel_repo.HotelRepository;
 import com.staygo.service.AddressService;
 import com.staygo.service.PayService;
+import com.staygo.service.hotel_ser.cached.HotelCachedService;
 import com.staygo.service.rabbit.RabbitMessage;
 import com.staygo.service.user_ser.UserService;
 import com.staygo.service.weather.WeatherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 import java.security.Principal;
-import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,26 +34,24 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final AddressService addressService;
     private final UserService userService;
-    private final PayService payService;
-    private final WeatherService waetherService;
+    private final WeatherService weatherService;
     private final RabbitMessage rabbitMessage;
+    private final HotelCachedService hotelCachedService;
+    private final ComponentForCreateHotelDTO componentForCreateHotelDTO;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository,
-                        AddressService addressService,
-                        UserService userService, PayService payService, PayService payService1, WeatherService waetherService, RabbitMessage rabbitMessage) {
+    public HotelService(HotelRepository hotelRepository, AddressService addressService,
+                        UserService userService, WeatherService waetherService,
+                        RabbitMessage rabbitMessage, HotelCachedService hotelCachedService,
+                        ComponentForCreateHotelDTO componentForCreateHotelDTO) {
         this.hotelRepository = hotelRepository;
         this.addressService = addressService;
         this.userService = userService;
-        this.payService = payService1;
-        this.waetherService = waetherService;
+        this.weatherService = waetherService;
         this.rabbitMessage = rabbitMessage;
+        this.hotelCachedService = hotelCachedService;
+        this.componentForCreateHotelDTO = componentForCreateHotelDTO;
     }
-
-    private Pageable getPageable() {
-        return PageRequest.of(0, 10);
-    }
-
 
     @Transactional
     public ResponseEntity<?> createdHotel(String hotelJson, List<MultipartFile> hotelDataFiles, Principal principal) {
@@ -94,15 +85,7 @@ public class HotelService {
                 hotelRepository.save(hotel);
 
                 return new ResponseEntity<>("Для добавления фото к каждой комнате перейдите на следующую страницу '/addedRoom/Улица'. Также при добавлении фото к комнотам пожалуйста именнуйте файлы  n" +
-                        HotelDTO.builder()
-                            .name(hotel.getName())
-                            .grade(hotel.getGrade())
-                            .country(hotel.getAddress().getCountry())
-                            .city(hotel.getAddress().getCity())
-                            .street(hotel.getAddress().getStreet())
-                            .houseNumber(hotel.getAddress().getNumberHouse())
-                            .rooms(sampleFirstByPrestige(hotel.getRooms()))
-                            .build(),  HttpStatus.OK);
+                        componentForCreateHotelDTO.getHotelDTO(hotel),  HttpStatus.OK);
             } else return new ResponseEntity<>("Отель по этому адресу уже существет", HttpStatus.BAD_REQUEST);
         } catch (JsonMappingException e) {
             log.error("json mapping: {}", e.getMessage());
@@ -111,19 +94,6 @@ public class HotelService {
             log.error("json processing: {}", e.getMessage());
             return new ResponseEntity<>("Неправильно введенные данные", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    public List<RoomDTO> sampleFirstByPrestige(List<Room> rooms) {
-        List<Room> roomList = rooms.stream()
-                .collect(Collectors.toMap(
-                        Room::getPrestige,
-                        room -> room,
-                        (existing, replacement) -> existing
-                ))
-                .values().stream()
-                .toList();
-        return roomList.stream().map(room -> new RoomDTO(room.getRoomName(),
-                room.getRoomStatus(), room.getPrice(), room.getPrestige())).toList();
     }
 
     @Transactional
@@ -151,34 +121,26 @@ public class HotelService {
                 hotel.get().getAddress().setStreet(hotelNew.getHouseNumber());
             }
             hotelRepository.save(hotel.get());
-            return HotelDTO.builder()
-                    .name(hotel.get().getName())
-                    .grade(hotel.get().getGrade())
-                    .rooms(sampleFirstByPrestige(hotel.get().getRooms()))
-                    .street(hotel.get().getAddress().getStreet())
-                    .city(hotel.get().getAddress().getCity())
-                    .country(hotel.get().getAddress().getCountry())
-                    .houseNumber(hotel.get().getAddress().getNumberHouse())
-                    .build();
+            return componentForCreateHotelDTO.getHotelDTO(hotel.get());
         } else {
             throw new NullPointerException();
         }
     }
 
-    public ResponseEntity<?> getAllHotelUsers(Principal principal) {
-        List<Hotel> allHotelUser = hotelRepository.findAllByUsers_Username(principal.getName(), getPageable());
+    public ResponseEntity<?> getAllHotelUsers(Principal principal, Integer pageSize) {
+        List<Hotel> allHotelUser = hotelRepository.findAllByUsers_Username(principal.getName(), Page.getPageable(pageSize));
         if (allHotelUser.isEmpty()) {
             return new ResponseEntity<>("У вас нет зарегистрированных отелей", HttpStatus.OK);
         } else return ResponseEntity.ok(allHotelUser);
     }
 
-    public List<Hotel> allHotel() {
-        return hotelRepository.findAllByOrderByGradeDesc(getPageable());
+    public List<Hotel> allHotel(Integer pageSize) {
+        return hotelRepository.findAllByOrderByGradeDesc(Page.getPageable(pageSize));
     }
 
     public List<HotelDTO> findHotelForSendMessage(String country, String city,
                                                   String dateArmored, String departureDate,
-                                                  Integer grade, Principal principal) {
+                                                  Integer grade, Principal principal, Integer pageSize) {
         if (principal != null) {
             rabbitMessage.sendDataUserFindHotel(new UserFindHotelDTO(city, country, dateArmored, departureDate, grade,
                     principal.getName()));
@@ -186,35 +148,13 @@ public class HotelService {
             rabbitMessage.sendDataUserFindHotel(new UserFindHotelDTO(city, country, dateArmored, departureDate, grade,
                     "no auth user"));
         }
-        return findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored, departureDate, grade);
+
+        Map<String, Integer> resultMethodCalculationWeather = weatherService.sortedTimeByDay(dateArmored, departureDate, city, country);
+        return hotelCachedService.findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored, departureDate, grade, pageSize).stream()
+                .peek(hotel -> hotel.setWeather(resultMethodCalculationWeather))
+                .toList();
     }
 
-    @Transactional
-    @Cacheable(value = "findAllHotelForArmored",  key = "#country + '-' + #city + '-' + #dateArmored + '-' + #departureDate + '-' + (#grade != null ? #grade : 'null')") //key смотри на то по чему мы будем кэшировать
-    public List<HotelDTO> findAllHotelByCityAndDataArmoredAndTerm(String country, String city,
-                                                                  String dateArmored, String departureDate,
-                                                                  Integer grade) {
-        List<Hotel> hotels;
-        try {
-            if (grade == null) {
-                hotels = hotelRepository.findAllByAddress_CityAndAddress_Country(city, country ,getPageable());
-                return addingPriceToTheHotel(hotels, dateArmored, departureDate);
-
-            } else {
-                hotels = hotelRepository.findAllByGradeAndAddress_CityAndAddress_Country(grade, city, country ,getPageable());
-                return addingPriceToTheHotel(hotels, dateArmored, departureDate);
-            }
-        } catch (ParseException e) {
-            log.error("parse exception in method findAllHotelByCityAndDataArmoredAndTerm with data: {}", city,
-                    dateArmored,
-                    departureDate,
-                    grade, e.getMessage());
-            return null;
-        } catch (DateException e) {
-            log.error("fatal user data: {}", e.getMessage());
-            return null;
-        }
-    }
 
     @Transactional
     public Hotel findByCityAndNameAndStreet(String street, String city, String name) {
@@ -238,35 +178,6 @@ public class HotelService {
         return hotelRepository.findById(id);
     }
 
-    private List<HotelDTO> addingPriceToTheHotel(List<Hotel> hotels, String dateArmored, String departureDate) throws ParseException, DateException {
-        BigDecimal price = null;
-        List<HotelDTO> hotelDTO = new ArrayList<>();
-        long count = 0;
-        for (Hotel hotel : hotels) {
-            for (Room room : hotel.getRooms()) {
-                log.info("room price: {}", room.getPrice());
-                price = payService.costCalculation(dateArmored, departureDate, room.getPrice());
-                log.info("information working method costCalculation: {}", payService.costCalculation(dateArmored, departureDate, room.getPrice()));
-                count++;
-                log.info("count: {}", count);
-            }
-            hotelDTO.add(HotelDTO.builder()
-                    .name(hotel.getName())
-                    .grade(hotel.getGrade())
-                    .comments(hotel.getComments().stream().map(comments -> new CommentsDTO(comments.getComment(),
-                            comments.getCreatDate(), comments.getUsers().getUsername(), comments.getHotel().getName())).toList())
-                    .rooms(sampleFirstByPrestige(hotel.getRooms()))
-                    .city(hotel.getAddress().getCity())
-                    .country(hotel.getAddress().getCountry())
-                    .street(hotel.getAddress().getStreet())
-                    .houseNumber(hotel.getAddress().getNumberHouse())
-                    .allPrice(String.valueOf(Objects.requireNonNull(price).subtract(BigDecimal.valueOf(count))))
-                    .weather(waetherService.sortedTimeByDay(dateArmored, departureDate, hotel.getAddress().getCity(), hotel.getAddress().getCountry()))
-                    .build());
-        }
-        return hotelDTO;
-    }
-
 
     private ResponseEntity<?> addingRoomsToAHotel(List<Hotel> hotels, String dateArmored, String departureDate) {
         List<HotelDTO> returnHotelDTO = new ArrayList<>();
@@ -275,8 +186,10 @@ public class HotelService {
             if (!hotels.isEmpty()) {
                 for (Hotel hotel : hotels) {
                     hotel.setRooms(hotel.getRooms().stream()
-                            .filter(room -> !room.getArmoredRoom().iterator().next().getDateArmored().equals(dateArmored))
-                            .filter(room -> !room.getArmoredRoom().iterator().next().getDepartureDate().equals(departureDate))
+                            .filter(room -> room.getArmoredRoom() != null && room.getArmoredRoom().stream().allMatch(armoredRoom ->
+                                    !armoredRoom.getDateArmored().equals(dateArmored) &&
+                                            !armoredRoom.getDepartureDate().equals(departureDate)
+                            ))
                             .collect(Collectors.toList()));
                     hotelsNew.add(hotel);
                 }

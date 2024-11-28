@@ -43,6 +43,7 @@ public class DateCheck {
             log.info("date in method difference: {}, {}", startDate, finishDate);
             if (checkForThePresent(finishDate, startDate)) {
                 long millis = deparDate.getTime() - armorDate.getTime();
+                log.info("result method: {}", (int) (millis / (24 * 60 * 60 * 1000)));
                 return  (int) (millis / (24 * 60 * 60 * 1000));
             } else {
                 throw new DateException("Даты не могут быть в прошлом");

@@ -19,14 +19,14 @@ public class FileWriterIntegrationConfig {
     public IntegrationFlow fileWriterFlow(ObjectMapper objectMapper) {
         return IntegrationFlow
                 .from(MessageChannels.direct("dataInLogRoomChannel"))
-                .<Object, String>transform(armoredRoom -> {
+                .transform(armoredRoom -> {
                     try {
                         return objectMapper.writeValueAsString(armoredRoom);
                     } catch (JsonProcessingException e) {
                         throw new RuntimeException(e);
                     }
                 })
-                .handle(Files.outboundAdapter(new File("/home/another/dev/developering/stay-go/sender-message-stay-go"))
+                .handle(Files.outboundAdapter(new File("/home/another/dev/developering/stay-go"))
                         .fileExistsMode(FileExistsMode.APPEND)
                         .appendNewLine(true))
                 .get();

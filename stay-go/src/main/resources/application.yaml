@@ -38,6 +38,8 @@ queue:
     userFindHotel: UserFindHotel
 
 staygo:
+  coordinate:
+    key: T2p8J4QroP8RWv+oB6DDQQ==aBvUUSRKGyNvz973
   email:
     host: smtp.yandex.com
     username: AnotherSc@yandex.ru
