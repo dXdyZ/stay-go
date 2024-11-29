@@ -1,4 +1,4 @@
-package com.staygo.service.component;
+package com.staygo.component;
 
 import org.springframework.stereotype.Component;
 

@@ -4,6 +4,7 @@ import com.staygo.enity.DTO.rabbit.ArmoredRoomDTO;
 import com.staygo.enity.DTO.rabbit.CarReservationDTO;
 import com.staygo.enity.DTO.rabbit.UserFindHotelDTO;
 import com.staygo.enity.DTO.rabbit.UserRegCodeDTO;
+import com.staygo.enity.weather.Country;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

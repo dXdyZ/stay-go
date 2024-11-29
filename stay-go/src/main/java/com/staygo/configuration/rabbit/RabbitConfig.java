@@ -1,4 +1,4 @@
-package com.staygo.configuration;
+package com.staygo.configuration.rabbit;
 
 import lombok.Setter;
 import org.springframework.amqp.core.Queue;
@@ -23,6 +23,7 @@ public class RabbitConfig {
 
     @Value("${queue.name.userFindHotel}")
     private String userFindHotel;
+
 
     @Value("${spring.rabbitmq.username}")
     private String username;

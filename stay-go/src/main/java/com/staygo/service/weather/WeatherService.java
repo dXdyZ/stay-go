@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,10 +40,8 @@ public class WeatherService {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
-            log.info("weather uri: {}", uri);
             Weather weather = restTemplate.getForObject(uri, Weather.class);;
             List<Integer> weatherInDay = Objects.requireNonNull(weather).getHourly().getTemperature_2m().stream().collect(Collectors.toCollection(ArrayList::new));
-            log.info("weather in day: {}", weatherInDay);
             return calculationWeather(weatherInDay);
         } else return Map.of("unknown", 0);
     }
@@ -57,18 +54,16 @@ public class WeatherService {
     private Map<String, Integer> calculationWeather(List<Integer> weatherInDay) {
         double ma = 0;
         int day = 1;
-        log.info("inner data: {}", weatherInDay);
         Map<String, Integer> allWeather = new HashMap<>();
         for (int i = 0; i < weatherInDay.size(); i++) {
             ma += weatherInDay.get(i);
             // Если обработано 24 часа или достигнут конец списка
             if ((i + 1) % 24 == 0 || i == weatherInDay.size() - 1) {
                 ma /= 24; // Среднее значение за день
-                allWeather.put("day: " + day++, (int) ma);
+                allWeather.put("temperature in day: " + day++, (int) ma);
                 ma = 0; // Сброс среднего
             }
         }
-        log.info("all calculation weather: {}", allWeather);
         return allWeather;
     }
 }

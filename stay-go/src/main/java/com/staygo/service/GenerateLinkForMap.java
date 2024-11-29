@@ -3,7 +3,7 @@ package com.staygo.service;
 import com.staygo.enity.address.Address;
 import com.staygo.enity.address.AddressForAirport;
 import com.staygo.enity.address.ResponseMapAip;
-import com.staygo.service.component.MapAddressForLink;
+import com.staygo.component.MapAddressForLink;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

@@ -1,4 +1,4 @@
-package com.staygo.service.hotel_ser;
+package com.staygo.component;
 
 import com.staygo.enity.DTO.HotelDTO;
 import com.staygo.enity.DTO.RoomDTO;
