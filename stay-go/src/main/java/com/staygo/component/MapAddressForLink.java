@@ -8,7 +8,6 @@ import java.util.Objects;
 
 @Component
 public class MapAddressForLink {
-
     public String mappingAddressForAirport(String name, String street, String city, String country, String houseNumber) {
         List<String> allParam = new ArrayList<>() {{
             add(name);
@@ -18,8 +17,7 @@ public class MapAddressForLink {
             add(country);
         }};
         List<String> mapList = allParam.stream()
-                .filter(Objects::nonNull)
-                .filter(p -> !p.isEmpty())
+                .filter(p -> !p.isBlank())
                 .toList();
         StringBuilder message = new StringBuilder();
 

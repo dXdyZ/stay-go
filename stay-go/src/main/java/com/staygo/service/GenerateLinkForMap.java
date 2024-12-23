@@ -2,7 +2,7 @@ package com.staygo.service;
 
 import com.staygo.enity.address.Address;
 import com.staygo.enity.address.AddressForAirport;
-import com.staygo.enity.address.ResponseMapAip;
+import com.staygo.enity.address.ResponseMapApi;
 import com.staygo.component.MapAddressForLink;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,31 +44,26 @@ public class GenerateLinkForMap {
         String airAddress = URLEncoder.encode(mapAddressForLink.mappingAddressForAirport(airport.getName(), null, airport.getCity(), airport.getCountry(), null),
                 StandardCharsets.UTF_8);
 
-
-        URI uriHotel = null;
-        URI uriAir = null;
-
+        URI uriHotel;
+        URI uriAir;
 
         try {
             uriHotel = new URI("https://nominatim.openstreetmap.org/search?q=" + hotelAddress + "&format=json&limit=1&addressdetails=1");
             uriAir = new URI("https://nominatim.openstreetmap.org/search?q=" + airAddress + "&format=json&limit=1&addressdetails=1");
-            log.info("uri hotel out: {}", uriHotel);
-            log.info("uri air out: {}", uriAir);
-
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
-        ResponseEntity<ResponseMapAip[]> responseHotel = restTemplate.exchange(
+        ResponseEntity<ResponseMapApi[]> responseHotel = restTemplate.exchange(
                 uriHotel,
                 HttpMethod.GET,
                 new HttpEntity<>(httpHeaders),
-                ResponseMapAip[].class);
-        ResponseEntity<ResponseMapAip[]> responseAir = restTemplate.exchange(
+                ResponseMapApi[].class);
+        ResponseEntity<ResponseMapApi[]> responseAir = restTemplate.exchange(
                 uriAir,
                 HttpMethod.GET,
                 new HttpEntity<>(httpHeaders),
-                ResponseMapAip[].class);
+                ResponseMapApi[].class);
 
         return responseAir.getBody()[0] != null && responseHotel.getBody()[0] != null ? "https://www.google.com/maps/dir/?api=1&origin=" + responseAir.getBody()[0].getLat() +"," + responseAir.getBody()[0].getLon() +
                 "&destination=" + responseHotel.getBody()[0].getLat() + "," + responseHotel.getBody()[0].getLon() : null;

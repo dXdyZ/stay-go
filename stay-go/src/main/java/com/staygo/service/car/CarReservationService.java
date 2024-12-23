@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class CarReservationService {
@@ -40,7 +39,7 @@ public class CarReservationService {
                 .endDateArmored(dueDate)
                 .users(userService.findByPrincipal(principal)
                         .get())
-                .transport(carService.getNoReservationTransport(carName, country, city, reservationDate, dueDate))
+                .transport(carService.getNotReservationTransport(carName, country, city, reservationDate, dueDate))
                 .build();
         ArmoredTransport savedReservation = armoredTransportRepository.save(armoredTransport);
 
