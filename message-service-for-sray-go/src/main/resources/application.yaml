@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: message-service-for-sray-go
+  data:
+    mongodb:
+      uri: mongodb://app_user:app_password@localhost:27017/message_bd
+      database: message_bd
+      auto-index-creation: true
