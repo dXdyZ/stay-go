@@ -43,11 +43,11 @@ public class UserService {
     }
 
     public User getByName(String name) {
-        return userRepository.findByName(name).orElse(new User());
+        return userRepository.findByName(name).orElse(null);
     }
 
     public User getUserId(String id) {
-        return userRepository.findById("id").orElse(new User());
+        return userRepository.findById("id").orElse(null);
     }
 
     public List<User> getAllUsers() {

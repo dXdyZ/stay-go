@@ -15,5 +15,4 @@ public class Message {
     private String senderId;
     private String text;
     private Date timestamp;
-
 }
