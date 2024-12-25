@@ -6,3 +6,7 @@ spring:
       uri: mongodb://app_user:app_password@localhost:27017/message_bd
       database: message_bd
       auto-index-creation: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka  # Адрес Eureka Serve

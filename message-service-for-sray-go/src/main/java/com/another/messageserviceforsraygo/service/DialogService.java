@@ -7,6 +7,7 @@ import com.another.messageserviceforsraygo.entity.User;
 import com.another.messageserviceforsraygo.repository.CustomDialogRepository;
 import com.another.messageserviceforsraygo.repository.DialogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class DialogService {
         };
         if (users.get(0) != null && users.get(0) != null) {
             customDialogRepository.addedMessageInDialog(users, new Message(userId, message, new Date()));
-            return dialogRepository.findByUsers(users, CustomPageable.getPageable(10));
+            Page<Dialog> dialogs = dialogRepository.findByUsers(users, CustomPageable.getPageable(10));
+            return dialogs.getContent().isEmpty() ? null : dialogs.getContent().get(0);
         }
         return null;
     }

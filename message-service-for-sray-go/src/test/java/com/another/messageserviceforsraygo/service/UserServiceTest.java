@@ -26,7 +26,7 @@ class UserServiceTest {
     void saveUser() {
         User user = User.builder()
                 .name("hello")
-                .id("2")
+                .id("1")
                 .build();
         userService.saveUser(user);
     }
