@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,14 +17,13 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @PostMapping("/modifyName")
+    @PostMapping("/modifyName/{hotelName}/{country}/{city}/{street}")
     public ResponseEntity<?> modifyRoomName(@RequestParam(name = "oldName") String oldName,
-                                            @RequestParam(name = "newName") String newName) {
-        return roomService.modifyRoomName(oldName, newName);
+                                            @RequestParam(name = "newName") String newName,
+                                            @PathVariable("hotelName") String hotelName,
+                                            @PathVariable("country") String country,
+                                            @PathVariable("city") String city,
+                                            @PathVariable("street") String street, Principal principal) {
+        return roomService.modifyRoomName(hotelName, city, country, street, principal.getName(), oldName, newName);
     }
-
-//    @PostMapping("/addedPhoto")
-//    public ResponseEntity<?> addedPhotoToRoom(@RequestPart("roomPhotos")List<MultipartFile> roomPhotos) {
-//
-//    }
 }

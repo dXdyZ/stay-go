@@ -33,13 +33,10 @@ public class Users implements Serializable {
     @NotNull
     @Email
     private String email;
+
     @NotNull
-    @Size(
-            min = 8,
-            max = 20,
-            message = "Требуется пароль, максимум 20 символов"
-    )
     private String password;
+
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

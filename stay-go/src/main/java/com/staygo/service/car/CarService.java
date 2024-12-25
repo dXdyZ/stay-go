@@ -62,7 +62,7 @@ public class CarService {
     }
 
     @Transactional
-    @Cacheable("findCarByNameAndCityAndCountry")
+    @Cacheable(value = "findCarByNameAndCityAndCountry", key = "#name + '-' + #country + '-' + #city")
     public List<Transport> getCarByNameAndCountryAndCity(String name, String country, String city) {
         return transportRepository.findAllByTransportNameAndAddress_CountryAndAddress_City(name, country, city);
     }
@@ -81,11 +81,11 @@ public class CarService {
 
     @Transactional
     public TransportDTO getUserDataTransport(String carName, String country, String city, String reservationDate, String dueDate) {
-        return getTransportDTO(getNoReservationTransport(carName, country, city, reservationDate, dueDate));
+        return getTransportDTO(getNotReservationTransport(carName, country, city, reservationDate, dueDate));
     }
 
     @Transactional
-    public Transport getNoReservationTransport(String carName, String country, String city, String reservationDate, String dueDate) {
+    public Transport getNotReservationTransport(String carName, String country, String city, String reservationDate, String dueDate) {
         try {
             dateCheck.checkForThePresent(dueDate, reservationDate);
             List<Transport> transportList = getCarByNameAndCountryAndCity(carName, country, city);
@@ -103,7 +103,7 @@ public class CarService {
                 }
             }
             return transportForReservation;
-        } catch (DateException | ParseException e) {
+        } catch (DateException e) {
             throw new RuntimeException(e);
         }
     }

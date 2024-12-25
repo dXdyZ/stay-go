@@ -1,6 +1,8 @@
 package com.staygo.repository.hotel_repo;
 
 import com.staygo.enity.hotel.Hotel;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
@@ -13,7 +15,29 @@ import java.util.Optional;
 public interface HotelRepository extends CrudRepository<Hotel, Long> {
     Optional<Hotel> findByName(String name);
     Optional<Hotel> findByAddress_CountryAndAddress_CityAndAddress_Street(String country, String city, String street);
-    Optional<Hotel> findByUsers_UsernameAndAddress_Street(String username, String street);
+
+    Optional<Hotel> findByNameAndAddress_CityAndAddress_CountryAndAddress_StreetAndUsers_Username(@NotNull @Size(
+            min = 5,
+            max = 255,
+            message = "Имя отеля должно быть в адекватных приделах"
+    ) String name, @NotNull @Size(
+            min = 2,
+            max = 255,
+            message = "Требуетяс название города, максимум 255 символов"
+    ) String addressCity, @NotNull @Size(
+            min = 2,
+            max = 200,
+            message = "Требуется название страны, максимум 200 символов"
+    ) String addressCountry, @NotNull @Size(
+            min = 4,
+            max = 255,
+            message = "Требуется улица, максимум 255 символов"
+    ) String addressStreet, @NotNull @Size(
+            min = 2,
+            max = 40,
+            message = "Требуется имя, максимум 40 символо"
+    ) String usersUsername);
+
     List<Hotel> findAllByUsers_Username(String username, Pageable pageable);
     Hotel findByAddress_CityAndNameAndAddress_Street(String city, String name, String street);
     List<Hotel> findAllByOrderByGradeDesc(Pageable pageable);

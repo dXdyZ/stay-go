@@ -1,16 +1,13 @@
 package com.staygo.enity.DTO;
 
-import com.staygo.enity.address.Address;
-import com.staygo.enity.hotel.Comments;
-import com.staygo.enity.hotel.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -19,7 +16,12 @@ import java.util.List;
 public class HotelDTO implements Serializable {
     private String name;
     private Integer grade;
-    private Address address;
-    private List<Room> rooms;
-    private List<Comments> comments;
+    private String country;
+    private String city;
+    private String street;
+    private String allPrice;
+    private String houseNumber;
+    private List<RoomDTO> rooms;
+    private List<CommentsDTO> comments;
+    private Map<String, Integer> weather;
 }

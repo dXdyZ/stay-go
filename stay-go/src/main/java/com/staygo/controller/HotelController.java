@@ -1,21 +1,25 @@
 package com.staygo.controller;
 
+import com.staygo.enity.DTO.HotelDTO;
 import com.staygo.enity.hotel.Hotel;
 import com.staygo.enity.hotel.Room;
 import com.staygo.service.hotel_ser.HotelService;
 import com.staygo.service.hotel_ser.RoomService;
 import jakarta.servlet.annotation.HttpConstraint;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/hotel")
 public class HotelController {
@@ -36,30 +40,60 @@ public class HotelController {
         return hotelService.createdHotel(hotel, hotelFiles, principal);
     }
 
-    @GetMapping("/findHotel/{city}")
+    @GetMapping("/findHotel/{country}/{city}")
     public ResponseEntity<?> findHotelByCityAndGradeAndArmoredDate(@PathVariable("city") String city,
                                                                    @PathVariable("country") String country,
                                                                    @RequestParam(name = "dateArmored") String dateArmored,
                                                                    @RequestParam(name = "departureDate") String departureDate,
-                                                                   @RequestParam(name = "grade", required = false) Integer grade) {
-        return hotelService.findAllHotelByCityAndDataArmoredAndTerm(country, city, dateArmored, departureDate, grade);
+                                                                   @RequestParam(name = "grade", required = false) Integer grade,
+                                                                   @RequestParam(name = "size", required = false) Integer size,
+                                                                   Principal principal) {
+        List<HotelDTO> hotelDTOS;
+        log.info("size value: {}", size);
+        if (size != null) {
+            hotelDTOS = hotelService.findHotelForSendMessage(country, city, dateArmored,
+                    departureDate, grade, principal, size);
+        } else {
+            hotelDTOS = hotelService.findHotelForSendMessage(country, city, dateArmored,
+                    departureDate, grade, principal, 5);
+        }
+
+        if (hotelDTOS != null) {
+            return ResponseEntity.ok(hotelDTOS);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PostMapping("/addedRoom/{street}")
+    @PutMapping("/updateData")
+    public ResponseEntity<?> updateDataHotel(@RequestBody HotelDTO hotelDTO) {
+        try {
+            return ResponseEntity.ok(hotelService.updateToDataHotel(hotelDTO));
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/addedRoom/{hotelName}/{country}/{city}/{street}")
     public ResponseEntity<?> addedRoomToHotel(@RequestPart List<Room> room,
                                               @RequestPart List<MultipartFile> roomFile,
                                               Principal principal,
-                                              @PathVariable("street") String street) {
-        return roomService.addedARoomToTheHotel(principal, street, room, roomFile);
+                                              @PathVariable("street") String street,
+                                              @PathVariable("country") String country,
+                                              @PathVariable("city") String city,
+                                              @PathVariable("hotelName") String hotelName) {
+        return roomService.addedARoomToTheHotel(principal, street, room, roomFile, city, country, hotelName);
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/user")
+    public ResponseEntity<?> getAllHotelUser(@RequestParam("quantity") Integer quantity, Principal principal) {
+        return hotelService.getAllHotelUsers(principal, quantity);
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delAll() {
         hotelService.deleteAllHotel();
     }
 
-    @GetMapping("/all")
-    public List<Hotel> delete() {
-        return hotelService.allHotel();
-    }
 }

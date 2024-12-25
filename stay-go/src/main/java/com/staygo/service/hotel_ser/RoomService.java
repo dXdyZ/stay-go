@@ -66,9 +66,10 @@ public class RoomService {
     @Transactional
     public ResponseEntity<?> addedARoomToTheHotel(Principal principal,
                                                   String street, List<Room> room,
-                                                  List<MultipartFile> roomFile) {
-        Optional<Hotel> hotel = hotelService.findByUserAndStreet(street, principal.getName());
-        Iterable<Room> rooms = roomRepository.findAll();
+                                                  List<MultipartFile> roomFile, String city, String country,
+                                                  String hotelName) {
+        Optional<Hotel> hotel = hotelService.findByUserAndStreetAndCityAndCountry(city, country, hotelName, street, principal.getName());
+        Iterable<Room> rooms = hotel.get().getRooms();
         Set<Room> roomSet = new HashSet<>();
         AtomicBoolean result = new AtomicBoolean(true);
         room.forEach(n -> {
@@ -82,13 +83,7 @@ public class RoomService {
             if (hotel.isPresent()) {
                 if (roomFile != null && !roomFile.isEmpty()) {
                     try {
-                        room.stream().forEach(n -> {
-                            System.out.println("room: " + n.toString() + "----" + n.getRoomData());
-                        });
                         room = addedPhoto(roomFile, room);
-                        room.stream().forEach(n -> {
-                            System.out.println("room: " + n.toString() + "----" + n.getRoomData() + "---" + n.getRoomData().get(0).getRoom());
-                        });
                     } catch (IOException e) {
                         log.error("failed added photo to rooms: {}", e.getMessage());
                         return new ResponseEntity<>("failed added photo to rooms", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -103,15 +98,15 @@ public class RoomService {
             } else {
                 return new ResponseEntity<>("Такого отеля нет", HttpStatus.BAD_REQUEST);
             }
-        } return new ResponseEntity<>("Иммена комнат не должны повторятся", HttpStatus.BAD_REQUEST);
+        } return new ResponseEntity<>("Имена комнат не должны повторятся", HttpStatus.BAD_REQUEST);
     }
 
 
-    public ResponseEntity<?> addedPhotosToRooms(List<MultipartFile> files) {
-        Iterable<Room> rooms = roomRepository.findAll();
+    public ResponseEntity<?> addedPhotosToTheRooms(List<MultipartFile> files, String country, String city, String street, String username, String hotelName) {
+        Iterable<Room> rooms = hotelService.findByUserAndStreetAndCityAndCountry(city, country, hotelName, street, username).get().getRooms();
         List<Room> roomArrayList = new ArrayList<>();
         rooms.forEach(roomArrayList::add);
-        List<Room> roomUpdate = null;
+        List<Room> roomUpdate;
         try {
             roomUpdate = addedPhoto(files, roomArrayList);
         } catch (IOException e) {
@@ -120,6 +115,7 @@ public class RoomService {
         roomRepository.saveAll(roomUpdate);
         return ResponseEntity.ok().build();
     }
+
 
     private List<Room> addedPhoto(List<MultipartFile> files, List<Room> rooms) throws IOException {
         if (!files.isEmpty()) {
@@ -137,7 +133,7 @@ public class RoomService {
                     }
                 }
             }
-            rooms.stream().forEach(n -> {
+            rooms.forEach(n -> {
                 System.out.println(n.getId() + " : " + n.getRoomData() + " : " + n.getRoomName());
             });
             return rooms;
@@ -145,11 +141,12 @@ public class RoomService {
     }
 
     @Transactional
-    public ResponseEntity<?> modifyRoomName(String oldName, String newName) {
-        Optional<Room> room = roomRepository.findByRoomName(oldName);
-        if (room.isPresent()) {
+    public ResponseEntity<?> modifyRoomName(String hotelName, String city, String country, String street, String username, String oldName, String newName) {
+        List<Room> room = hotelService.findByUserAndStreetAndCityAndCountry(city, country, hotelName, street, username).get().getRooms();
+        Optional<Room> rightRoom = room.stream().filter(roomFilter ->  roomFilter.getRoomName().equals(oldName)).findFirst();
+        if (rightRoom.isPresent()) {
             if (newName != null) {
-                room.get().setRoomName(newName);
+                rightRoom.get().setRoomName(newName);
             }
             return ResponseEntity.ok(room);
         } else return new ResponseEntity<>("Комнаты под таким именем нет", HttpStatus.BAD_REQUEST);

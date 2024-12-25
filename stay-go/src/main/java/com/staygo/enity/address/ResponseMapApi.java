@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseMapAip {
+public class ResponseMapApi {
     private String lat;
     private String lon;
 }

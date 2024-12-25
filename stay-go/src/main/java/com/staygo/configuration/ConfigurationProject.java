@@ -1,4 +1,4 @@
-package com.staygo.all_config;
+package com.staygo.configuration;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

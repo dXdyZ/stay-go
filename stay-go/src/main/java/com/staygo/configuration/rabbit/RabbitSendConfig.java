@@ -1,4 +1,4 @@
-package com.staygo.all_config.rabbit;
+package com.staygo.configuration.rabbit;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;

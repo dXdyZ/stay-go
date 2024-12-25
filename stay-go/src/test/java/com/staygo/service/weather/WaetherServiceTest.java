@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,11 +19,42 @@ class WaetherServiceTest {
 
     private static final Logger log = LoggerFactory.getLogger(WaetherServiceTest.class);
     @Autowired
-    private WaetherService waetherService;
+    private WeatherService weatherService;
 
     @Test
     void sortedTimeByDaySuccessData() throws ParseException {
-        Map<String, Integer> weatherData = waetherService.sortedTimeByDay("02.11.2024", "10.11.2024", "kaliningrad", "Russian");
+        Map<String, Integer> weatherData = weatherService.sortedTimeByDay("25.11.2024", "01.12.2024", "Moscow", "Russia");
+        log.info("weather data: {}", weatherData);
     }
 
+    @Test
+    void testCalculationWeather() {
+        List<Integer> test = new ArrayList<>() {{
+            add(-6);
+            add(-6);
+            add(-5);
+            add(-5);
+            add(-5);
+            add(-5);
+            add(-5);
+            add(-4);
+            add(-4);
+            add(-3);
+            add(-3);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+            add(-2);
+        }};
+
+    }
 }

@@ -17,10 +17,17 @@ public class DateCheck {
     private final String pattern = "dd.MM.yyyy";
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-    public boolean checkForThePresent(String departureDate, String armoredDate) throws ParseException, DateException {
-        Date armorDate = simpleDateFormat.parse(armoredDate);
-        Date deparDate = simpleDateFormat.parse(departureDate);
-        Date presentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date())); // Сброс миллисекунд
+    public boolean checkForThePresent(String departureDate, String armoredDate) throws DateException {
+        Date armorDate;
+        Date deparDate;
+        Date presentDate;
+        try {
+            armorDate = simpleDateFormat.parse(armoredDate);
+            deparDate = simpleDateFormat.parse(departureDate);
+            presentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date())); // Сброс миллисекунд
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
         if (!armorDate.before(presentDate) && !deparDate.before(presentDate)) {
             return true;
@@ -40,7 +47,6 @@ public class DateCheck {
         try {
             armorDate = simpleDateFormat.parse(startDate);
             deparDate = simpleDateFormat.parse(finishDate);
-            log.info("date in method difference: {}, {}", startDate, finishDate);
             if (checkForThePresent(finishDate, startDate)) {
                 long millis = deparDate.getTime() - armorDate.getTime();
                 return  (int) (millis / (24 * 60 * 60 * 1000));

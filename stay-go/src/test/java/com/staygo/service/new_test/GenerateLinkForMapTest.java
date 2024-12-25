@@ -1,7 +1,9 @@
-package com.staygo.service;
+package com.staygo.service.new_test;
 
 import com.staygo.enity.address.Address;
 import com.staygo.enity.address.AddressForAirport;
+import com.staygo.service.AirportService;
+import com.staygo.service.GenerateLinkForMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
