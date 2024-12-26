@@ -34,11 +34,8 @@ queue:
     booking: MessageAboutBooking
     verefEmail: MassageAboutCodeForUser
     carDataEmail: MessageCarReservation
-<<<<<<< HEAD
-=======
     userFindHotel: UserFindHotel
 
->>>>>>> №12
 staygo:
   coordinate:
     key: T2p8J4QroP8RWv+oB6DDQQ==aBvUUSRKGyNvz973

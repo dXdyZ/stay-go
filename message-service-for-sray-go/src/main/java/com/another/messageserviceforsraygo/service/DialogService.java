@@ -1,6 +1,7 @@
 package com.another.messageserviceforsraygo.service;
 
 import com.another.messageserviceforsraygo.CustomPageable;
+import com.another.messageserviceforsraygo.entity.DTO.DialogLastMessageDTO;
 import com.another.messageserviceforsraygo.entity.Dialog;
 import com.another.messageserviceforsraygo.entity.Message;
 import com.another.messageserviceforsraygo.entity.User;
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DialogService {
@@ -27,17 +26,44 @@ public class DialogService {
         this.userService = userService;
     }
 
+    public List<DialogLastMessageDTO> getLastMessage(String userId) {
+        Page<Dialog> dialogs = dialogRepository.findByUsers_Id(userId, CustomPageable.getPageable(5));
+        if (!dialogs.isEmpty()) {
+            return dialogs.stream()
+                    .map(d -> {
+                        DialogLastMessageDTO dialogDTO = new DialogLastMessageDTO();
+                        dialogDTO.setName(d.getUsers().stream().findFirst().toString());
+                        dialogDTO.setMessage(d.getMessages().stream()
+                                .reduce((first, second) -> second)
+                                .toString());
+                        return dialogDTO;
+                    })
+                    .toList();
+        }
+        return null;
+    }
+
     public Dialog sendMessage(String userId, String name, String message) {
         List<User> users = new ArrayList<>() {
             {
-                add(userService.getUserId(userId));
                 add(userService.getByName(name));
+                add(userService.getUserId(userId));
             }
         };
-        if (users.get(0) != null && users.get(0) != null) {
-            customDialogRepository.addedMessageInDialog(users, new Message(userId, message, new Date()));
-            Page<Dialog> dialogs = dialogRepository.findByUsers(users, CustomPageable.getPageable(10));
-            return dialogs.getContent().isEmpty() ? null : dialogs.getContent().get(0);
+        if (users.get(0) != null && users.get(1) != null) {
+            Optional<Dialog> dialog = dialogRepository.findByUsers(users);
+            Message sendMessage = new Message(userId, message, new Date());
+            if (dialog.isPresent()) {
+                customDialogRepository.addedMessageInDialog(users, sendMessage);
+                dialog.get().getMessages().add(sendMessage);
+                return dialog.get();
+            } else {
+                Dialog newDialog = Dialog.builder()
+                        .users(users)
+                        .messages(List.of(sendMessage))
+                        .build();
+                dialogRepository.save(newDialog);
+            }
         }
         return null;
     }

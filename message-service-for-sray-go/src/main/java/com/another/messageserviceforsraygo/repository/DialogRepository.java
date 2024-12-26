@@ -8,8 +8,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DialogRepository extends MongoRepository<Dialog, String> {
-    Page<Dialog> findByUsers(List<User> users, Pageable pageable);
+    Optional<Dialog> findByUsers(List<User> users);
+    Page<Dialog> findByUsers_Id(String users_id, Pageable pageable);
 }
