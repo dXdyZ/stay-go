@@ -83,13 +83,12 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-
     public Optional<Users> findById(Long id) {
         return userRepository.findById(id);
     }
 
 
-    public Optional<Users> findByPrincipal(@NotNull Principal principal) {
+    public Optional<Users> findByPrincipal(Principal principal) {
         return userRepository.findByUsername(principal.getName());
     }
 

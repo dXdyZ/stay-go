@@ -1,5 +1,6 @@
 package com.another.messageserviceforsraygo.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.util.List;
 public class User {
     @Id
     private String id;
+    @JsonProperty("username")
     private String name;
     private List<Friend> friends = new ArrayList<>();
 }

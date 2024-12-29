@@ -5,6 +5,9 @@ import com.another.messageserviceforsraygo.entity.Dialog;
 import com.another.messageserviceforsraygo.entity.Message;
 import com.another.messageserviceforsraygo.service.DialogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,11 +27,25 @@ public class DialogController {
         return dialogService.getLastMessage(id);
     }
 
+    @GetMapping("/{id}/{name}")
+    public ResponseEntity<Dialog> getFullDialog(@PathVariable("id") String id,
+                                               @PathVariable("name") String name) {
+        try {
+            return ResponseEntity.ok(dialogService.getAllDialog(id, name));
+        } catch (ChangeSetPersister.NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/{id}/{name}")
-    public Dialog sendMessage(@PathVariable("id") String id,
+    public ResponseEntity<Dialog> sendMessage(@PathVariable("id") String id,
                               @PathVariable("name") String name,
                               @RequestBody String message) {
-        return dialogService.sendMessage(id, name, message);
+        try {
+            return ResponseEntity.ok(dialogService.sendMessage(id, name, message));
+        } catch (ChangeSetPersister.NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 

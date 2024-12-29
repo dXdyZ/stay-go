@@ -8,8 +8,10 @@ import com.another.messageserviceforsraygo.entity.User;
 import com.another.messageserviceforsraygo.repository.CustomDialogRepository;
 import com.another.messageserviceforsraygo.repository.DialogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -32,10 +34,11 @@ public class DialogService {
             return dialogs.stream()
                     .map(d -> {
                         DialogLastMessageDTO dialogDTO = new DialogLastMessageDTO();
-                        dialogDTO.setName(d.getUsers().stream().findFirst().toString());
+                        dialogDTO.setName(d.getUsers().stream().findFirst().get().getName());
                         dialogDTO.setMessage(d.getMessages().stream()
                                 .reduce((first, second) -> second)
-                                .toString());
+                                .get().getText());
+                        dialogDTO.setTimestamp(d.getMessages().stream().findFirst().get().getTimestamp());
                         return dialogDTO;
                     })
                     .toList();
@@ -43,13 +46,10 @@ public class DialogService {
         return null;
     }
 
-    public Dialog sendMessage(String userId, String name, String message) {
-        List<User> users = new ArrayList<>() {
-            {
-                add(userService.getByName(name));
-                add(userService.getUserId(userId));
-            }
-        };
+
+    @Transactional
+    public Dialog sendMessage(String userId, String name, String message) throws ChangeSetPersister.NotFoundException {
+        List<User> users = userService.getTwoUserByIdAndName(userId, name);
         if (users.get(0) != null && users.get(1) != null) {
             Optional<Dialog> dialog = dialogRepository.findByUsers(users);
             Message sendMessage = new Message(userId, message, new Date());
@@ -66,5 +66,10 @@ public class DialogService {
             }
         }
         return null;
+    }
+
+    public Dialog getAllDialog(String userId, String username) throws ChangeSetPersister.NotFoundException {
+        return dialogRepository.findByUsers(userService.getTwoUserByIdAndName(userId, username))
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
 }
