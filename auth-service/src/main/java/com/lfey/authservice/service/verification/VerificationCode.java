@@ -1,4 +1,4 @@
-package com.lfey.authservice.service.verifiacation;
+package com.lfey.authservice.service.verification;
 
 import com.lfey.authservice.dto.UserReg;
 import com.lfey.authservice.dto.ValidationCode;

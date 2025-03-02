@@ -1,4 +1,4 @@
-package com.lfey.authservice.service.verifiacation;
+package com.lfey.authservice.service.verification;
 
 import com.lfey.authservice.dto.UserReg;
 import org.springframework.beans.factory.annotation.Autowired;
