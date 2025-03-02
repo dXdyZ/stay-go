@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: booking-service
+server:
+  port: 9090
+
+
