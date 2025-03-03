@@ -1,7 +1,8 @@
 package com.lfey.authservice.controller;
 
+import com.lfey.authservice.exception.DuplicateUserException;
 import com.lfey.authservice.exception.InvalidCodeException;
-import com.lfey.authservice.exception.UserRegNotFoundException;
+import com.lfey.authservice.exception.UserCacheDataNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,8 +16,14 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
-    @ExceptionHandler(UserRegNotFoundException.class)
-    public ResponseEntity<?> handleUserRegNotFound(UserRegNotFoundException ex) {
+    @ExceptionHandler(UserCacheDataNotFoundException.class)
+    public ResponseEntity<?> handleUserRegNotFound(UserCacheDataNotFoundException ex) {
+        return ResponseEntity.badRequest()
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(DuplicateUserException.class)
+    public ResponseEntity<?> handleDuplicateUserException(DuplicateUserException ex) {
         return ResponseEntity.badRequest()
                 .body(ex.getMessage());
     }

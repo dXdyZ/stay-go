@@ -17,6 +17,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    //TODO Сделать нормальную security конфигурацию
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
