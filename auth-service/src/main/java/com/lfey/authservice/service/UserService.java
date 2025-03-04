@@ -1,9 +1,6 @@
 package com.lfey.authservice.service;
 
-import com.lfey.authservice.dto.JwtToken;
-import com.lfey.authservice.dto.UserDto;
-import com.lfey.authservice.dto.UserReg;
-import com.lfey.authservice.dto.ValidationCode;
+import com.lfey.authservice.dto.*;
 import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.exception.DuplicateUserException;
 import com.lfey.authservice.exception.InvalidCodeException;
@@ -63,4 +60,11 @@ public class UserService {
         //TODO Сделать генерацию и возврат токена пользователю
         return null;
     }
+
+    //TODO Сделать обновление почты после подтверждения кодом 
+    public void updateEmail(EmailUpdate emailUpdate) {
+        UserDto userDto = userClientService.getUserByEmailFromUserService(emailUpdate.email());
+
+    }
+
 }

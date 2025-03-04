@@ -21,13 +21,10 @@ public class UserReg {
     @Email
     private String email;
 
-    @Size(min = 4, max = 20)
     private String username;
 
-    @Size(min = 8, max = 50)
     private String password;
 
-    @NotNull
     private String phoneNumber;
 
     private String code;
