@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final String USERNAME_HEADER = "X-User-Username";
+    public final static String USERNAME_HEADER = "X-User-Username";
 
     private final UserService userService;
 
@@ -19,14 +19,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public void saveUser(@RequestBody UserDto userDto) {
-        userService.saveUser(userDto);
-    }
-
     @GetMapping("/{id}")
     public Users getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
+    }
+
+    @PostMapping("/register")
+    public void saveUser(@RequestBody UserDto userDto) {
+        userService.saveUser(userDto);
     }
 
     @GetMapping("/by-name/{username}")
