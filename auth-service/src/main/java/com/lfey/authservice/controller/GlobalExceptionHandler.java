@@ -1,30 +1,53 @@
 package com.lfey.authservice.controller;
 
-import com.lfey.authservice.exception.DuplicateUserException;
-import com.lfey.authservice.exception.InvalidCodeException;
-import com.lfey.authservice.exception.UserCacheDataNotFoundException;
+import com.lfey.authservice.exception.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.time.Instant;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCodeException.class)
-    public ResponseEntity<?> handleInvalidCode(InvalidCodeException ex) {
+    public ResponseEntity<ErrorResponse> handleInvalidCode(InvalidCodeException ex) {
         return ResponseEntity.badRequest()
-                .body(ex.getMessage());
+                .body(new ErrorResponse(
+                        Instant.now(), ex.getMessage(), HttpStatus.BAD_REQUEST.value()
+                ));
     }
 
     @ExceptionHandler(UserCacheDataNotFoundException.class)
-    public ResponseEntity<?> handleUserRegNotFound(UserCacheDataNotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleUserRegNotFound(UserCacheDataNotFoundException ex) {
         return ResponseEntity.badRequest()
-                .body(ex.getMessage());
+                .body(new ErrorResponse(
+                        Instant.now(), ex.getMessage(), HttpStatus.BAD_REQUEST.value()
+                ));
     }
 
     @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity<?> handleDuplicateUserException(DuplicateUserException ex) {
+    public ResponseEntity<ErrorResponse> handleDuplicateUserException(DuplicateUserException ex) {
         return ResponseEntity.badRequest()
-                .body(ex.getMessage());
+                .body(new ErrorResponse(
+                        Instant.now(), ex.getMessage(), HttpStatus.BAD_REQUEST.value()
+                ));
+    }
+
+    @ExceptionHandler(DuplicateRoleException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateRoleException(DuplicateRoleException ex) {
+        return ResponseEntity.internalServerError()
+                .body(new ErrorResponse(
+                        Instant.now(), ex.getMessage(), HttpStatus.BAD_REQUEST.value()
+                ));
+    }
+
+    @ExceptionHandler(ServerErrorException.class)
+    public ResponseEntity<ErrorResponse> handleServerErrorException(ServerErrorException ex) {
+        return ResponseEntity.internalServerError()
+                .body(new ErrorResponse(
+                        Instant.now(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()
+                ));
     }
 }
