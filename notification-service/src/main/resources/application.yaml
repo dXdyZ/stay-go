@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: notification-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: notification-service
+    password: n2o3t4i5f6i
+  mail:
+    host: smtp.yandex.com
+    port: 465
+    username: AnotherSc@yandex.ru
+    password: cufzeqevxzjpwozi
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+rabbitQueue:
+  registerEvent: registration.event
+server:
+  port: 9393
