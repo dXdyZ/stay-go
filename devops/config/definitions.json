@@ -22,13 +22,19 @@
   ],
   "vhosts": [
     {"name": "/"},
-    {"name": "notification_vhost"},
-    {"name": "auth_vhost"}
+    {"name": "notification_vhost"}
   ],
   "permissions": [
     {
       "user": "admin",
       "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "admin",
+      "vhost": "notification_vhost",
       "configure": ".*",
       "write": ".*",
       "read": ".*"
@@ -42,7 +48,7 @@
     },
     {
       "user": "auth_user",
-      "vhost": "auth_vhost",
+      "vhost": "notification_vhost",
       "configure": "",
       "write": ".*",
       "read": ""
