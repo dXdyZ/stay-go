@@ -1,0 +1,51 @@
+{
+  "rabbit_version": "3.9",
+  "users": [
+    {
+      "name": "admin",
+      "password_hash": "riQsn/2j0HNdvw+jUaBVSQp8gC1Hs0YCjFDV2u3FIQSkaC4H",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    },
+    {
+      "name": "notification_user",
+      "password_hash": "S7+tpD5ziSiM4czVSoeVoNvcC2A5gTjIw0gsXtL5QNT/GvOf",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ""
+    },
+    {
+      "name": "auth_user",
+      "password_hash": "+aKUca6+HuZFsGZrOjCaP+Evojul8Ph2w9H+EHXZK9xHGScy",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ""
+    }
+  ],
+  "vhosts": [
+    {"name": "/"},
+    {"name": "notification_vhost"},
+    {"name": "auth_vhost"}
+  ],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "notification_user",
+      "vhost": "notification_vhost",
+      "configure": ".*",
+      "write": "",
+      "read": ".*"
+    },
+    {
+      "user": "auth_user",
+      "vhost": "auth_vhost",
+      "configure": "",
+      "write": ".*",
+      "read": ""
+    }
+  ]
+}
