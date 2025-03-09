@@ -9,13 +9,13 @@
     },
     {
       "name": "notification_user",
-      "password_hash": "S7+tpD5ziSiM4czVSoeVoNvcC2A5gTjIw0gsXtL5QNT/GvOf",
+      "password_hash": "qyCTkeVjsUvbBoJIXfnSN93IK+l0DHM5GIhfGX48AE9hxEyA",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
       "tags": ""
     },
     {
       "name": "auth_user",
-      "password_hash": "+aKUca6+HuZFsGZrOjCaP+Evojul8Ph2w9H+EHXZK9xHGScy",
+      "password_hash": "GmrfMb6ctoTOBnRYC6AgsfoUbWFkNOgIqFvRvFR0z5RImdQb",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
       "tags": ""
     }
