@@ -11,3 +11,19 @@ services:
     environment:
       RABBITMQ_CONFIG_FILE: /etc/rabbitmq/rabbitmq
       RABBITMQ_ERLANG_COOKIE: "SECRET_COOKIE"
+  redis:
+    hostname: redis
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    environment:
+      - REDIS_PASSWORD=werpipl15 # Опционально, для аутентификации
+    command:
+      - redis-server
+      - --requirepass werpipl15 # Активируем аутентификацию
+      - --appendonly yes # Включить persistence
+volumes:
+  redis_data:
