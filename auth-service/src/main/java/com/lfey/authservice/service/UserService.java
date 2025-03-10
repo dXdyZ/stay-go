@@ -1,6 +1,7 @@
 package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.*;
+import com.lfey.authservice.dto.rabbit.EventType;
 import com.lfey.authservice.entity.Role;
 import com.lfey.authservice.entity.RoleName;
 import com.lfey.authservice.entity.Users;
@@ -40,7 +41,7 @@ public class UserService {
         if (!userRepository.existsByUsername(userReg.getUsername())) {
             if (userClientService.getUserByEmailFromUserService(userReg.getEmail()) == null) {
                 userReg.setPassword(passwordEncoder.encode(userReg.getPassword()));
-                generationCode.generateCode(userReg);
+                generationCode.generateCode(userReg, EventType.REGISTRATION);
             } else throw new DuplicateUserException(String.format("User with email: %s already exists", userReg.getEmail()));
         } else throw new DuplicateUserException(String.format("The user named: %s already exists", userReg.getUsername()));
     }
@@ -52,7 +53,6 @@ public class UserService {
         return null;
     }
 
-    //TODO Сделать обновление почты после подтверждения кодом
     @Transactional
     public void updateEmail(EmailUpdate emailUpdate, String username) throws DuplicateUserException{
         //Может стоит обновить проверку на null через метод Objects.requireNonNull()
@@ -61,7 +61,7 @@ public class UserService {
             generationCode.generateCode(UserReg.builder()
                     .email(emailUpdate.email())
                     .username(username)
-                    .build());
+                    .build(), EventType.EMAIL_RESET);
         } else throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdate.email()));
     }
 
@@ -116,6 +116,14 @@ public class UserService {
                 .collect(Collectors.toSet());
         users.setRoles(updateRole);
         return userRepository.save(users);
+    }
+
+    //TODO Сделать подтверждение кодом по почте перед сбросом пароля
+    @Transactional
+    public void resetPassword(ResetPasswordRequest resetPasswordRequest, String username) throws UserNotFoundException{
+        Users users = getUserByName(username);
+        users.setPassword(passwordEncoder.encode(resetPasswordRequest.newPassword()));
+        userRepository.save(users);
     }
 
     public Users getUserByName(String username) throws UserNotFoundException{
