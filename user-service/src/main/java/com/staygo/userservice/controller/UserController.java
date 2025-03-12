@@ -4,7 +4,7 @@ import com.staygo.userservice.dto.UserDto;
 import com.staygo.userservice.entity.Users;
 import com.staygo.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Users getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<Users> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping("/register")
@@ -30,35 +30,35 @@ public class UserController {
     }
 
     @GetMapping("/by-name/{username}")
-    public Users getUserByUsername(@PathVariable String username) {
-        return userService.getUserByUsername(username);
+    public ResponseEntity<Users> getUserByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
     @GetMapping("/by-email/{email}")
-    public Users getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
+    public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @GetMapping("/by-phone/{phone}")
-    public Users getUserByPhone(@PathVariable String phone) {
-        return userService.getUserByPhoneNumber(phone);
+    public ResponseEntity<Users> getUserByPhone(@PathVariable String phone) {
+        return ResponseEntity.ok(userService.getUserByPhoneNumber(phone));
     }
 
     @PatchMapping("/update-username/{newUsername}")
-    public Users updateUsername(@PathVariable String newUsername,
+    public ResponseEntity<Users> updateUsername(@PathVariable String newUsername,
                                @RequestHeader(USERNAME_HEADER) String username) {
-        return userService.updateUsername(username, newUsername);
+        return ResponseEntity.ok(userService.updateUsername(username, newUsername));
     }
 
     @PatchMapping("/update-phone/{phone}")
-    public Users updatePhone(@PathVariable String phone,
+    public ResponseEntity<Users> updatePhone(@PathVariable String phone,
                             @RequestHeader(USERNAME_HEADER) String username) {
-        return userService.updatePhoneNumber(username, phone);
+        return ResponseEntity.ok(userService.updatePhoneNumber(username, phone));
     }
 
     @PatchMapping("/update-email/{email}")
-    public Users updateEmail(@PathVariable String email,
+    public ResponseEntity<Users> updateEmail(@PathVariable String email,
                              @RequestHeader(USERNAME_HEADER) String username) {
-        return userService.updateEmail(email, username);
+        return ResponseEntity.ok(userService.updateEmail(email, username));
     }
 }

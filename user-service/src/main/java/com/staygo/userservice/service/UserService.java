@@ -50,10 +50,8 @@ public class UserService {
     }
 
     @Transactional
-    public Users updateUsername(String oldName, String newName) throws DuplicateUserException{
-        Users users = userRepository.findByUsername(oldName).orElseThrow(
-                () -> new UserNotFoundException(String.format("User by username: %s not found", oldName))
-        );
+    public Users updateUsername(String oldName, String newName) throws DuplicateUserException, UserNotFoundException {
+        Users users = getUserByUsername(oldName);
         if (!userRepository.existsByUsername(newName)) {
             users.setUsername(newName);
             return userRepository.save(users);
@@ -61,18 +59,20 @@ public class UserService {
     }
 
     @Transactional
-    public Users updatePhoneNumber(String username, String phoneNumber) {
-        Users users = userRepository.findByUsername(username).get();
+    public Users updatePhoneNumber(String username, String phoneNumber) throws UserNotFoundException{
+        Users users = getUserByUsername(username);
         users.setPhoneNumber(phoneNumber);
-        return userRepository.save(users);
+        userRepository.save(users);
+        return users;
     }
 
     //TODO Сделать обновление email
     @Transactional
-    public Users updateEmail(String username, String email) throws DuplicateUserException{
-        Users users = userRepository.findByUsername(username).get();
+    public Users updateEmail(String username, String email) throws DuplicateUserException, UserNotFoundException{
+        Users users = getUserByUsername(username);
         if (!userRepository.existsByEmail(email)) {
             users.setEmail(email);
+            userRepository.save(users);
             return users;
         } else throw new DuplicateUserException(String.format("User with email: %s already exists", email));
     }
