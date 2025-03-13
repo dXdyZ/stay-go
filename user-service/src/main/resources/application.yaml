@@ -1,6 +1,20 @@
 spring:
+  config:
+    import: 'consul:'
   application:
     name: user-service
-
-server:
-  port: 9292
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      discovery:
+        instance-id: user-service-i2
+#       Delete by deploy
+        hostname: 192.168.0.103
+        acl-token: 7cef3b4e-cd26-3bde-11b9-06b45a2a2515
+      config:
+        watch:
+          enabled: true
+        format: yaml
+        data-key: data
+        acl-token: 7661cca4-601a-08dc-8a87-b3065f0e629a
