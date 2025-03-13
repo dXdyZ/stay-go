@@ -25,5 +25,35 @@ services:
       - redis-server
       - --requirepass werpipl15 # Активируем аутентификацию
       - --appendonly yes # Включить persistence
+  consul-server:
+    image: consul:1.15.4
+    container_name: consul-server
+    hostname: consul-server
+    ports:
+      - "8500:8500"  # Порт для доступа к Consul UI
+    volumes:
+      - consul-data:/consul/data
+    command: >
+      agent -server -bootstrap-expect=1 -ui -client=0.0.0.0
+    environment:
+      - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":true, "enable_script_checks":true}
+    networks:
+      - consul-network
+  consul-client:
+    image: consul:1.15.4
+    container_name: consul-client
+    hostname: consul-client
+    depends_on:
+      - consul-server
+    command: >
+      agent -client=0.0.0.0 -retry-join=consul-server
+    environment:
+      - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":false}
+    networks:
+      - consul-network
+networks:
+  consul-network:
+    driver: bridge
 volumes:
   redis_data:
+  consul-data:
