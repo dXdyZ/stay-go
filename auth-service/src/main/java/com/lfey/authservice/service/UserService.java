@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,13 +37,13 @@ public class UserService {
         this.userClientService = userClientService;
     }
 
+
+    //TODO Добавить проверку уникальности почты и изменить тест
     @Transactional
     public void registerUser(UserReg userReg) throws DuplicateUserException{
         if (!userRepository.existsByUsername(userReg.getUsername())) {
-            if (userClientService.getUserByEmailFromUserService(userReg.getEmail()) == null) {
-                userReg.setPassword(passwordEncoder.encode(userReg.getPassword()));
-                generationCode.generateCode(userReg, EventType.REGISTRATION);
-            } else throw new DuplicateUserException(String.format("User with email: %s already exists", userReg.getEmail()));
+            userReg.setPassword(passwordEncoder.encode(userReg.getPassword()));
+            generationCode.generateCode(userReg, EventType.REGISTRATION);
         } else throw new DuplicateUserException(String.format("The user named: %s already exists", userReg.getUsername()));
     }
 
@@ -104,8 +105,12 @@ public class UserService {
     public void addRole(String username, AddRoleRequest addRoleRequest) throws UserNotFoundException, DuplicateRoleException{
         Users users = getUserByName(username);
         boolean status = users.getRoles().add(Role.builder().roleName(RoleName.valueOf(addRoleRequest.role())).build());
-        if (!status) throw new DuplicateRoleException(
-                String.format("Role: %s is already assigned to the user", addRoleRequest.role()));
+        if (status) {
+            userRepository.save(users);
+        } else {
+            throw new DuplicateRoleException(
+                    String.format("Role: %s is already assigned to the user", addRoleRequest.role()));
+        }
     }
 
     @Transactional
@@ -115,7 +120,8 @@ public class UserService {
                 .filter(roleUpdate -> !roleUpdate.getRoleName().equals(RoleName.valueOf(role)))
                 .collect(Collectors.toSet());
         users.setRoles(updateRole);
-        return userRepository.save(users);
+        userRepository.save(users);
+        return users;
     }
 
     //TODO Сделать подтверждение кодом по почте перед сбросом пароля

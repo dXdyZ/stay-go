@@ -1,32 +1,18 @@
 spring:
+  config:
+    import: 'consul:'
   application:
     name: auth-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/auth_db
-    username: auth_user
-    password: auth
-  jpa:
-    hibernate:
-      ddl-auto: update
-  data:
-    redis:
+  cloud:
+    consul:
+      port: 8500
       host: localhost
-      port: 6379
-      password: werpipl15
-      database: 0
-  cache:
-    type: redis
-    redis:
-      cache-null-values: false
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: auth_user
-    password: authentification
-    virtual-host: notification_vhost
-
-rabbitQueue:
-  registerEvent: registration.event
-
-server:
-  port: 9191
+      discovery:
+        instance-id: auth-service-i1
+#        Удалить когда буду все собирать в докер
+        hostname: 192.168.0.103
+        acl-token: 527e2915-295d-bfb0-277a-87fc893e3983
+      config:
+        format: yaml
+        data-key: data
+        acl-token: e34f5694-2d34-3703-32b9-f262ff82eac8

@@ -3,13 +3,18 @@ package com.lfey.authservice.controller;
 import com.lfey.authservice.dto.*;
 import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.service.UserService;
+import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private final static String USERNAME_HEADER = "X-User-Username";
+    public final static String USERNAME_HEADER = "X-User-Username";
 
     private final UserService userService;
 
@@ -24,8 +29,10 @@ public class AuthController {
     }
 
     @PostMapping("/confirm-registration")
-    public JwtToken validationUser(@RequestBody ValidationCode validationCode) {
-        return userService.getJWT(validationCode);
+    public ResponseEntity<JwtToken> validationUser(@RequestBody ValidationCode validationCode) {
+        return ResponseEntity.created(ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .build().toUri()).body(userService.getJWT(validationCode));
     }
 
     @PostMapping("/update-email")
@@ -35,20 +42,20 @@ public class AuthController {
     }
 
     @PostMapping("/confirm-email-update")
-    public UserDto validationUpdateEmail(@RequestBody ValidationCode validationCode,
+    public ResponseEntity<UserDto> validationUpdateEmail(@RequestBody ValidationCode validationCode,
                                          @RequestHeader(USERNAME_HEADER) String username) {
-        return userService.updateEmailInUserService(validationCode, username);
+        return ResponseEntity.ok(userService.updateEmailInUserService(validationCode, username));
     }
 
     @GetMapping("/{username}")
-    public Users getUserByUsername(@PathVariable String username) {
-        return userService.getUserByName(username);
+    public ResponseEntity<Users> getUserByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.getUserByName(username));
     }
 
     @PatchMapping("/update-username")
-    public UserDto updateUsername(@RequestBody UsernameUpdate usernameUpdate,
+    public ResponseEntity<UserDto> updateUsername(@RequestBody UsernameUpdate usernameUpdate,
                                   @RequestHeader(USERNAME_HEADER) String username) {
-        return userService.updateUsername(username, usernameUpdate);
+        return ResponseEntity.ok(userService.updateUsername(username, usernameUpdate));
     }
 
     @PatchMapping("/{username}/roles")
@@ -58,7 +65,7 @@ public class AuthController {
     }
 
     @DeleteMapping("/{username}/roles/{role}")
-    public Users deleteRole(@PathVariable String role, @PathVariable String username) {
-        return userService.deleteRoleUser(username, role);
+    public void deleteRole(@PathVariable String role, @PathVariable String username) {
+        userService.deleteRoleUser(username, role);
     }
 }

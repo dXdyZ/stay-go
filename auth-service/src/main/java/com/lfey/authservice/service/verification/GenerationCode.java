@@ -33,7 +33,7 @@ public class GenerationCode {
         }
     }
 
-    private RegistrationEvent getRegistrationEvent(UserReg userReg, EventType eventType) {
+    public RegistrationEvent getRegistrationEvent(UserReg userReg, EventType eventType) {
         return RegistrationEvent.builder()
                 .email(userReg.getEmail())
                 .confirmCode(userReg.getCode())
