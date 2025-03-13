@@ -33,8 +33,10 @@ services:
       - "8500:8500"  # Порт для доступа к Consul UI
     volumes:
       - consul-data:/consul/data
+      - ../config/agent.json:/consul/config/agent.json
     command: >
       agent -server -bootstrap-expect=1 -ui -client=0.0.0.0
+      -config-dir=/consul/config
     environment:
       - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":true, "enable_script_checks":true}
     networks:
@@ -45,8 +47,11 @@ services:
     hostname: consul-client
     depends_on:
       - consul-server
+    volumes:
+      - ../config/agent.json:/consul/config/agent.json
     command: >
       agent -client=0.0.0.0 -retry-join=consul-server
+      -config-dir=/consul/config
     environment:
       - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":false}
     networks:
