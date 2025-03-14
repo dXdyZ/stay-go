@@ -1,7 +1,16 @@
 spring:
+  config:
+    import: 'consul:'
   application:
     name: booking-service
-server:
-  port: 9090
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      config:
+        format: yaml
+        data-key: data
+        acl-token: 66b41fb4-766f-66f4-d4b7-42d0295fe586
+
 
 
