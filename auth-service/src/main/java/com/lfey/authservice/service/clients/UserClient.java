@@ -13,6 +13,9 @@ public interface UserClient {
     @GetMapping("/users/by-email/{email}")
     UserDto getUserByEmail(@PathVariable String email);
 
+    @GetMapping("/users/by-name/{username}")
+    UserDto getUserByUsername(@PathVariable String username);
+
     @PatchMapping("/users/update-email/{email}")
     UserDto updateEmail(@PathVariable String email,
                         @RequestHeader("X-User-Username") String username);

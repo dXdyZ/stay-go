@@ -1,13 +1,12 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.dto.UserReg;
+import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.dto.ValidationCode;
 import com.lfey.authservice.exception.InvalidCodeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.dto.UserReg;
+import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.dto.ValidationCode;
 import com.lfey.authservice.exception.InvalidCodeException;
 import com.lfey.authservice.exception.UserCacheDataNotFoundException;

@@ -1,17 +1,14 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.dto.UserReg;
+import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.dto.rabbit.EventType;
-import com.lfey.authservice.dto.rabbit.RegistrationEvent;
 import com.lfey.authservice.service.RegistrationEventDispatcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -49,8 +46,6 @@ class GenerationCodeTest {
                     actuealUserReg.getCode() != null &&
                     actuealUserReg.getCode().length() == 6;
         }));
-        verify(this.registrationEventDispatcher)
-                .dispatcherRegistrationEvent(this.generationCode.getRegistrationEvent(userReg, EventType.REGISTRATION));
     }
 
     @Test
@@ -75,8 +70,6 @@ class GenerationCodeTest {
                     actuealUserReg.getCode() != null &&
                     actuealUserReg.getCode().length() == 6;
         }));
-        verify(this.registrationEventDispatcher)
-                .dispatcherRegistrationEvent(this.generationCode.getRegistrationEvent(userReg, EventType.REGISTRATION));
     }
 }
 

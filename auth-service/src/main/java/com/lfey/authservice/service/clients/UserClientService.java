@@ -25,7 +25,7 @@ public class UserClientService {
     }
 
 
-    //TODO Сделать обновление кеша в случае изменения данных пользователя
+    //TODO Скоре всего придется делать его асинхронным в случае пустого кеша чтобы пользовать не ожидал проверки
     @Cacheable(value = "userByEmail", key = "#email")
     public UserDto getUserByEmailFromUserService(String email) {
         try {
@@ -33,6 +33,10 @@ public class UserClientService {
         } catch (FeignException.BadRequest badRequest) {
             return null;
         }
+    }
+
+    public UserDto getUserByUsernameFromUserService(String username) {
+        return userClient.getUserByUsername(username);
     }
 
     @CachePut(value = "userByEmail", key = "#result.email")

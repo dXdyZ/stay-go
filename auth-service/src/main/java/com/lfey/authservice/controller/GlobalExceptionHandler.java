@@ -50,4 +50,12 @@ public class GlobalExceptionHandler {
                         Instant.now(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()
                 ));
     }
+
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<ErrorResponse> handleAuthenticationFailedException(AuthenticationFailedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponse(
+                        Instant.now(), ex.getMessage(), HttpStatus.UNAUTHORIZED.value()
+                ));
+    }
 }

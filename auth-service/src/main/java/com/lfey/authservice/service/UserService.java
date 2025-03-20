@@ -4,6 +4,7 @@ import com.lfey.authservice.dto.*;
 import com.lfey.authservice.dto.rabbit.EventType;
 import com.lfey.authservice.entity.Role;
 import com.lfey.authservice.entity.RoleName;
+import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.exception.*;
 import com.lfey.authservice.repository.jpa.UserRepository;
@@ -15,43 +16,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final GenerationCode generationCode;
     private final VerificationCode verificationCode;
     private final UserClientService userClientService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                       GenerationCode generationCode, VerificationCode verificationCode, UserClientService userClientService) {
+    public UserService(UserRepository userRepository, GenerationCode generationCode,
+                       VerificationCode verificationCode, UserClientService userClientService,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.generationCode = generationCode;
         this.verificationCode = verificationCode;
         this.userClientService = userClientService;
-    }
-
-
-    //TODO Добавить проверку уникальности почты и изменить тест
-    @Transactional
-    public void registerUser(UserReg userReg) throws DuplicateUserException{
-        if (!userRepository.existsByUsername(userReg.getUsername())) {
-            userReg.setPassword(passwordEncoder.encode(userReg.getPassword()));
-            generationCode.generateCode(userReg, EventType.REGISTRATION);
-        } else throw new DuplicateUserException(String.format("The user named: %s already exists", userReg.getUsername()));
-    }
-
-    @Transactional
-    public JwtToken getJWT(ValidationCode validationCode) throws UserCacheDataNotFoundException, InvalidCodeException {
-        saveUserAfterRegistration(validationCode);
-        //TODO Сделать генерацию и возврат токена пользователю
-        return null;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -64,22 +48,6 @@ public class UserService {
                     .username(username)
                     .build(), EventType.EMAIL_RESET);
         } else throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdate.email()));
-    }
-
-    @Transactional
-    public void saveUserAfterRegistration(ValidationCode validationCode) {
-        UserReg userReg = verificationCode.verification(validationCode);
-        Users users = Users.builder()
-                .username(userReg.getUsername())
-                .password(userReg.getPassword())
-                .build();
-        users.getRoles().add(Role.builder().roleName(RoleName.ROLE_USER).build());
-        userRepository.save(users);
-        userClientService.userRegistrationInUserService(UserDto.builder()
-                .email(userReg.getEmail())
-                .phoneNumber(userReg.getPhoneNumber())
-                .username(userReg.getUsername())
-                .build());
     }
 
     public UserDto updateEmailInUserService(ValidationCode validationCode, String username) throws ServerErrorException {
@@ -101,8 +69,21 @@ public class UserService {
                 String.format("User with username: %s already exists", usernameUpdate.newUsername()));
     }
 
+    //TODO Сделать подтверждение кодом по почте перед сбросом пароля
     @Transactional
-    public void addRole(String username, AddRoleRequest addRoleRequest) throws UserNotFoundException, DuplicateRoleException{
+    public void resetPassword(ResetPasswordRequest resetPasswordRequest) throws UserNotFoundException {
+        Users users = userRepository.findByUsername(resetPasswordRequest.username()).orElseThrow(
+                () -> new UserNotFoundException(String.format("User by name: %s not found", resetPasswordRequest.username()))
+        );
+        UserDto userFromUserService = userClientService.getUserByUsernameFromUserService(users.getUsername());
+        generationCode.generateCode(UserReg.builder()
+                        .email(userFromUserService.getEmail())
+                        .password(passwordEncoder.encode(resetPasswordRequest.newPassword()))
+                .build(), EventType.PASSWORD_RESET);
+    }
+
+    @Transactional
+    public void addRole(String username, RoleRequest addRoleRequest) throws UserNotFoundException, DuplicateRoleException{
         Users users = getUserByName(username);
         boolean status = users.getRoles().add(Role.builder().roleName(RoleName.valueOf(addRoleRequest.role())).build());
         if (status) {
@@ -114,21 +95,12 @@ public class UserService {
     }
 
     @Transactional
-    public Users deleteRoleUser(String username, String role) throws UserNotFoundException{
+    public void deleteRoleUser(String username, RoleRequest role) throws UserNotFoundException{
         Users users = getUserByName(username);
         Set<Role> updateRole = users.getRoles().stream()
-                .filter(roleUpdate -> !roleUpdate.getRoleName().equals(RoleName.valueOf(role)))
+                .filter(roleUpdate -> !roleUpdate.getRoleName().equals(RoleName.valueOf(role.role())))
                 .collect(Collectors.toSet());
         users.setRoles(updateRole);
-        userRepository.save(users);
-        return users;
-    }
-
-    //TODO Сделать подтверждение кодом по почте перед сбросом пароля
-    @Transactional
-    public void resetPassword(ResetPasswordRequest resetPasswordRequest, String username) throws UserNotFoundException{
-        Users users = getUserByName(username);
-        users.setPassword(passwordEncoder.encode(resetPasswordRequest.newPassword()));
         userRepository.save(users);
     }
 

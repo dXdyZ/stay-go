@@ -1,71 +1,65 @@
 package com.lfey.authservice.controller;
 
 import com.lfey.authservice.dto.*;
-import com.lfey.authservice.entity.Users;
+import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.service.AuthService;
 import com.lfey.authservice.service.UserService;
-import feign.Response;
+import com.lfey.authservice.validation.RegistrationGroup;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
     public final static String USERNAME_HEADER = "X-User-Username";
 
     private final UserService userService;
+    private final AuthService authService;
 
     @Autowired
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
     @PostMapping("/register")
-    public void registerUser(@RequestBody UserReg userReg) {
-        userService.registerUser(userReg);
+    public void registerUser(@Validated(RegistrationGroup.class) @RequestBody UserReg userReg) {
+        authService.registerUser(userReg);
     }
 
     @PostMapping("/confirm-registration")
     public ResponseEntity<JwtToken> validationUser(@RequestBody ValidationCode validationCode) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentContextPath()
-                .build().toUri()).body(userService.getJWT(validationCode));
+                .build().toUri()).body(authService.getJWT(validationCode));
     }
 
-    @PostMapping("/update-email")
-    public void updateEmail(@RequestBody EmailUpdate emailUpdate,
-                            @RequestHeader(USERNAME_HEADER) String username) {
-        userService.updateEmail(emailUpdate, username);
+    //TODO Узнать в каких куках будет все храниться и изменить
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@CookieValue("refreshToken") String refreshToken,
+                                        HttpServletResponse response) {
+        authService.logout(refreshToken);
+
+        var cookie = new Cookie("refreshToken", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/api/auth");
+        response.addCookie(cookie);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+        return ResponseEntity.ok(authService.login(authRequest));
     }
 
     @PostMapping("/confirm-email-update")
     public ResponseEntity<UserDto> validationUpdateEmail(@RequestBody ValidationCode validationCode,
                                          @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updateEmailInUserService(validationCode, username));
-    }
-
-    @GetMapping("/{username}")
-    public ResponseEntity<Users> getUserByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.getUserByName(username));
-    }
-
-    @PatchMapping("/update-username")
-    public ResponseEntity<UserDto> updateUsername(@RequestBody UsernameUpdate usernameUpdate,
-                                  @RequestHeader(USERNAME_HEADER) String username) {
-        return ResponseEntity.ok(userService.updateUsername(username, usernameUpdate));
-    }
-
-    @PatchMapping("/{username}/roles")
-    public void addRole(@PathVariable String username,
-                        @RequestBody AddRoleRequest addRoleRequest) {
-        userService.addRole(username, addRoleRequest);
-    }
-
-    @DeleteMapping("/{username}/roles/{role}")
-    public void deleteRole(@PathVariable String role, @PathVariable String username) {
-        userService.deleteRoleUser(username, role);
     }
 }

@@ -1,6 +1,6 @@
 package com.lfey.authservice.dto;
 
-public record AddRoleRequest(
+public record RoleRequest(
         String role
 ) {
 }

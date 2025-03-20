@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.dto.UserReg;
+import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.exception.UserCacheDataNotFoundException;
 import com.lfey.authservice.repository.cache.UserRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
