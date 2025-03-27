@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -33,13 +34,15 @@ public class Booking implements Serializable {
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
-    private Instant startDate;
+    private LocalDate startDate;
 
-    private Instant endDate;
+    private LocalDate endDate;
 
-    private Boolean totalPrice;
+    private Double totalPrice;
 
     private Instant createDate;
+
+    private String username;
 
     @LastModifiedDate
     private Instant updateDate;

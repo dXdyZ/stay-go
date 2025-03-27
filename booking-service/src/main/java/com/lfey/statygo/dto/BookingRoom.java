@@ -14,6 +14,7 @@ public class BookingRoom {
     private Long hotelId;
     private String startDate;
     private String endDate;
-    private RoomType roomType;
-    private Integer quests;
+    private String roomType;
+    private Integer guests;
+    private Integer numberOfRooms;
 }
