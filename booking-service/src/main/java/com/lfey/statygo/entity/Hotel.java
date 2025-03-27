@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,8 +32,9 @@ public class Hotel implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @Builder.Default
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name = "room_id")
-    private List<Room> room;
+    private List<Room> room = new ArrayList<>();
 }

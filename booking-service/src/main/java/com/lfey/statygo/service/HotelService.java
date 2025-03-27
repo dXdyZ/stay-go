@@ -11,6 +11,7 @@ import com.lfey.statygo.exception.HotelNotFoundException;
 import com.lfey.statygo.repository.HotelRepository;
 import com.lfey.statygo.repository.specification.HotelSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,10 @@ import java.util.List;
 @Service
 public class HotelService {
     private final HotelRepository hotelRepository;
-    private final RoomService roomService;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository, RoomService roomService) {
+    public HotelService(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;
-        this.roomService = roomService;
     }
 
     @Transactional
@@ -43,28 +42,19 @@ public class HotelService {
                 .build());
     }
 
+    //TODO STB-3
+    @Transactional
     public Hotel getHotelById(Long id) {
         return hotelRepository.findById(id).orElseThrow(
                 () -> new HotelNotFoundException(id)
         );
     }
 
-    @Transactional
-    public void addRooms(Long hotelId, List<CreateRoom> createRooms) throws DuplicateRoomException {
-        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new HotelNotFoundException(hotelId));
-        if (hotel.getRoom() != null && !hotel.getRoom().isEmpty()) roomService.existsRoomByHotel(hotel.getRoom(), createRooms);
-        hotel.setRoom(createRooms.stream()
-                .map(createRoom -> {
-                    return Room.builder()
-                            .capacity(createRoom.getCapacity())
-                            .roomType(createRoom.getRoomType())
-                            .description(createRoom.getDescription())
-                            .pricePerDay(createRoom.getPricePerDay())
-                            .build();
-                })
-                .toList());
+    public void saveHotel(Hotel hotel) {
+        hotelRepository.save(hotel);
     }
 
+    @Transactional
     public List<Hotel> getByHotelByName(String name, int page) {
         return hotelRepository.findByName(name, CustomPageable.getPageable(page));
     }
@@ -75,6 +65,8 @@ public class HotelService {
         hotelRepository.delete(hotel);
     }
 
+    @Transactional
+    @Cacheable(value = "hotelSearch", key = "{#root.methodName, #stars, #country, #city, #street, #houseNumber}")
     public Page<Hotel> findHotel(Integer stars, String country, String city,
                                  String street, String houseNumber, int page) {
         Specification<Hotel> spec = Specification.where(null);

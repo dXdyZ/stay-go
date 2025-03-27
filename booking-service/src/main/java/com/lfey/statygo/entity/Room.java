@@ -32,4 +32,10 @@ public class Room implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
+
+    private Boolean autoApprove;
 }
