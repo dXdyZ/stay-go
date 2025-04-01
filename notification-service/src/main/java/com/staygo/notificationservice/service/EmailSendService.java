@@ -1,6 +1,5 @@
 package com.staygo.notificationservice.service;
 
-import com.staygo.notificationservice.entity.RegistrationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
