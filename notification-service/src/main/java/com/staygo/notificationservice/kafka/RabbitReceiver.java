@@ -1,9 +1,9 @@
-package com.staygo.notificationservice.rabbit;
+package com.staygo.notificationservice.kafka;
 
 import com.staygo.notificationservice.entity.RegistrationEvent;
 import com.staygo.notificationservice.service.EmailSendService;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class RabbitReceiver {
         this.emailSendService = emailSendService;
     }
 
-    @RabbitListener(queues = "#{@queueRegistrationEvent}")
+    @KafkaListener(topics = "${app.topics.email-verification}")
     public void receiveRegisterEvent(@Payload RegistrationEvent registrationEvent) {
         switch (registrationEvent.getEventType()) {
             case REGISTRATION -> {
