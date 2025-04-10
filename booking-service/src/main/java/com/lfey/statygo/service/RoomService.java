@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +28,8 @@ public class RoomService {
     }
 
     @Transactional
-    public List<Room> getRoomByHotelIdAndCapacityAndRoomType(Long hotelId, Integer capacity, RoomType roomType) {
-        return roomRepository.findRoomsByHotelIdAndRoomTypeAndCapacity(hotelId, capacity, roomType);
+    public List<Room> getAvailableRoom(Long hotelId, Integer capacity, LocalDate startDate, LocalDate endDate, RoomType roomType) {
+        return roomRepository.findAvailableRoomIds(hotelId, capacity, startDate, endDate, roomType);
     }
 
     @Transactional
@@ -39,7 +40,7 @@ public class RoomService {
                 .map(createRoom -> {
                     return Room.builder()
                             .capacity(createRoom.getCapacity())
-                            .roomType(createRoom.getRoomType())
+                            .roomType(RoomType.valueOf(createRoom.getRoomType()))
                             .description(createRoom.getDescription())
                             .pricePerDay(createRoom.getPricePerDay())
                             .build();
@@ -48,10 +49,6 @@ public class RoomService {
         hotelService.saveHotel(hotel);
     }
 
-
-    /**
-     * Проверка на уникальность добавляемых комнат с уже созданными
-     */
     public void existsRoomByHotel(List<Room> rooms, List<CreateRoom> roomDto) throws DuplicateRoomException{
         Set<CreateRoom> uniqueNumber = new HashSet<>();
         List<CreateRoom> duplicate = roomDto.stream()
@@ -68,6 +65,5 @@ public class RoomService {
             throw new DuplicateRoomException("Duplicates number in added rooms");
         }
     }
-
 
 }

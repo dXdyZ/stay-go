@@ -1,41 +1,46 @@
 package com.lfey.statygo.service;
 
 import com.lfey.statygo.component.CustomDateFormatter;
+import com.lfey.statygo.component.PriceCalculate;
+import com.lfey.statygo.dto.BookingDetailsEvent;
 import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.BookingStatus;
-import com.lfey.statygo.entity.Room;
-import com.lfey.statygo.entity.RoomType;
+import com.lfey.statygo.kafka.KafkaProducer;
 import com.lfey.statygo.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
     private final BookingRepository bookingRepository;
-    private final RoomService roomService;
+    private final KafkaProducer kafkaProducer;
+    private final RoomAvailabilityService roomAvailabilityService;
 
-    public BookingService(BookingRepository bookingRepository, RoomService roomService) {
+    public BookingService(BookingRepository bookingRepository, KafkaProducer kafkaProducer, RoomAvailabilityService roomAvailabilityService) {
         this.bookingRepository = bookingRepository;
-        this.roomService = roomService;
+        this.kafkaProducer = kafkaProducer;
+        this.roomAvailabilityService = roomAvailabilityService;
     }
 
     @Transactional
     public void bookingRoom(BookingRoom bookingRoom, String username) {
-        List<Booking> bookings = gettingFreeRooms(bookingRoom).stream()
+        List<Booking> bookings = roomAvailabilityService.getFreeRooms(bookingRoom.getHotelId(), bookingRoom.getStartDate(),
+                        bookingRoom.getEndDate(), bookingRoom.getRoomType(), bookingRoom.getGuests(), bookingRoom.getNumberOfRooms())
+                .stream()
                 .map(freeRoom -> {
-                    Booking booking =  Booking.builder()
+                    Booking booking = Booking.builder()
                             .room(freeRoom)
                             .hotel(freeRoom.getHotel())
                             .createDate(Instant.now())
                             .startDate(CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()))
                             .endDate(CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate()))
                             .username(username)
-                            .totalPrice(calculationTotalPrice(freeRoom.getPricePerDay(),
+                            .totalPrice(PriceCalculate.calculationTotalPrice(freeRoom.getPricePerDay(),
                                     CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()),
                                     CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate())))
                             .build();
@@ -43,33 +48,57 @@ public class BookingService {
                     if (freeRoom.getAutoApprove()) {
                         booking.setBookingStatus(BookingStatus.CONFIRMED);
                     } else {
-                        //TODO Сделать логику отправки сообщения администратору отеля для подтверждения
                         booking.setBookingStatus(BookingStatus.PENDING);
                     }
                     return booking;
                 })
                 .toList();
         //TODO STB-5
-        bookingRepository.saveAll(bookings);
+        List<Booking> saveBooking = (List<Booking>) bookingRepository.saveAll(bookings);
+        kafkaProducer.sendBookingDetails(getGroupedBookingDetailsByRoomType(saveBooking, username));
     }
 
-    @Transactional
-    public List<Room> gettingFreeRooms(BookingRoom bookingRoom) {
-        List<Long> bookedRoomIds = bookingRepository.findReservationRange(bookingRoom.getHotelId(), bookingRoom.getGuests(),
-                RoomType.valueOf(bookingRoom.getRoomType()), CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()),
-                CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate())).stream()
-                .map(booking -> booking.getRoom().getId())
-                .toList();
-        List<Room> allRoomsId = roomService.getRoomByHotelIdAndCapacityAndRoomType(bookingRoom.getHotelId(), bookingRoom.getGuests(),
-                RoomType.valueOf(bookingRoom.getRoomType()));
-        return allRoomsId.stream()
-                .filter(room -> !bookedRoomIds.contains(room.getId()))
-                .limit(bookingRoom.getNumberOfRooms())
-                .toList();
-    }
 
-    public Double calculationTotalPrice(Double price, LocalDate startDate, LocalDate endDate) {
-        return CustomDateFormatter.getNumberOfDays(startDate, endDate) * price;
+    public List<BookingDetailsEvent> getGroupedBookingDetailsByRoomType(List<Booking> bookings, String username) {
+        return bookings.stream()
+                .map(booking -> {
+                    return BookingDetailsEvent.builder()
+                            .bookingId(booking.getId())
+                            .hotelName(booking.getHotel().getName())
+                            .hotelAddress(booking.getHotel().getAddress().getHumanReadableAddress())
+                            .startDate(booking.getStartDate().toString())
+                            .endDate(booking.getEndDate().toString())
+                            .roomType(booking.getRoom().getRoomType().name())
+                            .username(username)
+                            .totalPrice(booking.getTotalPrice())
+                            .bookingStatus(booking.getBookingStatus().name())
+                            .reservedRooms(1)
+                            .build();
+                })
+                .collect(Collectors.groupingBy(
+                        BookingDetailsEvent::getRoomType,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> {
+                                
+                                    BookingDetailsEvent first = list.get(0);
+                                    return BookingDetailsEvent.builder()
+                                            .hotelName(first.getHotelName())
+                                            .hotelAddress(first.getHotelAddress())
+                                            .roomType(first.getRoomType())
+                                            .startDate(first.getStartDate())
+                                            .endDate(first.getEndDate())
+                                            .username(first.getUsername())
+                                            .totalPrice(first.getTotalPrice() * list.size())
+                                            .bookingStatus(first.getBookingStatus())
+                                            .reservedRooms(list.size()) 
+                                            .build();
+                                }
+                        )
+                ))
+                .values()
+                .stream()
+                .toList();
     }
 }
 

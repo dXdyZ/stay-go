@@ -27,4 +27,11 @@ public class Address implements Serializable {
     private String street;
 
     private String houseNumber;
+
+    private Long postalCode;
+
+    public String getHumanReadableAddress() {
+        return String.format("%s, %s, %s, %s, %s",
+                this.postalCode, this.country, this.city, this.street, this.houseNumber);
+    }
 }

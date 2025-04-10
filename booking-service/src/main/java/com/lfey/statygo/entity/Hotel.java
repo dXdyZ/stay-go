@@ -2,10 +2,7 @@ package com.lfey.statygo.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,14 +24,17 @@ public class Hotel implements Serializable {
 
     private Integer stars;
 
-    private Boolean grade;
+    private Double grade;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    private String description;
+
     @Builder.Default
+    @ToString.Exclude //Исключает поле из toString()
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Column(name = "room_id")
     private List<Room> room = new ArrayList<>();
+
 }

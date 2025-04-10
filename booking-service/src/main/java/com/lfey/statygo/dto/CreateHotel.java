@@ -12,4 +12,6 @@ public class CreateHotel {
     private String city;
     private String street;
     private String houseNumber;
+    private String description;
+    private Long postalCode;
 }

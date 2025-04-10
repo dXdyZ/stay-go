@@ -1,10 +1,7 @@
 package com.lfey.statygo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -30,11 +27,14 @@ public class Room implements Serializable {
 
     private Boolean isActive;
 
+    private BedType bedType;
+
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")
+    @ToString.Exclude //Исключает поле из toString()
     private Hotel hotel;
 
     private Boolean autoApprove;

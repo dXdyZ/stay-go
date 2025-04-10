@@ -1,7 +1,6 @@
 package com.lfey.statygo.contoroller;
 
-import com.lfey.statygo.exception.DuplicateRoomException;
-import com.lfey.statygo.exception.HotelNotFoundException;
+import com.lfey.statygo.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,4 +31,33 @@ public class GlobalExceptionHandler {
                         Instant.now(), exception.getMessage(), HttpStatus.NOT_FOUND.value()
                 ));
     }
+
+    @ExceptionHandler(NoMatchingRoomsException.class)
+    public ResponseEntity<ErrorResponse> handleNoMatchingRoomsException(NoMatchingRoomsException exception) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(
+                        Instant.now(), exception.getMessage(), HttpStatus.BAD_REQUEST.value()
+                ));
+    }
+
+    @ExceptionHandler(NoRoomsAvailableException.class)
+    public ResponseEntity<ErrorResponse> handleNoRoomsAvailableException(NoRoomsAvailableException exception) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(
+                        Instant.now(), exception.getMessage(), HttpStatus.CONFLICT.value()
+                ));
+    }
+
+    @ExceptionHandler(InvalidDateException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidDateException(InvalidDateException exception) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(
+                        Instant.now(), exception.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY.value()
+                ));
+    }
 }
+
+
+
+
+
