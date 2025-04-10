@@ -11,6 +11,11 @@ spring:
         format: yaml
         data-key: data
         acl-token: 66b41fb4-766f-66f4-d4b7-42d0295fe586
-
+app:
+  topics:
+    hotel-booking-event:
+      name: hotel.booking-event
+      partition: 1
+      replicas: 1
 
 
