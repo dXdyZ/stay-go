@@ -1,16 +1,4 @@
 services:
-  rabbitmq:
-    hostname: rabbitmq
-    image: rabbitmq:3.9-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    volumes:
-      - ../config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
-      - ../config/definitions.json:/etc/rabbitmq/definitions.json:ro
-    environment:
-      RABBITMQ_CONFIG_FILE: /etc/rabbitmq/rabbitmq
-      RABBITMQ_ERLANG_COOKIE: "SECRET_COOKIE"
   redis:
     hostname: redis
     image: redis:7-alpine
