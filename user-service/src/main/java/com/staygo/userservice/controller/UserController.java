@@ -1,22 +1,27 @@
 package com.staygo.userservice.controller;
 
+import com.staygo.userservice.dto.AppointmentRequest;
 import com.staygo.userservice.dto.UserDto;
 import com.staygo.userservice.entity.Users;
+import com.staygo.userservice.service.HotelAssignmentService;
 import com.staygo.userservice.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     public final static String USERNAME_HEADER = "X-User-Username";
 
     private final UserService userService;
+    private final HotelAssignmentService hotelAssignmentService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, HotelAssignmentService hotelAssignmentService) {
         this.userService = userService;
+        this.hotelAssignmentService = hotelAssignmentService;
     }
 
     @GetMapping("/{id}")
@@ -61,4 +66,17 @@ public class UserController {
                              @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updateEmail(email, username));
     }
+
+    @PatchMapping("/assign-hotel")
+    public ResponseEntity<Users> appointmentHotel(
+            @Valid @RequestBody AppointmentRequest appointmentRequest) {
+
+        return ResponseEntity.ok(hotelAssignmentService.appointmentHotel(appointmentRequest));
+    }
 }
+
+
+
+
+
+
