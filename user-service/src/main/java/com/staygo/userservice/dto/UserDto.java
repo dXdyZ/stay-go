@@ -9,15 +9,11 @@ import java.io.Serializable;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDto implements Serializable {
-    private static final Long UUID = 1l;
-
+    private static final Long UUID = 1L;
     private String email;
     private String phoneNumber;
     private String username;
 }
-
-
-

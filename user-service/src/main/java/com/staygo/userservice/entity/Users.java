@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "email")
@@ -26,4 +26,7 @@ public class Users {
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "hotel_id")
+    private Long hotelId;
 }

@@ -1,12 +1,11 @@
 package com.staygo.userservice.controller;
 
-import com.staygo.userservice.exception.DuplicateUserException;
-import com.staygo.userservice.exception.ErrorResponse;
-import com.staygo.userservice.exception.UserNotFoundException;
+import com.staygo.userservice.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import java.time.Instant;
 
@@ -31,5 +30,21 @@ public class GlobalExceptionHandler {
                         .errorCode(HttpStatus.BAD_REQUEST.value())
                         .message(ex.getMessage())
                         .build());
+    }
+
+    @ExceptionHandler(DuplicateRoleException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateRoleException(DuplicateRoleException ex) {
+        return ResponseEntity.badRequest()
+                .body(ErrorResponse.builder()
+                        .timestamp(Instant.now())
+                        .errorCode(HttpStatus.BAD_REQUEST.value())
+                        .message(ex.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(FeignCustomServerErrorException.class)
+    public ResponseEntity<ErrorResponse> handleFeignCustomException(FeignCustomServerErrorException ex) {
+        ErrorResponse error = ex.getErrorResponse();
+        return new ResponseEntity<>(error, HttpStatus.valueOf(error.getErrorCode()));
     }
 }

@@ -11,10 +11,26 @@ spring:
         instance-id: user-service-i2
 #       Delete by deploy
         hostname: 192.168.0.103
-        acl-token: 7cef3b4e-cd26-3bde-11b9-06b45a2a2515
+        acl-token: 86e8c5ba-634e-00f7-ce65-add819cbc387
       config:
         watch:
           enabled: true
         format: yaml
         data-key: data
-        acl-token: 7661cca4-601a-08dc-8a87-b3065f0e629a
+        acl-token: 86e8c5ba-634e-00f7-ce65-add819cbc387
+  datasource:
+    url: jdbc:postgresql://localhost:15432/user_db
+    username: user_user
+    password: user
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: werpipl15
+      database: 1
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+server:
+  port: 9292

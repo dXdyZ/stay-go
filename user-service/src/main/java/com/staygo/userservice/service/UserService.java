@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -24,6 +23,10 @@ public class UserService {
                         .phoneNumber(userDto.getPhoneNumber())
                         .username(userDto.getUsername())
                 .build());
+    }
+
+    public void saveUser(Users users) {
+        userRepository.save(users);
     }
 
     public Users getUserById(Long id) throws UserNotFoundException {
