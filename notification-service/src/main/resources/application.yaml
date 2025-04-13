@@ -1,26 +1,17 @@
 spring:
+  config:
+    import: 'consul:'
   application:
     name: notification-service
-  kafka:
-    consumer:
-      group-id: notification-group
-      bootstrap-servers: localhost:9092
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-      properties:
-        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-        spring.json.trusted.packages: "com.staygo.notificationservice.entity"
-        spring.json.use.type.headers: false  # Если не используете заголовки типа
-  mail:
-    host: smtp.yandex.com
-    port: 465
-    username: AnotherSc@yandex.ru
-    password: cufzeqevxzjpwozi
-    properties:
-      mail.smtp.auth: true
-      mail.smtp.ssl.enable: true
-app:
-  topics:
-    email-verification: user.email-verification
-server:
-  port: 9393
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      discovery:
+        instance-id: notification-service
+        hostname: 192.168.0.103
+        acl-token: bf8d1bb3-5be0-8690-e474-fe408732b426
+      config:
+        format: yaml
+        data-key: data
+        acl-token: bf8d1bb3-5be0-8690-e474-fe408732b426

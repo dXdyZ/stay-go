@@ -1,19 +1,24 @@
 package com.staygo.notificationservice.kafka;
 
+import com.staygo.notificationservice.entity.BookingDetailsEvent;
 import com.staygo.notificationservice.entity.RegistrationEvent;
 import com.staygo.notificationservice.service.EmailSendService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.staygo.notificationservice.service.UserClientService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
-@Service
-public class RabbitReceiver {
-    private final EmailSendService emailSendService;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    @Autowired
-    public RabbitReceiver(EmailSendService emailSendService) {
+@Service
+public class KafkaConsumer {
+    private final EmailSendService emailSendService;
+    private final UserClientService userClientService;
+
+    public KafkaConsumer(EmailSendService emailSendService, UserClientService userClientService) {
         this.emailSendService = emailSendService;
+        this.userClientService = userClientService;
     }
 
     @KafkaListener(topics = "${app.topics.email-verification}")
@@ -33,4 +38,22 @@ public class RabbitReceiver {
             }
         }
     }
+
+    @KafkaListener(topics = "${app.topics.hotel-booking-event}")
+    public void receiveBookingEvent(@Payload List<BookingDetailsEvent> bookingDetailsEvents) {
+        emailSendService.sendMail(userClientService.getUserByUsername(
+                bookingDetailsEvents.get(0).getUsername()).getEmail(),
+                "Booking details",
+                bookingDetailsEvents.stream()
+                        .map(BookingDetailsEvent::toPrettyString)
+                        .collect(Collectors.joining("\n")));
+    }
 }
+
+
+
+
+
+
+
+
