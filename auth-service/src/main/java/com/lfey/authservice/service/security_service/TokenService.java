@@ -1,8 +1,7 @@
-package com.lfey.authservice.service;
+package com.lfey.authservice.service.security_service;
 
 import com.lfey.authservice.dto.JwtToken;
-import com.lfey.authservice.jwt.JWTUtils;
-import com.lfey.authservice.service.security_service.ValidationRefreshTokenService;
+import com.lfey.authservice.jwt.JwtUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenService {
     private final UserDetailsService userDetailsService;
-    private final JWTUtils jwtUtils;
+    private final JwtUtils jwtUtils;
     private final ValidationRefreshTokenService validationRefreshTokenService;
 
-    public TokenService(UserDetailsService userDetailsService, JWTUtils jwtUtils,
+    public TokenService(UserDetailsService userDetailsService, JwtUtils jwtUtils,
                         ValidationRefreshTokenService validationRefreshTokenService) {
         this.userDetailsService = userDetailsService;
         this.jwtUtils = jwtUtils;
@@ -27,6 +26,18 @@ public class TokenService {
                 jwtUtils.generationRefreshToken(userDetails));
         validationRefreshTokenService.addValidToken(tokens.getRefreshToken(), username);
         return tokens;
+    }
+
+    /**
+     * Протестировать метод на корректность работы
+     */
+    public JwtToken validationRefreshTokenAndGenerationAccessToken(String token) {
+        if (jwtUtils.validationToken(token) && validationRefreshTokenService.isValidToken(token)) {
+            return new JwtToken(jwtUtils.generationAccessToken(
+                    userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token))), null);
+        }
+        //TODO заменить на исключение
+        return null;
     }
 
     public void deleteRefreshToken(String refreshToken) {

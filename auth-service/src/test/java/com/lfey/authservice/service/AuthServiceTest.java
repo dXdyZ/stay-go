@@ -9,6 +9,7 @@ import com.lfey.authservice.exception.AuthenticationFailedException;
 import com.lfey.authservice.exception.DuplicateUserException;
 import com.lfey.authservice.repository.jpa.UserRepository;
 import com.lfey.authservice.service.clients.UserClientService;
+import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.verification.GenerationCode;
 import com.lfey.authservice.service.verification.VerificationCode;
 import org.junit.jupiter.api.Test;

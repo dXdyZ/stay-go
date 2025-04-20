@@ -1,7 +1,8 @@
 package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.JwtToken;
-import com.lfey.authservice.jwt.JWTUtils;
+import com.lfey.authservice.jwt.JwtUtils;
+import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.security_service.ValidationRefreshTokenService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +26,7 @@ class TokenServiceTest {
     UserDetailsService userDetailsService;
 
     @Mock
-    JWTUtils jwtUtils;
+    JwtUtils jwtUtils;
 
     @Mock
     ValidationRefreshTokenService validationRefreshTokenService;

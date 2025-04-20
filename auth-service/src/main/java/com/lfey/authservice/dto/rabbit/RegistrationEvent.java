@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationEvent implements Serializable {
+public class RegistrationEvent {
     private static final Long UUID = 1L;
     private String email;
     private String confirmCode;

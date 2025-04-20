@@ -55,7 +55,6 @@ public class UserService {
         return userClientService.updateUserEmailInUserService(userReg.getEmail(), username);
     }
 
-    //TODO В дальнейшем сделать отзыв токена что бы не было исключений NullPointerException
     @Transactional
     public UserDto updateUsername(String username, UsernameUpdate usernameUpdate) throws ServerErrorException,
             DuplicateUserException{
@@ -69,7 +68,6 @@ public class UserService {
                 String.format("User with username: %s already exists", usernameUpdate.newUsername()));
     }
 
-    //TODO Сделать подтверждение кодом по почте перед сбросом пароля
     @Transactional
     public void resetPassword(ResetPasswordRequest resetPasswordRequest) throws UserNotFoundException {
         Users users = userRepository.findByUsername(resetPasswordRequest.username()).orElseThrow(

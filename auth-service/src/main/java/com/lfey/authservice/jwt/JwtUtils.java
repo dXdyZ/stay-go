@@ -10,11 +10,11 @@ import java.security.KeyPair;
 import java.util.Date;
 
 @Component
-public class JWTUtils {
+public class JwtUtils {
     private final JwtConfiguration jwtConfiguration;
     private final KeyPair keyPair;
 
-    public JWTUtils(JwtConfiguration jwtConfiguration, KeyPair keyPair) {
+    public JwtUtils(JwtConfiguration jwtConfiguration, KeyPair keyPair) {
         this.jwtConfiguration = jwtConfiguration;
         this.keyPair = keyPair;
     }

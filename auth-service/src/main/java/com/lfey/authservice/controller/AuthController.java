@@ -5,6 +5,7 @@ import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.service.AuthService;
 import com.lfey.authservice.service.UserService;
 import com.lfey.authservice.validation.RegistrationGroup;
+import io.jsonwebtoken.Jwt;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<JwtToken> login(@RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok(authService.login(authRequest));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtToken> refreshAccessToken(@RequestBody JwtToken jwtToken) {
+        return ResponseEntity.ok(authService.refreshAccessToken(jwtToken));
     }
 
     @PostMapping("/confirm-email-update")

@@ -28,7 +28,7 @@ import java.util.Set;
 class JWTUtilsTest {
 
     private static final Logger log = LoggerFactory.getLogger(JWTUtilsTest.class);
-    private JWTUtils jwtUtils;
+    private JwtUtils jwtUtils;
     private KeyPair keyPair;
     private UserDetails userDetails;
 
@@ -43,7 +43,7 @@ class JWTUtilsTest {
         testConfig.setRefreshExpiration(6_048_000L); // 7 дней
 
         // 3. Инициализация тестируемого класса
-        jwtUtils = new JWTUtils(testConfig, keyPair);
+        jwtUtils = new JwtUtils(testConfig, keyPair);
 
         // 4. Тестовый пользователь
         userDetails = new SecurityUser(

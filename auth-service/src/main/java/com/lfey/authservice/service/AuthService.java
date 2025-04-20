@@ -9,6 +9,7 @@ import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.exception.*;
 import com.lfey.authservice.repository.jpa.UserRepository;
 import com.lfey.authservice.service.clients.UserClientService;
+import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.verification.GenerationCode;
 import com.lfey.authservice.service.verification.VerificationCode;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,7 +42,6 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    //TODO Добавить асинхронный вызов http запроса на проверку уникальности email пользователя
     @Transactional
     public void registerUser(UserReg userReg) throws DuplicateUserException {
         if (!userRepository.existsByUsername(userReg.getUsername())) {
@@ -57,6 +57,10 @@ public class AuthService {
     @Transactional
     public JwtToken getJWT(ValidationCode validationCode) throws UserCacheDataNotFoundException, InvalidCodeException {
         return tokenService.getToken(saveUserAfterRegistration(validationCode).getUsername());
+    }
+
+    public JwtToken refreshAccessToken(JwtToken jwtToken) {
+        return tokenService.validationRefreshTokenAndGenerationAccessToken(jwtToken.getRefreshToken());
     }
 
     @Transactional
