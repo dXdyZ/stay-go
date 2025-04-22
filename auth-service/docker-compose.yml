@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:15-alpine  # Облегчённый образ
+    environment:
+      POSTGRES_DB: auth_db    # Название БД
+      POSTGRES_USER: auth_user   # Пользователь
+      POSTGRES_PASSWORD: auth # Пароль
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Сохранение данных
+    ports:
+      - "5432:5432"  # Проброс порта
+volumes:
+  postgres_data:  # Именованный volume для данных
