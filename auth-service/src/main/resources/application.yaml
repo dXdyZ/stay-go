@@ -16,25 +16,6 @@ spring:
         format: yaml
         data-key: data
         acl-token: e34f5694-2d34-3703-32b9-f262ff82eac8
-# Вынести в сервер конфигурации
-  kafka:
-    producer:
-      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      acks: all
-app:
-  topics:
-    email-verification:
-      name: user.email-verification
-      partitions: 1
-      replicas: 1
-
-
-
-
-
-
-
-
-
+  flyway:
+    enabled: true
+    locations: classpath:db/migration

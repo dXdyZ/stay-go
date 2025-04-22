@@ -11,12 +11,12 @@ import java.util.Objects;
 @Entity
 @Builder
 @ToString
-@Table(name = "role")
+@Table(name = "roles")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -28,12 +28,12 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return roleName == role.roleName; // Сравниваем только по roleName
+        return roleName == role.roleName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleName); // Хэшируем только по roleName
+        return Objects.hash(roleName);
     }
 }
 

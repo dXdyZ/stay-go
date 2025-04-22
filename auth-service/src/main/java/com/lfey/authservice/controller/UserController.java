@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/auth-user")
 public class UserController {
     private final UserService userService;
     public final static String USERNAME_HEADER = "X-User-Username";

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/auth/users")
 public class AuthController {
     public final static String USERNAME_HEADER = "X-User-Username";
 

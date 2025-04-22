@@ -19,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
@@ -30,7 +30,6 @@ public class Users {
     private String password;
 
 
-    @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -39,6 +38,7 @@ public class Users {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name = "create_at")
     @Builder.Default
     private Instant createAt = Instant.now();
 }
