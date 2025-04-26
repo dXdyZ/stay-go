@@ -1,6 +1,5 @@
 package com.lfey.statygo.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +19,7 @@ public class HotelDto {
     private String name;
     private String description;
     private String address;
+
     @Builder.Default
     private List<RoomDto> roomDto = new ArrayList<>();
 }

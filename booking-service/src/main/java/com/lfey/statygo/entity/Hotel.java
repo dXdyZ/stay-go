@@ -17,7 +17,7 @@ import java.util.List;
 public class Hotel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -26,7 +26,7 @@ public class Hotel implements Serializable {
 
     private Double grade;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
 
     private String description;
@@ -34,7 +34,10 @@ public class Hotel implements Serializable {
     @Builder.Default
     @ToString.Exclude //Исключает поле из toString()
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "hotel",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private List<Room> room = new ArrayList<>();
 
 }

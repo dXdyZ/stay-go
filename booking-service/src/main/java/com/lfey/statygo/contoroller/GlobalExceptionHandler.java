@@ -3,16 +3,20 @@ package com.lfey.statygo.contoroller;
 import com.lfey.statygo.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
     public record ErrorResponse(
             Instant createAt,
-            String message,
+            Map<String, String> errors,
             Integer statusCode
     ) {};
 
@@ -20,7 +24,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleHotelNotFoundException(HotelNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(
-                        Instant.now(), exception.getMessage(), HttpStatus.NOT_FOUND.value()
+                        Instant.now(), Map.of("message", exception.getMessage()), HttpStatus.NOT_FOUND.value()
                 ));
     }
 
@@ -28,7 +32,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleDuplicateRoomException(DuplicateRoomException exception) {
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse(
-                        Instant.now(), exception.getMessage(), HttpStatus.NOT_FOUND.value()
+                        Instant.now(), Map.of("message", exception.getMessage()), HttpStatus.NOT_FOUND.value()
                 ));
     }
 
@@ -36,7 +40,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleNoMatchingRoomsException(NoMatchingRoomsException exception) {
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse(
-                        Instant.now(), exception.getMessage(), HttpStatus.BAD_REQUEST.value()
+                        Instant.now(), Map.of("message", exception.getMessage()), HttpStatus.BAD_REQUEST.value()
                 ));
     }
 
@@ -44,7 +48,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleNoRoomsAvailableException(NoRoomsAvailableException exception) {
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse(
-                        Instant.now(), exception.getMessage(), HttpStatus.CONFLICT.value()
+                        Instant.now(), Map.of("message", exception.getMessage()), HttpStatus.CONFLICT.value()
                 ));
     }
 
@@ -52,7 +56,30 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInvalidDateException(InvalidDateException exception) {
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse(
-                        Instant.now(), exception.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY.value()
+                        Instant.now(), Map.of("message", exception.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY.value()
+                ));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(
+                        Instant.now(),
+                        exception.getBindingResult().getFieldErrors().stream()
+                            .collect(Collectors.toMap(
+                                    FieldError::getField,
+                                    error -> error.getDefaultMessage() != null ?
+                                            error.getDefaultMessage() : "Invalid value"
+                            )),
+                        HttpStatus.BAD_REQUEST.value()
+                ));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException exception) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(
+                        Instant.now(), Map.of("message", exception.getMessage()), HttpStatus.BAD_REQUEST.value()
                 ));
     }
 }

@@ -28,13 +28,21 @@ public class RoomService {
     }
 
     @Transactional
-    public List<Room> getAvailableRoom(Long hotelId, Integer capacity, LocalDate startDate, LocalDate endDate, RoomType roomType) {
+    public List<Room> getAvailableRoom(
+            Long hotelId, Integer capacity, LocalDate startDate, LocalDate endDate, RoomType roomType) {
+
         return roomRepository.findAvailableRoomIds(hotelId, capacity, startDate, endDate, roomType);
     }
 
     @Transactional
-    public void addRoomsToHotel(Long hotelId, List<CreateRoom> createRooms) throws DuplicateRoomException, HotelNotFoundException {
+    public void addRoomsToHotel(Long hotelId, List<CreateRoom> createRooms) throws DuplicateRoomException,
+            HotelNotFoundException, IllegalArgumentException{
+
+        if (createRooms == null || createRooms.isEmpty())
+            throw new IllegalArgumentException("List of rooms cannot be empty.");
+
         Hotel hotel = hotelService.getHotelById(hotelId);
+
         if (hotel.getRoom() != null && !hotel.getRoom().isEmpty()) existsRoomByHotel(hotel.getRoom(), createRooms);
         hotel.getRoom().addAll(createRooms.stream()
                 .map(createRoom -> {
@@ -46,6 +54,7 @@ public class RoomService {
                             .build();
                 })
                 .toList());
+
         hotelService.saveHotel(hotel);
     }
 

@@ -27,6 +27,7 @@ public class Room implements Serializable {
 
     private Boolean isActive;
 
+    @Enumerated(EnumType.STRING)
     private BedType bedType;
 
     @Enumerated(EnumType.STRING)

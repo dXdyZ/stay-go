@@ -2,6 +2,8 @@ package com.lfey.statygo.service;
 
 import com.lfey.statygo.kafka.KafkaProducer;
 import com.lfey.statygo.repository.BookingRepository;
+import com.lfey.statygo.service.BookingService;
+import com.lfey.statygo.service.RoomService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

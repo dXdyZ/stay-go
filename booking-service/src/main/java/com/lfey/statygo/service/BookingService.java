@@ -2,6 +2,8 @@ package com.lfey.statygo.service;
 
 import com.lfey.statygo.component.CustomDateFormatter;
 import com.lfey.statygo.component.PriceCalculate;
+import com.lfey.statygo.component.factory.BookingDetailsEventFactory;
+import com.lfey.statygo.component.factory.BookingFactory;
 import com.lfey.statygo.dto.BookingDetailsEvent;
 import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.entity.Booking;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,11 +23,17 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final KafkaProducer kafkaProducer;
     private final RoomAvailabilityService roomAvailabilityService;
+    private final BookingDetailsEventFactory bookingDetailsEventFactory;
+    private final BookingFactory bookingFactory;
 
-    public BookingService(BookingRepository bookingRepository, KafkaProducer kafkaProducer, RoomAvailabilityService roomAvailabilityService) {
+    public BookingService(BookingRepository bookingRepository, KafkaProducer kafkaProducer,
+                          RoomAvailabilityService roomAvailabilityService, BookingDetailsEventFactory bookingDetailsEventFactory,
+                          BookingFactory bookingFactory) {
         this.bookingRepository = bookingRepository;
         this.kafkaProducer = kafkaProducer;
         this.roomAvailabilityService = roomAvailabilityService;
+        this.bookingDetailsEventFactory = bookingDetailsEventFactory;
+        this.bookingFactory = bookingFactory;
     }
 
     @Transactional
@@ -33,18 +42,7 @@ public class BookingService {
                         bookingRoom.getEndDate(), bookingRoom.getRoomType(), bookingRoom.getGuests(), bookingRoom.getNumberOfRooms())
                 .stream()
                 .map(freeRoom -> {
-                    Booking booking = Booking.builder()
-                            .room(freeRoom)
-                            .hotel(freeRoom.getHotel())
-                            .createDate(Instant.now())
-                            .startDate(CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()))
-                            .endDate(CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate()))
-                            .username(username)
-                            .totalPrice(PriceCalculate.calculationTotalPrice(freeRoom.getPricePerDay(),
-                                    CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()),
-                                    CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate())))
-                            .build();
-
+                    Booking booking = bookingFactory.createBooking(freeRoom, username, bookingRoom);
                     if (freeRoom.getAutoApprove()) {
                         booking.setBookingStatus(BookingStatus.CONFIRMED);
                     } else {
@@ -55,44 +53,23 @@ public class BookingService {
                 .toList();
         //TODO STB-5
         List<Booking> saveBooking = (List<Booking>) bookingRepository.saveAll(bookings);
+
         kafkaProducer.sendBookingDetails(getGroupedBookingDetailsByRoomType(saveBooking, username));
     }
 
 
-    public List<BookingDetailsEvent> getGroupedBookingDetailsByRoomType(List<Booking> bookings, String username) {
+    private List<BookingDetailsEvent> getGroupedBookingDetailsByRoomType(List<Booking> bookings, String username) {
         return bookings.stream()
                 .map(booking -> {
-                    return BookingDetailsEvent.builder()
-                            .bookingId(booking.getId())
-                            .hotelName(booking.getHotel().getName())
-                            .hotelAddress(booking.getHotel().getAddress().getHumanReadableAddress())
-                            .startDate(booking.getStartDate().toString())
-                            .endDate(booking.getEndDate().toString())
-                            .roomType(booking.getRoom().getRoomType().name())
-                            .username(username)
-                            .totalPrice(booking.getTotalPrice())
-                            .bookingStatus(booking.getBookingStatus().name())
-                            .reservedRooms(1)
-                            .build();
+                    return bookingDetailsEventFactory.createBookingDetailsEvent(booking, username);
                 })
                 .collect(Collectors.groupingBy(
                         BookingDetailsEvent::getRoomType,
                         Collectors.collectingAndThen(
                                 Collectors.toList(),
                                 list -> {
-                                
                                     BookingDetailsEvent first = list.get(0);
-                                    return BookingDetailsEvent.builder()
-                                            .hotelName(first.getHotelName())
-                                            .hotelAddress(first.getHotelAddress())
-                                            .roomType(first.getRoomType())
-                                            .startDate(first.getStartDate())
-                                            .endDate(first.getEndDate())
-                                            .username(first.getUsername())
-                                            .totalPrice(first.getTotalPrice() * list.size())
-                                            .bookingStatus(first.getBookingStatus())
-                                            .reservedRooms(list.size()) 
-                                            .build();
+                                    return bookingDetailsEventFactory.createBookingDetailsEventByGroup(first, list.size());
                                 }
                         )
                 ))

@@ -1,90 +1,193 @@
+version: '3.8'
+
 services:
+  # Redis Service
   redis:
-    hostname: redis
     image: redis:7-alpine
+    hostname: redis
     container_name: redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     environment:
-      - REDIS_PASSWORD=werpipl15 # Опционально, для аутентификации
-    command:
-      - redis-server
-      - --requirepass werpipl15 # Активируем аутентификацию
-      - --appendonly yes # Включить persistence
+      REDIS_PASSWORD: werpipl15  # Автоматически активирует requirepass
+      REDIS_ARGS: --appendonly yes  # Дополнительные аргументы
+    networks:
+      - backend-network
 
+  # Kafka Cluster
   kafka-1:
-    image: bitnami/kafka:latest
+    image: bitnami/kafka:3.7.0  # Фиксируем версию
+    hostname: kafka-1
     ports:
-      - "9090:9090"  # PLAINTEXT
-      - "9091:9091"  # CONTROLLER
-      - "9092:9092"  # EXTERNAL
+      - "9092:9092"  # Только внешний порт
     environment:
-      - KAFKA_CFG_NODE_ID=1
-      - KAFKA_KRAFT_CLUSTER_ID=bf31a58b90557d0dfdbacb0c
-      - KAFKA_CFG_PROCESS_ROLES=controller,broker
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka-1:9091
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9090,CONTROLLER://:9091,EXTERNAL://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-1:9090,EXTERNAL://kafka-1:9092
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
-      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_KRAFT_CLUSTER_ID: bf31a58b90557d0dfdbacb0c
+      KAFKA_CFG_PROCESS_ROLES: controller,broker
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:9093
+      KAFKA_CFG_LISTENERS: CONTROLLER://:9093,EXTERNAL://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: EXTERNAL://kafka-1:9092
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "kafka-1:9092"]
     networks:
       - kafka-network
 
+  # Kafka UI
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
     ports:
       - "8080:8080"
     environment:
-      - KAFKA_CLUSTERS_0_NAME=local-kafka
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-1:9090  # Используйте внутренний порт
-      - KAFKA_CLUSTERS_0_ZOOKEEPER=null
+      KAFKA_CLUSTERS_0_NAME: local-kafka
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-1:9092
     depends_on:
-      - kafka-1
+      kafka-1:
+        condition: service_healthy
     networks:
       - kafka-network
+      - backend-network
 
+  # Consul Server
   consul-server:
     image: consul:1.15.4
     container_name: consul-server
     hostname: consul-server
     ports:
-      - "8500:8500"  # Порт для доступа к Consul UI
+      - "8500:8500"
     volumes:
       - consul-data:/consul/data
-      - ../config/agent.json:/consul/config/agent.json
-    command: >
-      agent -server -bootstrap-expect=1 -ui -client=0.0.0.0
-      -config-dir=/consul/config
+      - ./config/agent.json:/consul/config/agent.json
+    command: agent -server -bootstrap-expect=1 -ui -client=0.0.0.0 -config-dir=/consul/config
     environment:
       - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":true, "enable_script_checks":true}
     networks:
       - consul-network
-  consul-client:
-    image: consul:1.15.4
-    container_name: consul-client
-    hostname: consul-client
-    depends_on:
-      - consul-server
-    volumes:
-      - ../config/agent.json:/consul/config/agent.json
-    command: >
-      agent -client=0.0.0.0 -retry-join=consul-server
-      -config-dir=/consul/config
+      - backend-network
+
+  # Databases
+  db-auth:
+    image: postgres:15-alpine
     environment:
-      - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":false}
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
     networks:
-      - consul-network
+      - database-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auth_user -d auth_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  db-user:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_USER: user_user
+      POSTGRES_PASSWORD: user
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data
+    networks:
+      - database-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user_user -d user_db"]
+
+  db-booking:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: booking_db
+      POSTGRES_USER: booking
+      POSTGRES_PASSWORD: booking
+    volumes:
+      - postgres_booking_data:/var/lib/postgresql/data
+    networks:
+      - database-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U booking -d booking_db"]
+
+  # Application Services
+  notification-service:
+    build:
+      context: ../../notification-service
+      dockerfile: Dockerfile
+    ports:
+      - "9494:9494"
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka-1:
+        condition: service_healthy
+    networks:
+      - backend-network
+      - kafka-network
+
+  user-service:
+    build:
+      context: ../../user-service
+      dockerfile: Dockerfile
+    ports:
+      - "9292:9292"
+    depends_on:
+      db-user:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - backend-network
+      - database-network
+
+  booking-service:
+    build:
+      context: ../../booking-service
+      dockerfile: Dockerfile
+    ports:
+      - "9393:9393"
+    depends_on:
+      db-booking:
+        condition: service_healthy
+      kafka-1:
+        condition: service_healthy
+    networks:
+      - backend-network
+      - kafka-network
+      - database-network
+
+  auth-service:
+    build:
+      context: ../../auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "9191:9191"
+    depends_on:
+      db-auth:
+        condition: service_healthy
+      kafka-1:
+        condition: service_healthy
+    networks:
+      - backend-network
+      - kafka-network
+      - database-network
 
 networks:
+  backend-network:
+    driver: bridge
   kafka-network:
     driver: bridge
   consul-network:
+    driver: bridge
+  database-network:
     driver: bridge
 
 volumes:
   redis_data:
   consul-data:
+  postgres_auth_data:
+  postgres_user_data:
+  postgres_booking_data:
