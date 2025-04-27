@@ -61,12 +61,11 @@ services:
       - "8500:8500"
     volumes:
       - consul-data:/consul/data
-      - ./config/agent.json:/consul/config/agent.json
+      - ../config/agent.json:/consul/config/agent.json
     command: agent -server -bootstrap-expect=1 -ui -client=0.0.0.0 -config-dir=/consul/config
     environment:
       - CONSUL_LOCAL_CONFIG={"datacenter":"dc1", "server":true, "enable_script_checks":true}
     networks:
-      - consul-network
       - backend-network
 
   # Databases
@@ -78,6 +77,8 @@ services:
       POSTGRES_PASSWORD: auth
     volumes:
       - postgres_auth_data:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
     networks:
       - database-network
     healthcheck:
@@ -94,6 +95,8 @@ services:
       POSTGRES_PASSWORD: user
     volumes:
       - postgres_user_data:/var/lib/postgresql/data
+    ports:
+      - "25432:5432"
     networks:
       - database-network
     healthcheck:
@@ -107,6 +110,8 @@ services:
       POSTGRES_PASSWORD: booking
     volumes:
       - postgres_booking_data:/var/lib/postgresql/data
+    ports:
+      - "35432:5432"
     networks:
       - database-network
     healthcheck:
@@ -179,8 +184,6 @@ networks:
   backend-network:
     driver: bridge
   kafka-network:
-    driver: bridge
-  consul-network:
     driver: bridge
   database-network:
     driver: bridge
