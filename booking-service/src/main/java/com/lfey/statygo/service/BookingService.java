@@ -1,21 +1,25 @@
 package com.lfey.statygo.service;
 
 import com.lfey.statygo.component.CustomDateFormatter;
-import com.lfey.statygo.component.PriceCalculate;
+import com.lfey.statygo.component.CustomPageable;
+import com.lfey.statygo.component.PageResponse;
 import com.lfey.statygo.component.factory.BookingDetailsEventFactory;
 import com.lfey.statygo.component.factory.BookingFactory;
 import com.lfey.statygo.dto.BookingDetailsEvent;
+import com.lfey.statygo.dto.BookingDto;
 import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.BookingStatus;
+import com.lfey.statygo.exception.BookingNotFoundException;
 import com.lfey.statygo.kafka.KafkaProducer;
 import com.lfey.statygo.repository.BookingRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,37 +27,32 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final KafkaProducer kafkaProducer;
     private final RoomAvailabilityService roomAvailabilityService;
-    private final BookingDetailsEventFactory bookingDetailsEventFactory;
-    private final BookingFactory bookingFactory;
 
     public BookingService(BookingRepository bookingRepository, KafkaProducer kafkaProducer,
-                          RoomAvailabilityService roomAvailabilityService, BookingDetailsEventFactory bookingDetailsEventFactory,
-                          BookingFactory bookingFactory) {
+                          RoomAvailabilityService roomAvailabilityService) {
         this.bookingRepository = bookingRepository;
         this.kafkaProducer = kafkaProducer;
         this.roomAvailabilityService = roomAvailabilityService;
-        this.bookingDetailsEventFactory = bookingDetailsEventFactory;
-        this.bookingFactory = bookingFactory;
     }
 
     @Transactional
     public void bookingRoom(BookingRoom bookingRoom, String username) {
-        List<Booking> bookings = roomAvailabilityService.getFreeRooms(bookingRoom.getHotelId(), bookingRoom.getStartDate(),
-                        bookingRoom.getEndDate(), bookingRoom.getRoomType(), bookingRoom.getGuests(), bookingRoom.getNumberOfRooms())
-                .stream()
-                .map(freeRoom -> {
-                    Booking booking = bookingFactory.createBooking(freeRoom, username, bookingRoom);
-                    if (freeRoom.getAutoApprove()) {
-                        booking.setBookingStatus(BookingStatus.CONFIRMED);
-                    } else {
-                        booking.setBookingStatus(BookingStatus.PENDING);
-                    }
-                    return booking;
-                })
-                .toList();
         //TODO STB-5
-        List<Booking> saveBooking = (List<Booking>) bookingRepository.saveAll(bookings);
-
+        CustomDateFormatter.dateVerification(bookingRoom.getStartDate(), bookingRoom.getEndDate());
+        List<Booking> saveBooking = (List<Booking>) bookingRepository.saveAll(
+                roomAvailabilityService.getFreeRooms(bookingRoom.getHotelId(), bookingRoom.getStartDate(),
+                        bookingRoom.getEndDate(), bookingRoom.getRoomType(),
+                                bookingRoom.getGuests(), bookingRoom.getNumberOfRooms()).stream()
+                        .map(freeRoom -> {
+                            Booking booking = BookingFactory.createBooking(freeRoom, username, bookingRoom);
+                            if (freeRoom.getAutoApprove()) {
+                                booking.setBookingStatus(BookingStatus.CONFIRMED);
+                            } else {
+                                booking.setBookingStatus(BookingStatus.PENDING);
+                            }
+                            return booking;
+                        })
+                        .toList());
         kafkaProducer.sendBookingDetails(getGroupedBookingDetailsByRoomType(saveBooking, username));
     }
 
@@ -61,7 +60,7 @@ public class BookingService {
     private List<BookingDetailsEvent> getGroupedBookingDetailsByRoomType(List<Booking> bookings, String username) {
         return bookings.stream()
                 .map(booking -> {
-                    return bookingDetailsEventFactory.createBookingDetailsEvent(booking, username);
+                    return BookingDetailsEventFactory.createBookingDetailsEvent(booking, username);
                 })
                 .collect(Collectors.groupingBy(
                         BookingDetailsEvent::getRoomType,
@@ -69,13 +68,32 @@ public class BookingService {
                                 Collectors.toList(),
                                 list -> {
                                     BookingDetailsEvent first = list.get(0);
-                                    return bookingDetailsEventFactory.createBookingDetailsEventByGroup(first, list.size());
+                                    return BookingDetailsEventFactory.createBookingDetailsEventByGroup(first, list.size());
                                 }
                         )
                 ))
                 .values()
                 .stream()
                 .toList();
+    }
+
+    public BookingDto getBookingById(Long id) {
+        return BookingFactory.createBookingDto(bookingRepository.findById(id).orElseThrow(
+                () -> new BookingNotFoundException(String.format("Booking by id: %s not found", id))
+        ));
+    }
+
+    public PageResponse<BookingDto> getHotelReservationOverPeriod(Long hotelId, String startDate, String endDate) {
+        CustomDateFormatter.dateVerification(startDate, endDate);
+        return PageResponse.fromPage(bookingRepository.findAllBookingByPeriodAtHotel(hotelId,
+                CustomDateFormatter.localDateFormatter(startDate),
+                CustomDateFormatter.localDateFormatter(Objects.requireNonNullElse(endDate, LocalDate.now().toString())),
+                CustomPageable.getPageable(5)), BookingFactory::createBookingDto);
+    }
+
+    public PageResponse<BookingDto> getAllHotelReservation(Long hotelId) {
+        return PageResponse.fromPage(bookingRepository.findAllByHotel_Id(hotelId, CustomPageable.getPageable(5)),
+                BookingFactory::createBookingDto);
     }
 }
 

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -14,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @RedisHash(value = "ValidRefToken", timeToLive = 604800000)
-public class ValidationRefreshToken {
+public class ValidationRefreshToken implements Serializable {
 
     @Id
     private String token;

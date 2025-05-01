@@ -1,4 +1,5 @@
 FROM gradle:8.4-jdk17-alpine AS build
+
 WORKDIR /app
 
 COPY settings.gradle .

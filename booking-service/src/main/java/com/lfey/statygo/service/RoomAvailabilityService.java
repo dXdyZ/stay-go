@@ -21,6 +21,7 @@ public class RoomAvailabilityService {
     @Transactional
     public List<Room> getFreeRooms(Long hotelId, String startDate, String endDate, String roomType,
                                              Integer guests, Integer numberOfRooms) throws NoRoomsAvailableException{
+        CustomDateFormatter.dateVerification(startDate, endDate);
         List<Room> roomAvailableIds = roomService.getAvailableRoom(
                 hotelId, guests,
                 CustomDateFormatter.localDateFormatter(startDate),

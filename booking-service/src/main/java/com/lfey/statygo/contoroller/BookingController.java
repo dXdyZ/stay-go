@@ -1,9 +1,15 @@
 package com.lfey.statygo.contoroller;
 
+import com.lfey.statygo.component.PageResponse;
+import com.lfey.statygo.dto.BookingDto;
 import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.service.BookingService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -21,4 +27,20 @@ public class BookingController {
                            @RequestHeader(USERNAME_HEADER) String username) {
         bookingService.bookingRoom(bookingRoom, username);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookingDto> getBookingById(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.getBookingById(id));
+    }
+
+    @GetMapping("/hotels/{hotelId}/period")
+    public ResponseEntity<PageResponse<BookingDto>> getBookingByPeriod(
+            @PathVariable Long hotelId,
+            @RequestParam String startDate,
+            @RequestParam(required = false) String endDate) {
+        return ResponseEntity.ok(bookingService.getHotelReservationOverPeriod(
+               hotelId, startDate, endDate));
+    }
+
+
 }

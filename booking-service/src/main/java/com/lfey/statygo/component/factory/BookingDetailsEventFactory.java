@@ -4,10 +4,9 @@ import com.lfey.statygo.dto.BookingDetailsEvent;
 import com.lfey.statygo.entity.Booking;
 import org.springframework.stereotype.Component;
 
-@Component
 public class BookingDetailsEventFactory {
 
-    public BookingDetailsEvent createBookingDetailsEvent(Booking booking, String username) {
+    public static BookingDetailsEvent createBookingDetailsEvent(Booking booking, String username) {
         return BookingDetailsEvent.builder()
                 .bookingId(booking.getId())
                 .hotelName(booking.getHotel().getName())
@@ -22,7 +21,7 @@ public class BookingDetailsEventFactory {
                 .build();
     }
 
-    public BookingDetailsEvent createBookingDetailsEventByGroup(BookingDetailsEvent first, int listSize) {
+    public static BookingDetailsEvent createBookingDetailsEventByGroup(BookingDetailsEvent first, int listSize) {
         return BookingDetailsEvent.builder()
                 .hotelName(first.getHotelName())
                 .hotelAddress(first.getHotelAddress())

@@ -1,7 +1,7 @@
 package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.*;
-import com.lfey.authservice.dto.rabbit.EventType;
+import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.entity.Role;
 import com.lfey.authservice.entity.RoleName;
 import com.lfey.authservice.entity.UserReg;
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateEmail(EmailUpdate emailUpdate, String username) throws DuplicateUserException{
+    public void updateEmail(EmailUpdate emailUpdate, String username) throws DuplicateUserException {
         //Может стоит обновить проверку на null через метод Objects.requireNonNull()
         UserDto userDto = userClientService.getUserByEmailFromUserService(emailUpdate.email());
         if (userDto == null) {
@@ -47,7 +47,8 @@ public class UserService {
                     .email(emailUpdate.email())
                     .username(username)
                     .build(), EventType.EMAIL_RESET);
-        } else throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdate.email()));
+        } else
+            throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdate.email()));
     }
 
     public UserDto updateEmailInUserService(ValidationCode validationCode, String username) throws ServerErrorException {

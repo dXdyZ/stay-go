@@ -1,6 +1,6 @@
 package com.lfey.authservice.service;
 
-import com.lfey.authservice.dto.rabbit.RegistrationEvent;
+import com.lfey.authservice.dto.kafka.RegistrationEvent;
 import com.lfey.authservice.kafka.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

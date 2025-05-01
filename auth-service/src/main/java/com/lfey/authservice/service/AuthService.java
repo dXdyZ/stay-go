@@ -1,7 +1,7 @@
 package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.*;
-import com.lfey.authservice.dto.rabbit.EventType;
+import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.entity.Role;
 import com.lfey.authservice.entity.RoleName;
 import com.lfey.authservice.entity.UserReg;

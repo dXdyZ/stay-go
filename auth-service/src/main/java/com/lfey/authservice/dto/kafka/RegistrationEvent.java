@@ -1,4 +1,4 @@
-package com.lfey.authservice.dto.rabbit;
+package com.lfey.authservice.dto.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationEvent {
+public class RegistrationEvent implements Serializable {
     private static final Long UUID = 1L;
     private String email;
     private String confirmCode;

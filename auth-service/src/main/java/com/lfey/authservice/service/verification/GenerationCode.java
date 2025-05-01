@@ -1,8 +1,8 @@
 package com.lfey.authservice.service.verification;
 
 import com.lfey.authservice.entity.UserReg;
-import com.lfey.authservice.dto.rabbit.EventType;
-import com.lfey.authservice.dto.rabbit.RegistrationEvent;
+import com.lfey.authservice.dto.kafka.EventType;
+import com.lfey.authservice.dto.kafka.RegistrationEvent;
 import com.lfey.authservice.service.RegistrationEventDispatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

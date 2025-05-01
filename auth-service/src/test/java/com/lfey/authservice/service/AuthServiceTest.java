@@ -3,7 +3,7 @@ package com.lfey.authservice.service;
 import com.lfey.authservice.dto.AuthRequest;
 import com.lfey.authservice.dto.JwtToken;
 import com.lfey.authservice.dto.ValidationCode;
-import com.lfey.authservice.dto.rabbit.EventType;
+import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.exception.AuthenticationFailedException;
 import com.lfey.authservice.exception.DuplicateUserException;

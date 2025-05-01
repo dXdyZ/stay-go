@@ -29,6 +29,11 @@ public final class CustomDateFormatter {
         }
     }
 
+    public static void dateVerification(String startDate, String endDate) throws InvalidDateException{
+        if (localDateFormatter(startDate).isAfter(localDateFormatter(endDate)))
+            throw new InvalidDateException("Start date must be more end date");
+    }
+
     public static int getNumberOfDays(LocalDate startDate, LocalDate endDate) {
         return (int) ChronoUnit.DAYS.between(startDate, endDate);
     }
