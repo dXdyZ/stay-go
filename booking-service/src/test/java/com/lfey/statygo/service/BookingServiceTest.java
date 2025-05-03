@@ -4,6 +4,7 @@ import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.kafka.KafkaProducer;
 import com.lfey.statygo.repository.BookingRepository;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,8 +40,8 @@ class BookingServiceTest {
     private static Room room;
     private static Booking booking;
 
-    @BeforeEach
-    void init() {
+    @BeforeAll
+    static void init() {
         hotel = Hotel.builder()
                 .id(1L)
                 .name("test hotel")

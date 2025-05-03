@@ -1,10 +1,11 @@
 package com.lfey.statygo.service;
 
 import com.lfey.statygo.component.CustomPageable;
-import com.lfey.statygo.component.factory.HotelDtoFactory;
+import com.lfey.statygo.component.factory.HotelFactory;
 import com.lfey.statygo.component.factory.RoomDtoFactory;
 import com.lfey.statygo.dto.CreateHotel;
 import com.lfey.statygo.dto.HotelDto;
+import com.lfey.statygo.dto.HotelUpdateRequest;
 import com.lfey.statygo.entity.Address;
 import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.entity.Room;
@@ -26,16 +27,16 @@ import java.util.Set;
 public class HotelService {
     private final HotelRepository hotelRepository;
     private final RoomAvailabilityService roomAvailabilityService;
-    private final HotelDtoFactory hotelDtoFactory;
+    private final HotelFactory hotelFactory;
     private final RoomDtoFactory roomDtoFactory;
 
 
     @Autowired
     public HotelService(HotelRepository hotelRepository, RoomAvailabilityService roomAvailabilityService,
-                        HotelDtoFactory hotelDtoFactory, RoomDtoFactory roomDtoFactory) {
+                        HotelFactory hotelFactory, RoomDtoFactory roomDtoFactory) {
         this.hotelRepository = hotelRepository;
         this.roomAvailabilityService = roomAvailabilityService;
-        this.hotelDtoFactory = hotelDtoFactory;
+        this.hotelFactory = hotelFactory;
         this.roomDtoFactory = roomDtoFactory;
     }
 
@@ -56,13 +57,29 @@ public class HotelService {
             .build());
     }
 
+    public void updateHotelDataById(Long hotelId, HotelUpdateRequest hotelUpdateRequest) {
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(
+                () -> new HotelNotFoundException(String.format("Hotel by id: %s not found", hotelId))
+        );
+        if (hotelUpdateRequest.getName() != null) {
+            hotel.setName(hotelUpdateRequest.getName());
+        }
+        if (hotelUpdateRequest.getStars() != null) {
+            hotel.setStars(hotelUpdateRequest.getStars());
+        }
+        if (hotelUpdateRequest.getDescription() != null) {
+            hotel.setDescription(hotelUpdateRequest.getDescription());
+        }
+        hotelRepository.save(hotel);
+    }
+
     //TODO STB-3
     @Transactional
     public HotelDto getHotelByIdUser(Long id, Integer guests, String startDate, String endDate) {
         Hotel hotel = hotelRepository.findById(id).orElseThrow(() -> new HotelNotFoundException(id));
         List<Room> freeRooms = roomAvailabilityService
                 .getFreeRooms(hotel.getId(), startDate, endDate, null, guests, null);
-        HotelDto hotelDto = hotelDtoFactory.createHotelDto(hotel);
+        HotelDto hotelDto = hotelFactory.createHotelDto(hotel);
         Set<String> uniqueRoomType = new HashSet<>();
         if (!hotel.getRoom().isEmpty()) {
             hotelDto.getRoomDto().addAll(freeRooms.stream()
@@ -92,7 +109,7 @@ public class HotelService {
     }
 
     @Transactional
-    @Cacheable(value = "hotelSearch", key = "{#root.methodName, #stars, #country, #city, #page}")
+    @Cacheable(value = "hotelSearch", key = "{#stars, #country, #city, #page}")
     public Page<HotelDto> searchHotelByFilter(Integer stars, String country, String city, int page) {
         Specification<Hotel> spec = Specification.where(null);
         if (stars != null) spec = spec.and(HotelSpecification.hasStars(stars));
@@ -100,6 +117,6 @@ public class HotelService {
         if (city != null) spec = spec.and(HotelSpecification.hasCity(city));
 
         return hotelRepository.findAll(spec, CustomPageable.getPageable(page))
-                .map(hotelDtoFactory::createHotelDto);
+                .map(hotelFactory::createHotelDto);
     }
 }

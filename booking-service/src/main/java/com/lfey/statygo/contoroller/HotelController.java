@@ -3,6 +3,7 @@ package com.lfey.statygo.contoroller;
 import com.lfey.statygo.component.PageResponse;
 import com.lfey.statygo.dto.CreateHotel;
 import com.lfey.statygo.dto.HotelDto;
+import com.lfey.statygo.dto.HotelUpdateRequest;
 import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.service.HotelService;
 import jakarta.validation.Valid;
@@ -21,6 +22,12 @@ public class HotelController {
     @PostMapping("/create")
     public void createHotel(@Valid @RequestBody CreateHotel createHotel) {
         hotelService.saveHotel(createHotel);
+    }
+
+    @PatchMapping("/{id}")
+    public void updateHotelData(@PathVariable Long id,
+                                @Valid @RequestBody HotelUpdateRequest hotelUpdateRequest) {
+        hotelService.updateHotelDataById(id, hotelUpdateRequest);
     }
 
     @GetMapping("/users/{id}/{guests}/{startDate}/{endDate}")
