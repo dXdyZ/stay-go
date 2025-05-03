@@ -116,7 +116,7 @@ public class HotelService {
         if (country != null) spec = spec.and(HotelSpecification.hasCountry(country));
         if (city != null) spec = spec.and(HotelSpecification.hasCity(city));
 
-        return hotelRepository.findAll(spec, CustomPageable.getPageable(page))
+        return hotelRepository.findAll(spec, CustomPageable.getPageable(0, 7))
                 .map(hotelFactory::createHotelDto);
     }
 }

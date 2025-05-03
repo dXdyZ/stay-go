@@ -19,15 +19,21 @@ import java.util.Set;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
+
     @EntityGraph(attributePaths = {"hotel", "room"})
-    @Query("select b.id from Booking b " +
-            "where b.hotel.id = :hotelId " +
-            "and b.startDate <= :rangeEnd " +
-            "AND b.endDate >= :rangeStart")
-    Page<Booking> findAllBookingByPeriodAtHotel(@Param("hotelId") Long hotelId, @Param("rangeEnd") LocalDate startDate,
-                                                @Param("rangeStart") LocalDate endDate, Pageable pageable);
+    @Query("SELECT b FROM Booking b " +
+           "WHERE b.hotel.id = :hotelId " +
+           "AND b.startDate <= :rangeEnd " +
+           "AND b.endDate >= :rangeStart")
+    Page<Booking> findAllBookingByPeriodAtHotel(
+        @Param("hotelId") Long hotelId,
+        @Param("rangeStart") LocalDate rangeStart,
+        @Param("rangeEnd") LocalDate rangeEnd,
+        Pageable pageable
+    );
 
     @EntityGraph(attributePaths = {"hotel", "room"}) //Решает проблему 1+N запросов
-    Page<Booking> findAllByHotel_Id(Long id, Pageable pageable);
+    @Query("select b from Booking b where b.hotel.id = :hotelId")
+    Page<Booking> findAllByHotel_Id(@Param("hotelId") Long hotelId, Pageable pageable);
 
 }

@@ -13,15 +13,7 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    @Query("select r from Room r where r.hotel.id = :hotelId and r.capacity = :capacity and r.roomType = :roomType")
-    List<Room> findRoomsByHotelIdAndRoomTypeAndCapacity(@Param("hotelId") Long hotelId, @Param("capacity") Integer capacity,
-                                                        @Param("roomType") RoomType roomType);
-
-    @Query("select r from Room r where r.hotel.id = :hotelId and r.capacity = :capacity")
-    List<Room> findRoomsByHotelIdAndCapacity(@Param("hotelId") Long hotelId, @Param("capacity") Integer capacity);
-
-
-    @Query("SELECT r.id FROM Room r " +
+    @Query("SELECT r FROM Room r " +
             "WHERE r.hotel.id = :hotelId " +
             "AND r.capacity = :capacity " +
             "AND (:roomType IS NULL OR r.roomType = :roomType) " +

@@ -88,11 +88,12 @@ public class BookingService {
         return PageResponse.fromPage(bookingRepository.findAllBookingByPeriodAtHotel(hotelId,
                 CustomDateFormatter.localDateFormatter(startDate),
                 CustomDateFormatter.localDateFormatter(Objects.requireNonNullElse(endDate, LocalDate.now().toString())),
-                CustomPageable.getPageable(5)), BookingFactory::createBookingDto);
+                CustomPageable.getPageable(0, 7)), BookingFactory::createBookingDto);
     }
 
     public PageResponse<BookingDto> getAllHotelReservation(Long hotelId) {
-        return PageResponse.fromPage(bookingRepository.findAllByHotel_Id(hotelId, CustomPageable.getPageable(5)),
+        return PageResponse.fromPage(bookingRepository.findAllByHotel_Id(hotelId,
+                        CustomPageable.getPageable(0, 7)),
                 BookingFactory::createBookingDto);
     }
 }
