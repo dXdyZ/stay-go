@@ -3,9 +3,11 @@ package com.lfey.authservice.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public record AuthRequest(
+
+        @NotBlank(message = "Username must not be empty")
         String username,
 
-        @NotBlank
+        @NotBlank(message = "Password must not be empty")
         String password
 ) {
 }

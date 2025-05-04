@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Redis Service
   redis:
@@ -28,9 +26,11 @@ services:
       KAFKA_CFG_PROCESS_ROLES: controller,broker
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:9093
       KAFKA_CFG_LISTENERS: CONTROLLER://:9093,EXTERNAL://:9092
-      KAFKA_CFG_ADVERTISED_LISTENERS: EXTERNAL://kafka-1:9092
+#     В проде скорее всего можно будет сделать kafka-1
+      KAFKA_CFG_ADVERTISED_LISTENERS: EXTERNAL://localhost:9092
       KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: EXTERNAL
     healthcheck:
       test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "kafka-1:9092"]
     networks:

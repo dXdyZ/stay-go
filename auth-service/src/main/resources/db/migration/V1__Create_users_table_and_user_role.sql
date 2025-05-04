@@ -7,10 +7,8 @@ create table if not exists users (
 
 create table if not exists roles (
     id BIGSERIAL primary key,
-    role_name role_name not null
+    role_name varchar not null
 );
-
-create type role_name as enum ('ROLE_ADMIN', 'ROLE_USER', 'ROLE_MANAGER', 'ROLE_OWNER');
 
 create table if not exists user_roles (
     user_id BIGSERIAL not null,

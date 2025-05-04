@@ -1,13 +1,16 @@
 package com.lfey.authservice.controller;
 
-import com.lfey.authservice.dto.*;
+import com.lfey.authservice.dto.AuthRequest;
+import com.lfey.authservice.dto.JwtToken;
+import com.lfey.authservice.dto.UserDto;
+import com.lfey.authservice.dto.ValidationCode;
 import com.lfey.authservice.entity.UserReg;
 import com.lfey.authservice.service.AuthService;
 import com.lfey.authservice.service.UserService;
 import com.lfey.authservice.validation.RegistrationGroup;
-import io.jsonwebtoken.Jwt;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/auth/users")
+@RequestMapping("/api/auth/")
 public class AuthController {
     public final static String USERNAME_HEADER = "X-User-Username";
 
@@ -33,7 +36,7 @@ public class AuthController {
         authService.registerUser(userReg);
     }
 
-    @PostMapping("/confirm-registration")
+    @PostMapping("/registration/confirm")
     public ResponseEntity<JwtToken> validationUser(@RequestBody ValidationCode validationCode) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -54,17 +57,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtToken> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<JwtToken> login(@Valid @RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok(authService.login(authRequest));
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<JwtToken> refreshAccessToken(@RequestBody JwtToken jwtToken) {
+    @PostMapping("/token/refresh")
+    public ResponseEntity<JwtToken> refreshAccessToken(@Valid @RequestBody JwtToken jwtToken) {
         return ResponseEntity.ok(authService.refreshAccessToken(jwtToken));
     }
 
-    @PostMapping("/confirm-email-update")
-    public ResponseEntity<UserDto> validationUpdateEmail(@RequestBody ValidationCode validationCode,
+    @PostMapping("/email-update/confirm")
+    public ResponseEntity<UserDto> validationUpdateEmail(@Valid @RequestBody ValidationCode validationCode,
                                          @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updateEmailInUserService(validationCode, username));
     }

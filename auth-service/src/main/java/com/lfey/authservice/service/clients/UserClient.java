@@ -1,11 +1,12 @@
 package com.lfey.authservice.service.clients;
 
 
+import com.lfey.authservice.configuration.FeignClintConfiguration;
 import com.lfey.authservice.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "user-service")
+@FeignClient(name = "user-service", configuration = FeignClintConfiguration.class)
 public interface UserClient {
     @PostMapping("/users/register")
     void saveUser(@RequestBody UserDto userDto);

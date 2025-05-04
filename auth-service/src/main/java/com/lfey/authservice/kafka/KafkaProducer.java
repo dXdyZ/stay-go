@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class KafkaProducer {
     private final KafkaTemplate<String, RegistrationEvent> template;
 
-    @Value("${spring.kafka.topic.email-verification.name}")
+    @Value("${app.topics.email-verification.name}")
     private String topicName;
 
     public KafkaProducer(KafkaTemplate<String, RegistrationEvent> template) {

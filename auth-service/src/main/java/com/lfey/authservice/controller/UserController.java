@@ -3,11 +3,12 @@ package com.lfey.authservice.controller;
 import com.lfey.authservice.dto.*;
 import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth-user")
+@RequestMapping("/api/auth/user/")
 public class UserController {
     private final UserService userService;
     public final static String USERNAME_HEADER = "X-User-Username";
@@ -21,20 +22,20 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserByName(username));
     }
 
-    @PatchMapping("/update-username")
-    public ResponseEntity<UserDto> updateUsername(@RequestBody UsernameUpdate usernameUpdate,
+    @PatchMapping("/username")
+    public ResponseEntity<UserDto> updateUsername(@Valid  @RequestBody UsernameUpdate usernameUpdate,
                                                   @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updateUsername(username, usernameUpdate));
     }
 
-    @PatchMapping("/update-email")
-    public void updateEmail(@RequestBody EmailUpdate emailUpdate,
+    @PatchMapping("/email")
+    public void updateEmail(@Valid @RequestBody EmailUpdate emailUpdate,
                             @RequestHeader(USERNAME_HEADER) String username) {
         userService.updateEmail(emailUpdate, username);
     }
 
-    @PatchMapping("/update-password")
-    public void updatePassword(@RequestBody ResetPasswordRequest passwordRequest) {
+    @PatchMapping("/password")
+    public void updatePassword(@Valid @RequestBody ResetPasswordRequest passwordRequest) {
         userService.resetPassword(passwordRequest);
     }
 
