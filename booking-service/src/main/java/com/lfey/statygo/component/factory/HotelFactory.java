@@ -5,7 +5,7 @@ import com.lfey.statygo.entity.Hotel;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HotelDtoFactory {
+public class HotelFactory {
     public HotelDto createHotelDto(Hotel hotel) {
         return HotelDto.builder()
                 .hotelId(hotel.getId())

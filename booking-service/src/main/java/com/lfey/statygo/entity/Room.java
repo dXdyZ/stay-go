@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Room implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer number;
@@ -33,7 +33,7 @@ public class Room implements Serializable {
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     @ToString.Exclude //Исключает поле из toString()
     private Hotel hotel;

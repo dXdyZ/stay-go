@@ -5,11 +5,8 @@ import com.lfey.statygo.dto.BookingDto;
 import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.service.BookingService;
 import jakarta.validation.Valid;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -43,4 +40,8 @@ public class BookingController {
     }
 
 
+    @GetMapping("/hotels/{hotelId}")
+    public ResponseEntity<PageResponse<BookingDto>> getAllBookingByHotel(@PathVariable Long hotelId) {
+        return ResponseEntity.ok(bookingService.getAllHotelReservation(hotelId));
+    }
 }
