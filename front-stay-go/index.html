@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hotel Booking</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Вкладки -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login')">Вход</button>
+      <button class="tab" onclick="switchTab('register')">Регистрация</button>
+    </div>
+
+    <!-- Форма входа -->
+    <form id="login" class="form active">
+      <h2>Добро пожаловать</h2>
+      <input type="text" placeholder="Имя пользователя" required />
+      <input type="password" placeholder="Пароль" required />
+      <button type="submit">Войти</button>
+      <p class="error-message"></p>
+    </form>
+
+    <!-- Форма регистрации -->
+    <form id="register" class="form">
+      <h2>Создать аккаунт</h2>
+      <input type="text" placeholder="Имя пользователя" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Пароль" required />
+      <input type="text" placeholder="Телефон" required />
+      <button type="submit">Зарегистрироваться</button>
+      <p class="error-message"></p>
+    </form>
+
+    <!-- Форма подтверждения кода -->
+    <form id="confirm-code" class="form">
+      <h2>Подтвердите регистрацию</h2>
+      <input type="email" placeholder="Email" id="confirm-email" required />
+      <input type="text" placeholder="Код из письма" id="confirm-code" maxlength="6" minlength="6" required />
+      <button type="submit">Подтвердить</button>
+      <p class="error-message"></p>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
