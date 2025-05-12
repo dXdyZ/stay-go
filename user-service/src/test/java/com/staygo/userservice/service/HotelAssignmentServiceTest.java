@@ -1,5 +1,6 @@
 package com.staygo.userservice.service;
 
+import com.staygo.userservice.dto.AppointmentRequestDto;
 import com.staygo.userservice.entity.Users;
 import com.staygo.userservice.exception.DuplicateRoleException;
 import org.junit.jupiter.api.Test;
@@ -31,17 +32,17 @@ class HotelAssignmentServiceTest {
         var username = "test";
         var hotelId = 1L;
         var roleName = "MANAGER";
-        var appointmentRequest = new HotelAssignmentService.AppointmentRequest(username, hotelId, roleName);
+        var appointmentRequest = new AppointmentRequestDto(username, hotelId, roleName);
         var users = Users.builder()
                 .username(username)
                 .build();
-        doReturn(true).when(this.bookingClientService).checkHotelExistsInBookingService(hotelId);
+        doReturn(true).when(this.bookingClientService).validateHotelExists(hotelId);
         doReturn(users).when(this.userService).getUserByUsername(username);
 
         hotelAssignmentService.appointmentHotel(appointmentRequest);
 
         verify(this.userService).getUserByUsername(username);
-        verify(this.bookingClientService).checkHotelExistsInBookingService(hotelId);
+        verify(this.bookingClientService).validateHotelExists(hotelId);
         verify(this.authClientService).addRoleInUserService(username, roleName);
         verify(this.userService).saveUser(argThat((Users actUser) -> {
             return actUser.getHotelId().equals(hotelId);
@@ -53,12 +54,14 @@ class HotelAssignmentServiceTest {
         var username = "test";
         var hotelId = 1L;
         var roleName = "MANAGER";
-        var appointmentRequest = new HotelAssignmentService.AppointmentRequest(username, hotelId, roleName);
+        var appointmentRequest = new AppointmentRequestDto(username, hotelId, roleName);
         var users = Users.builder()
                 .username(username)
                 .build();
         doReturn(users).when(this.userService).getUserByUsername(username);
-        doThrow(new DuplicateRoleException()).when(this.authClientService).addRoleInUserService(username, roleName);
+        doThrow(new DuplicateRoleException(
+                String.format("Role: %s the user already has it", roleName)))
+                .when(this.authClientService).addRoleInUserService(username, roleName);
 
         DuplicateRoleException exception = assertThrows(
                 DuplicateRoleException.class,

@@ -1,6 +1,7 @@
 package com.staygo.userservice.controller;
 
-import com.staygo.userservice.dto.AppointmentRequest;
+import com.staygo.userservice.controller.documentation.UserControllerDocs;
+import com.staygo.userservice.dto.AppointmentRequestDto;
 import com.staygo.userservice.dto.UserDto;
 import com.staygo.userservice.entity.Users;
 import com.staygo.userservice.service.HotelAssignmentService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserController implements UserControllerDocs {
     public final static String USERNAME_HEADER = "X-User-Username";
 
     private final UserService userService;
@@ -29,7 +30,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/save")
     public void saveUser(@RequestBody UserDto userDto) {
         userService.saveUser(userDto);
     }
@@ -49,19 +50,19 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserByPhoneNumber(phone));
     }
 
-    @PatchMapping("/update-username/{newUsername}")
+    @PatchMapping("/{newUsername}/username")
     public ResponseEntity<Users> updateUsername(@PathVariable String newUsername,
                                @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updateUsername(username, newUsername));
     }
 
-    @PatchMapping("/update-phone/{phone}")
+    @PatchMapping("/{phone}/phone")
     public ResponseEntity<Users> updatePhone(@PathVariable String phone,
                             @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updatePhoneNumber(username, phone));
     }
 
-    @PatchMapping("/update-email/{email}")
+    @PatchMapping("/{email}/email")
     public ResponseEntity<Users> updateEmail(@PathVariable String email,
                              @RequestHeader(USERNAME_HEADER) String username) {
         return ResponseEntity.ok(userService.updateEmail(email, username));
@@ -69,9 +70,9 @@ public class UserController {
 
     @PatchMapping("/assign-hotel")
     public ResponseEntity<Users> appointmentHotel(
-            @Valid @RequestBody AppointmentRequest appointmentRequest) {
+            @Valid @RequestBody AppointmentRequestDto appointmentRequestDto) {
 
-        return ResponseEntity.ok(hotelAssignmentService.appointmentHotel(appointmentRequest));
+        return ResponseEntity.ok(hotelAssignmentService.appointmentHotel(appointmentRequestDto));
     }
 }
 

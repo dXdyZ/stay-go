@@ -69,7 +69,6 @@ public class UserService {
         return users;
     }
 
-    //TODO Сделать обновление email
     @Transactional
     public Users updateEmail(String username, String email) throws DuplicateUserException, UserNotFoundException{
         Users users = getUserByUsername(username);

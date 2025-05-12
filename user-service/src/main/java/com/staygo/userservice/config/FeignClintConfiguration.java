@@ -1,6 +1,8 @@
 package com.staygo.userservice.config;
 
-import com.staygo.userservice.component.FeignErrorDecoder;
+import com.staygo.userservice.exception.CustomNetworkException;
+import com.staygo.userservice.exception.ServerErrorException;
+import feign.FeignException;
 import feign.Retryer;
 import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,14 @@ public class FeignClintConfiguration {
 
     @Bean
     public ErrorDecoder errorDecoder() {
-        return new FeignErrorDecoder();
+        return (methodKey, response) -> {
+            if (response == null) {
+                return new CustomNetworkException();
+            }
+            if (response.status() >= 500) {
+                return new ServerErrorException("Server error");
+            }
+            return FeignException.errorStatus(methodKey, response);
+        };
     }
 }

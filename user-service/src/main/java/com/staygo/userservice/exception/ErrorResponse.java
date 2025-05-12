@@ -1,18 +1,24 @@
 package com.staygo.userservice.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
+import java.util.Map;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ErrorResponse {
-    private Instant timestamp;
-    private Integer errorCode;
-    private String message;
-}
+@Schema(description = "Error response",
+        example = """
+                    {
+                       "timestamp": "2025-05-04 04:02:20.626585",
+                       "message": {
+                           "message": "Error message"
+                       },
+                       "code": "400" 
+                    }
+                    """
+)
+
+public record ErrorResponse(
+    Instant timestamp,
+    Map<String, String> error,
+    Integer errorCode
+){}

@@ -2,6 +2,7 @@ package com.staygo.userservice.service;
 
 import com.staygo.userservice.client.BookingClient;
 import com.staygo.userservice.exception.HotelNotFoundException;
+import feign.FeignException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ public class BookingClientService {
         this.bookingClient = bookingClient;
     }
 
-    @Cacheable(value = "hotelExists", key = "#hotelId")
-    public boolean checkHotelExistsInBookingService(Long hotelId) throws HotelNotFoundException{
-        if (bookingClient.checkHotelExists(hotelId)) {
-            return true;
-        } else throw new HotelNotFoundException();
+    @Cacheable(value = "hotelExistence", key = "#hotelId", unless = "#result == false ")
+    public boolean validateHotelExists(Long hotelId) throws HotelNotFoundException{
+        boolean exists = bookingClient.checkHotelExists(hotelId);
+        if (!exists) {
+            throw new HotelNotFoundException("Hotel with id %d not found".formatted(hotelId));
+        }
+        return exists;
     }
 }
