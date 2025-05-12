@@ -1,10 +1,11 @@
 package com.lfey.authservice.service;
 
-import com.lfey.authservice.dto.AuthRequest;
-import com.lfey.authservice.dto.JwtToken;
-import com.lfey.authservice.dto.ValidationCode;
+import com.lfey.authservice.dto.AuthRequestDto;
+import com.lfey.authservice.dto.JwtTokenDto;
+import com.lfey.authservice.dto.UserRegistrationDto;
+import com.lfey.authservice.dto.ValidationCodeDto;
 import com.lfey.authservice.dto.kafka.EventType;
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.exception.AuthenticationFailedException;
 import com.lfey.authservice.exception.DuplicateUserException;
 import com.lfey.authservice.repository.jpa.UserRepository;
@@ -60,35 +61,35 @@ class AuthServiceTest {
     void registerUser_WhenDuplicateUserNotExists() {
         var username = "test";
         var encodePassword = "encodePassword";
-        var userReg = UserReg.builder()
-                .username(username)
-                .password("password")
-                .build();
+        var userRegistrationDTO = new UserRegistrationDto(username, null, "password", "899003232");
         doReturn(false).when(this.userRepository).existsByUsername(username);
         doReturn(encodePassword).when(this.passwordEncoder).encode("password");
 
-        this.authService.registerUser(userReg);
+        this.authService.registerUser(userRegistrationDTO);
 
         verify(this.userRepository).existsByUsername(username);
         verify(this.passwordEncoder).encode("password");
-        verify(this.generationCode).generateCode(userReg, EventType.REGISTRATION);
+        verify(this.generationCode).generateCode(UserRegistration.builder()
+                        .username(username)
+                        .email(userRegistrationDTO.email())
+                        .password(encodePassword)
+                        .phoneNumber("")
+                .build(), EventType.REGISTRATION);
     }
 
     @Test
     void registerUser_WhenDuplicateUserExists_ThrowDuplicateUserException() {
         var username = "test";
-        var userReg = UserReg.builder()
-                .username(username)
-                .password("password")
-                .build();
+        var userRegistrationDTO = new UserRegistrationDto(username, null, "password", "899003232");
         doReturn(true).when(this.userRepository).existsByUsername(username);
 
         DuplicateUserException exception = assertThrows(
                 DuplicateUserException.class,
-                () -> this.authService.registerUser(userReg)
+                () -> this.authService.registerUser(userRegistrationDTO )
         );
 
-        assertEquals(exception.getMessage(), String.format("The user named: %s already exists", userReg.getUsername()));
+        assertEquals(exception.getMessage(), String.format("The user named: %s already exists",
+                userRegistrationDTO.username()));
         verifyNoInteractions(this.passwordEncoder, this.generationCode);
     }
 
@@ -99,16 +100,16 @@ class AuthServiceTest {
         var accessToke = "123456778dfdszxczxz";
         var refreshToken = "64532jgjfnv";
         var code = "123456";
-        var userReg = UserReg.builder()
+        var userReg = UserRegistration.builder()
                 .username(username)
                 .email(email)
                 .build();
-        var validationCode = new ValidationCode(email, code);
-        var jwtToken = new JwtToken(accessToke, refreshToken);
+        var validationCode = new ValidationCodeDto(email, code);
+        var jwtToken = new JwtTokenDto(accessToke, refreshToken);
         doReturn(jwtToken).when(this.tokenService).getToken(username);
         doReturn(userReg).when(this.verificationCode).verification(validationCode);
 
-        JwtToken response = this.authService.getJWT(validationCode);
+        JwtTokenDto response = this.authService.getJWT(validationCode);
 
         assertNotNull(response);
         assertEquals(accessToke, response.getAccessToken());
@@ -128,10 +129,10 @@ class AuthServiceTest {
     void login_ValidUserData() {
         var username = "test";
         var password = "password";
-        var authRequest = new AuthRequest(username, password);
+        var authRequest = new AuthRequestDto(username, password);
         var accessToken = "123456778dfdszxczxz";
         var refreshToken = "64532jgjfnv";
-        var jwtToken = new JwtToken(accessToken, refreshToken);
+        var jwtToken = new JwtTokenDto(accessToken, refreshToken);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 username,
@@ -148,7 +149,7 @@ class AuthServiceTest {
 
         doReturn(jwtToken).when(this.tokenService).getToken(username);
 
-        JwtToken response = this.authService.login(authRequest);
+        JwtTokenDto response = this.authService.login(authRequest);
 
         assertNotNull(response);
         assertEquals(accessToken, response.getAccessToken());
@@ -163,7 +164,7 @@ class AuthServiceTest {
     public void testLogin_ThrowsBadCredentialsException() {
         var username = "test";
         var password = "wrong_password";
-        var authRequest = new AuthRequest(username, password);
+        var authRequest = new AuthRequestDto(username, password);
 
         doThrow(new BadCredentialsException("Invalid credentials"))
                 .when(authenticationManager)

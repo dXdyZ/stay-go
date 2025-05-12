@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.dto.kafka.RegistrationEvent;
 import com.lfey.authservice.service.RegistrationEventDispatcher;
@@ -23,23 +23,23 @@ public class GenerationCode {
         this.registrationEventDispatcher = registrationEventDispatcher;
     }
 
-    public void generateCode(UserReg userReg, EventType eventType) {
-        userReg.setCode(String.format("%06d", new Random().nextInt(999999)));
-        log.info("User code: {}", userReg.getCode());
-        if (!userRegService.existsByEmail(userReg.getEmail())) {
-            userRegService.saveUserData(userReg);
-            registrationEventDispatcher.dispatcherRegistrationEvent(getRegistrationEvent(userReg, eventType));
+    public void generateCode(UserRegistration userRegistration, EventType eventType) {
+        userRegistration.setCode(String.format("%06d", new Random().nextInt(999999)));
+        log.info("code set email: {}", userRegistration.getCode());
+        if (!userRegService.existsByEmail(userRegistration.getEmail())) {
+            userRegService.saveUserData(userRegistration);
+            registrationEventDispatcher.dispatcherRegistrationEvent(getRegistrationEvent(userRegistration, eventType));
         } else {
-            userRegService.removeUserRegByEmail(userReg.getEmail());
-            userRegService.saveUserData(userReg);
-            registrationEventDispatcher.dispatcherRegistrationEvent(getRegistrationEvent(userReg, eventType));
+            userRegService.removeUserRegByEmail(userRegistration.getEmail());
+            userRegService.saveUserData(userRegistration);
+            registrationEventDispatcher.dispatcherRegistrationEvent(getRegistrationEvent(userRegistration, eventType));
         }
     }
 
-    private RegistrationEvent getRegistrationEvent(UserReg userReg, EventType eventType) {
+    private RegistrationEvent getRegistrationEvent(UserRegistration userRegistration, EventType eventType) {
         return RegistrationEvent.builder()
-                .email(userReg.getEmail())
-                .confirmCode(userReg.getCode())
+                .email(userRegistration.getEmail())
+                .confirmCode(userRegistration.getCode())
                 .eventType(eventType)
                 .build();
     }

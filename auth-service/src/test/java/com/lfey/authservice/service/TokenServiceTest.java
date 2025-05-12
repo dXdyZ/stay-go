@@ -1,6 +1,6 @@
 package com.lfey.authservice.service;
 
-import com.lfey.authservice.dto.JwtToken;
+import com.lfey.authservice.dto.JwtTokenDto;
 import com.lfey.authservice.jwt.JwtUtils;
 import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.security_service.ValidationRefreshTokenService;
@@ -45,7 +45,7 @@ class TokenServiceTest {
         doReturn(accessToken).when(this.jwtUtils).generationAccessToken(usersDetails);
         doReturn(refreshToken).when(this.jwtUtils).generationRefreshToken(usersDetails);
 
-        JwtToken response = tokenService.getToken(username);
+        JwtTokenDto response = tokenService.getToken(username);
 
         assertNotNull(response);
         assertEquals(accessToken, response.getAccessToken());

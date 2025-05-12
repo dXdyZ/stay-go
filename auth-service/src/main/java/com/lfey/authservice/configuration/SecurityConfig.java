@@ -3,7 +3,9 @@ package com.lfey.authservice.configuration;
 import com.lfey.authservice.jwt.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,18 +30,32 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //TODO Сделать нормальную security конфигурацию
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login",
-                                "/api/auth/register", "/api/auth/confirm-registration").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/swagger-ui/index.html"
+                        ).permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/auth/registration",
+                                "/api/auth/registration/confirm",
+                                "/api/auth/token/refresh"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/users/*/roles").hasAnyRole("ADMIN", "MANAGER", "OWNER")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

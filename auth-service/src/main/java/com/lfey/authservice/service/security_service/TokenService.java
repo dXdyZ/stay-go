@@ -1,6 +1,7 @@
 package com.lfey.authservice.service.security_service;
 
-import com.lfey.authservice.dto.JwtToken;
+import com.lfey.authservice.dto.JwtTokenDto;
+import com.lfey.authservice.exception.InvalidRefreshTokenException;
 import com.lfey.authservice.jwt.JwtUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,9 +21,9 @@ public class TokenService {
         this.validationRefreshTokenService = validationRefreshTokenService;
     }
 
-    public JwtToken getToken(String username) throws UsernameNotFoundException {
+    public JwtTokenDto getToken(String username) throws UsernameNotFoundException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        var tokens = new JwtToken(jwtUtils.generationAccessToken(userDetails),
+        var tokens = new JwtTokenDto(jwtUtils.generationAccessToken(userDetails),
                 jwtUtils.generationRefreshToken(userDetails));
         validationRefreshTokenService.addValidToken(tokens.getRefreshToken(), username);
         return tokens;
@@ -31,13 +32,15 @@ public class TokenService {
     /**
      * Протестировать метод на корректность работы
      */
-    public JwtToken validationRefreshTokenAndGenerationAccessToken(String token) {
-        if (jwtUtils.validationToken(token) && validationRefreshTokenService.isValidToken(token)) {
-            return new JwtToken(jwtUtils.generationAccessToken(
-                    userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token))), null);
-        }
-        //TODO заменить на исключение
-        return null;
+    public JwtTokenDto validationRefreshTokenAndGenerationAccessToken(String token) throws InvalidRefreshTokenException{
+        if (!jwtUtils.validationToken(token))
+            throw new InvalidRefreshTokenException("Refresh token is invalid or malformed");
+        if (!validationRefreshTokenService.isValidToken(token))
+            throw new InvalidRefreshTokenException("Refresh token is expired or revoked");
+
+        return new JwtTokenDto(jwtUtils.generationAccessToken(
+                userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token))),
+                null);
     }
 
     public void deleteRefreshToken(String refreshToken) {

@@ -2,26 +2,26 @@ package com.lfey.authservice.service.clients;
 
 
 import com.lfey.authservice.configuration.FeignClintConfiguration;
-import com.lfey.authservice.dto.UserDto;
+import com.lfey.authservice.dto.UserDetailsDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "user-service", configuration = FeignClintConfiguration.class)
 public interface UserClient {
-    @PostMapping("/users/register")
-    void saveUser(@RequestBody UserDto userDto);
+    @PostMapping("/api/users/save")
+    void saveUser(@RequestBody UserDetailsDto userDetailsDto);
 
-    @GetMapping("/users/by-email/{email}")
-    UserDto getUserByEmail(@PathVariable String email);
+    @GetMapping("/api/users/by-email/{email}")
+    UserDetailsDto getUserByEmail(@PathVariable String email);
 
-    @GetMapping("/users/by-name/{username}")
-    UserDto getUserByUsername(@PathVariable String username);
+    @GetMapping("/api/users/by-name/{username}")
+    UserDetailsDto getUserByUsername(@PathVariable String username);
 
-    @PatchMapping("/users/update-email/{email}")
-    UserDto updateEmail(@PathVariable String email,
-                        @RequestHeader("X-User-Username") String username);
+    @PatchMapping("/api/users/{email}/email")
+    UserDetailsDto updateEmail(@PathVariable String email,
+                               @RequestHeader("X-User-Username") String username);
 
-    @PatchMapping("/users/update-username/{newUsername}")
-    UserDto updateUsername(@PathVariable String newUsername,
-                           @RequestHeader("X-User-Username") String username);
+    @PatchMapping("/api/users/{newUsername}/username")
+    UserDetailsDto updateUsername(@PathVariable String newUsername,
+                                  @RequestHeader("X-User-Username") String username);
 }

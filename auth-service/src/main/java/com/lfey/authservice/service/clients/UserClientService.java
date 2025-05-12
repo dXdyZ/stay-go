@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.clients;
 
-import com.lfey.authservice.dto.UserDto;
+import com.lfey.authservice.dto.UserDetailsDto;
 import com.lfey.authservice.exception.ServerErrorException;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,14 @@ public class UserClientService {
         this.userClient = userClient;
     }
 
-    public void userRegistrationInUserService(UserDto userDto) {
-        userClient.saveUser(userDto);
+    public void userRegistrationInUserService(UserDetailsDto userDetailsDto) {
+        userClient.saveUser(userDetailsDto);
     }
 
 
     //TODO Скоре всего придется делать его асинхронным в случае пустого кеша чтобы пользовать не ожидал проверки
     @Cacheable(value = "userByEmail", key = "#email")
-    public UserDto getUserByEmailFromUserService(String email) {
+    public UserDetailsDto getUserByEmailFromUserService(String email) {
         try {
             return userClient.getUserByEmail(email);
         } catch (FeignException.BadRequest badRequest) {
@@ -32,12 +32,12 @@ public class UserClientService {
         }
     }
 
-    public UserDto getUserByUsernameFromUserService(String username) {
+    public UserDetailsDto getUserByUsernameFromUserService(String username) {
         return userClient.getUserByUsername(username);
     }
 
     @CachePut(value = "userByEmail", key = "#result.email")
-    public UserDto updateUsernameInUserService(String newUsername, String username) throws ServerErrorException{
+    public UserDetailsDto updateUsernameInUserService(String newUsername, String username) throws ServerErrorException{
         try {
             return userClient.updateUsername(newUsername, username);
         } catch (FeignException.BadRequest badRequest) {
@@ -45,7 +45,7 @@ public class UserClientService {
         }
     }
 
-    public UserDto updateUserEmailInUserService(String newEmail, String username) throws ServerErrorException{
+    public UserDetailsDto updateUserEmailInUserService(String newEmail, String username) throws ServerErrorException{
         try {
             return userClient.updateEmail(newEmail, username);
         } catch (FeignException.BadRequest badRequest) {

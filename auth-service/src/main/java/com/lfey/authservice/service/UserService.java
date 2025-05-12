@@ -4,7 +4,7 @@ import com.lfey.authservice.dto.*;
 import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.entity.Role;
 import com.lfey.authservice.entity.RoleName;
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.exception.*;
 import com.lfey.authservice.repository.jpa.UserRepository;
@@ -39,68 +39,77 @@ public class UserService {
     }
 
     @Transactional
-    public void updateEmail(EmailUpdate emailUpdate, String username) throws DuplicateUserException {
+    public void updateEmail(EmailUpdateDto emailUpdateDto, String username) throws DuplicateUserException {
         //Может стоит обновить проверку на null через метод Objects.requireNonNull()
-        UserDto userDto = userClientService.getUserByEmailFromUserService(emailUpdate.email());
-        if (userDto == null) {
-            generationCode.generateCode(UserReg.builder()
-                    .email(emailUpdate.email())
+        UserDetailsDto userDetailsDto = userClientService.getUserByEmailFromUserService(emailUpdateDto.email());
+        if (userDetailsDto == null) {
+            generationCode.generateCode(UserRegistration.builder()
+                    .email(emailUpdateDto.email())
                     .username(username)
                     .build(), EventType.EMAIL_RESET);
         } else
-            throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdate.email()));
+            throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdateDto.email()));
     }
 
-    public UserDto updateEmailInUserService(ValidationCode validationCode, String username) throws ServerErrorException {
-        UserReg userReg = verificationCode.verification(validationCode);
-        return userClientService.updateUserEmailInUserService(userReg.getEmail(), username);
+    public UserDetailsDto updateEmailInUserService(ValidationCodeDto validationCodeDto, String username) throws ServerErrorException {
+        UserRegistration userRegistration = verificationCode.verification(validationCodeDto);
+        return userClientService.updateUserEmailInUserService(userRegistration.getEmail(), username);
     }
 
     @Transactional
-    public UserDto updateUsername(String username, UsernameUpdate usernameUpdate) throws ServerErrorException,
+    public UserDetailsDto updateUsername(String username, UsernameUpdateDto usernameUpdateDto) throws ServerErrorException,
             DuplicateUserException{
-        if (userRepository.findByUsername(usernameUpdate.newUsername()).orElse(null) == null) {
-            UserDto userDto = userClientService.updateUsernameInUserService(usernameUpdate.newUsername(), username);
+        if (userRepository.findByUsername(usernameUpdateDto.newUsername()).orElse(null) == null) {
+            UserDetailsDto userDetailsDto = userClientService.updateUsernameInUserService(usernameUpdateDto.newUsername(), username);
             Users users = userRepository.findByUsername(username).get();
-            users.setUsername(userDto.getUsername());
+            users.setUsername(userDetailsDto.getUsername());
             userRepository.save(users);
-            return userDto;
+            return userDetailsDto;
         } else throw new DuplicateUserException(
-                String.format("User with username: %s already exists", usernameUpdate.newUsername()));
+                String.format("User with username: %s already exists", usernameUpdateDto.newUsername()));
     }
 
     @Transactional
-    public void resetPassword(ResetPasswordRequest resetPasswordRequest) throws UserNotFoundException {
-        Users users = userRepository.findByUsername(resetPasswordRequest.username()).orElseThrow(
-                () -> new UserNotFoundException(String.format("User by name: %s not found", resetPasswordRequest.username()))
-        );
-        UserDto userFromUserService = userClientService.getUserByUsernameFromUserService(users.getUsername());
-        generationCode.generateCode(UserReg.builder()
+    public void resetPassword(ResetPasswordRequestDto resetPasswordRequestDto, String username) throws UserNotFoundException {
+        Users users = getUserByName(username);
+
+        UserDetailsDto userFromUserService = userClientService.getUserByUsernameFromUserService(users.getUsername());
+        generationCode.generateCode(UserRegistration.builder()
                         .email(userFromUserService.getEmail())
-                        .password(passwordEncoder.encode(resetPasswordRequest.newPassword()))
+                        .password(passwordEncoder.encode(resetPasswordRequestDto.newPassword()))
                 .build(), EventType.PASSWORD_RESET);
     }
 
     @Transactional
-    public void addRole(String username, RoleRequest addRoleRequest) throws UserNotFoundException, DuplicateRoleException{
+    public void addRole(String username, RoleRequestDto addRoleRequestDto) throws UserNotFoundException, DuplicateRoleException{
         Users users = getUserByName(username);
-        boolean status = users.getRoles().add(Role.builder().roleName(RoleName.valueOf(addRoleRequest.role())).build());
+        boolean status = users.getRoles().add(Role.builder().roleName(addRoleRequestDto.role()).build());
         if (status) {
             userRepository.save(users);
         } else {
             throw new DuplicateRoleException(
-                    String.format("Role: %s is already assigned to the user", addRoleRequest.role()));
+                    String.format("Role: %s is already assigned to the user", addRoleRequestDto.role()));
         }
     }
 
     @Transactional
-    public void deleteRoleUser(String username, RoleRequest role) throws UserNotFoundException{
+    public void deleteRoleUser(String username, RoleRequestDto role) throws UserNotFoundException{
         Users users = getUserByName(username);
         Set<Role> updateRole = users.getRoles().stream()
-                .filter(roleUpdate -> !roleUpdate.getRoleName().equals(RoleName.valueOf(role.role())))
+                .filter(roleUpdate -> !roleUpdate.getRoleName().equals(role.role()))
                 .collect(Collectors.toSet());
         users.setRoles(updateRole);
         userRepository.save(users);
+    }
+
+    public UserBriefDto getBriefUserByUsername(String username) throws UserNotFoundException{
+        Users users = getUserByName(username);
+        return UserBriefDto.builder()
+                .username(users.getUsername())
+                .roles(users.getRoles().stream()
+                        .map(Role::getRoleName)
+                        .toList())
+                .build();
     }
 
     public Users getUserByName(String username) throws UserNotFoundException{

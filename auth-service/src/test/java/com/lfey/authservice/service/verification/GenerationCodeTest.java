@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.service.RegistrationEventDispatcher;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class GenerationCodeTest {
     void generationCode_WhenUserNotExistsInDataBase() {
         //given
         var email = "test@test.com";
-        var userReg = UserReg.builder()
+        var userReg = UserRegistration.builder()
                 .email(email)
                 .username("test")
                 .phoneNumber("123455")
@@ -52,7 +52,7 @@ class GenerationCodeTest {
     void generationCode_WhenUserExistsInDataBase() {
         //given
         var email = "test@test.com";
-        var userReg = UserReg.builder()
+        var userReg = UserRegistration.builder()
                 .email(email)
                 .username("test")
                 .phoneNumber("123455")

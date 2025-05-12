@@ -1,10 +1,9 @@
 package com.lfey.authservice.service.clients;
 
-import com.lfey.authservice.dto.UserDto;
+import com.lfey.authservice.dto.UserDetailsDto;
 import com.lfey.authservice.exception.ServerErrorException;
 import feign.FeignException;
 import feign.Request;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import feign.Request.HttpMethod;
-import org.springframework.http.HttpStatus;
 
 import java.nio.charset.Charset;
 import java.util.Collection;
@@ -52,23 +50,23 @@ class UserClientServiceTest {
     void getUserByEmailFromUserService_WhenUserExist() {
         //given
         var email = "test@test.com";
-        var userDto = UserDto.builder()
+        var userDto = UserDetailsDto.builder()
                 .email(email)
                 .build();
         doReturn(userDto).when(this.userClient).getUserByEmail(email);
 
         //when
-        UserDto responseUserDto = userClientService.getUserByEmailFromUserService(email);
+        UserDetailsDto responseUserDetailsDto = userClientService.getUserByEmailFromUserService(email);
 
         //then
-        assertEquals(email, responseUserDto.getEmail());
+        assertEquals(email, responseUserDetailsDto.getEmail());
     }
 
     @Test
     void getUserByEmailFromUserService_WhenUserNotExist() {
         //given
         var email = "test@test.com";
-        var userDto = UserDto.builder()
+        var userDto = UserDetailsDto.builder()
                 .email(email)
                 .build();
 
@@ -87,15 +85,15 @@ class UserClientServiceTest {
         //given
         var newUsername = "test";
         var oldUsername = "test1";
-        var userDto = UserDto.builder()
+        var userDto = UserDetailsDto.builder()
                 .username(newUsername)
                 .build();
         doReturn(userDto).when(this.userClient).updateUsername(newUsername, oldUsername);
         //when
-        UserDto responseUserDto = userClientService.updateUsernameInUserService(newUsername, oldUsername);
+        UserDetailsDto responseUserDetailsDto = userClientService.updateUsernameInUserService(newUsername, oldUsername);
         //then
         verify(this.userClient).updateUsername(newUsername, oldUsername);
-        assertEquals(newUsername, responseUserDto.getUsername());
+        assertEquals(newUsername, responseUserDetailsDto.getUsername());
     }
 
     @Test
@@ -124,16 +122,16 @@ class UserClientServiceTest {
         //given
         var newEmail = "test";
         var username = "test1";
-        var userDto = UserDto.builder()
+        var userDto = UserDetailsDto.builder()
                 .username(username)
                 .email(newEmail)
                 .build();
         doReturn(userDto).when(this.userClient).updateEmail(newEmail, username);
         //when
-        UserDto responseUserDto = userClientService.updateUserEmailInUserService(newEmail, username);
+        UserDetailsDto responseUserDetailsDto = userClientService.updateUserEmailInUserService(newEmail, username);
         //then
         verify(this.userClient).updateEmail(newEmail, username);
-        assertEquals(newEmail, responseUserDto.getEmail());
+        assertEquals(newEmail, responseUserDetailsDto.getEmail());
     }
 
     @Test
@@ -141,7 +139,7 @@ class UserClientServiceTest {
         //given
         var newEmail = "test";
         var username = "test1";
-        var userDto = UserDto.builder()
+        var userDto = UserDetailsDto.builder()
                 .username(username)
                 .email(newEmail)
                 .build();

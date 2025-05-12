@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.exception.UserCacheDataNotFoundException;
 import com.lfey.authservice.repository.cache.UserRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ public class UserRegService {
         this.userRegRepository = userRegRepository;
     }
 
-    public void saveUserData(UserReg userReg) {
-        userRegRepository.save(userReg);
+    public void saveUserData(UserRegistration userRegistration) {
+        userRegRepository.save(userRegistration);
     }
 
-    public UserReg getUserRegByEmail(String email) {
+    public UserRegistration getUserRegByEmail(String email) {
         return userRegRepository.findById(email).orElseThrow(() -> new UserCacheDataNotFoundException("Code is not valid"));
     }
 

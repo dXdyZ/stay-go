@@ -4,7 +4,7 @@ import com.lfey.authservice.dto.*;
 import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.entity.Role;
 import com.lfey.authservice.entity.RoleName;
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.entity.Users;
 import com.lfey.authservice.exception.*;
 import com.lfey.authservice.repository.jpa.UserRepository;
@@ -43,39 +43,43 @@ public class AuthService {
     }
 
     @Transactional
-    public void registerUser(UserReg userReg) throws DuplicateUserException {
-        if (!userRepository.existsByUsername(userReg.getUsername())) {
-            if (userClientService.getUserByEmailFromUserService(userReg.getEmail()) == null) {
-                userReg.setPassword(passwordEncoder.encode(userReg.getPassword()));
-                generationCode.generateCode(userReg, EventType.REGISTRATION);
-            } else throw new DuplicateUserException(String.format("The user email: %s already exists", userReg.getEmail()));
-        } else throw new DuplicateUserException(String.format("The user named: %s already exists", userReg.getUsername()));
+    public void  registerUser(UserRegistrationDto userRegistrationDTO) throws DuplicateUserException {
+        var userRegistration = new UserRegistration(
+                userRegistrationDTO.email(), userRegistrationDTO.username(),
+                userRegistrationDTO.password(), userRegistrationDTO.phoneNumber(), null);
+
+        if (!userRepository.existsByUsername(userRegistration.getUsername())) {
+            if (userClientService.getUserByEmailFromUserService(userRegistration.getEmail()) == null) {
+                userRegistration.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
+                generationCode.generateCode(userRegistration, EventType.REGISTRATION);
+            } else throw new DuplicateUserException(String.format("The user email: %s already exists", userRegistration.getEmail()));
+        } else throw new DuplicateUserException(String.format("The user named: %s already exists", userRegistration.getUsername()));
     }
 
     //TODO Create method for validation reset password code
 
     @Transactional
-    public JwtToken getJWT(ValidationCode validationCode) throws UserCacheDataNotFoundException, InvalidCodeException {
-        return tokenService.getToken(saveUserAfterRegistration(validationCode).getUsername());
+    public JwtTokenDto getJWT(ValidationCodeDto validationCodeDto) throws UserCacheDataNotFoundException, InvalidCodeException {
+        return tokenService.getToken(saveUserAfterRegistration(validationCodeDto).getUsername());
     }
 
-    public JwtToken refreshAccessToken(JwtToken jwtToken) {
-        return tokenService.validationRefreshTokenAndGenerationAccessToken(jwtToken.getRefreshToken());
+    public JwtTokenDto refreshAccessToken(JwtTokenDto jwtTokenDto) {
+        return tokenService.validationRefreshTokenAndGenerationAccessToken(jwtTokenDto.getRefreshToken());
     }
 
     @Transactional
-    public Users saveUserAfterRegistration(ValidationCode validationCode) {
-        UserReg userReg = verificationCode.verification(validationCode);
+    public Users saveUserAfterRegistration(ValidationCodeDto validationCodeDto) {
+        UserRegistration userRegistration = verificationCode.verification(validationCodeDto);
         Users users = Users.builder()
-                .username(userReg.getUsername())
-                .password(userReg.getPassword())
+                .username(userRegistration.getUsername())
+                .password(userRegistration.getPassword())
                 .build();
         users.getRoles().add(Role.builder().roleName(RoleName.ROLE_USER).build());
         userRepository.save(users);
-        userClientService.userRegistrationInUserService(UserDto.builder()
-                .email(userReg.getEmail())
-                .phoneNumber(userReg.getPhoneNumber())
-                .username(userReg.getUsername())
+        userClientService.userRegistrationInUserService(UserDetailsDto.builder()
+                .email(userRegistration.getEmail())
+                .phoneNumber(userRegistration.getPhoneNumber())
+                .username(userRegistration.getUsername())
                 .build());
         return users;
     }
@@ -84,12 +88,12 @@ public class AuthService {
         tokenService.deleteRefreshToken(refreshToken);
     }
 
-    public JwtToken login(AuthRequest authRequest) throws AuthenticationFailedException{
+    public JwtTokenDto login(AuthRequestDto authRequestDto) throws AuthenticationFailedException{
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authRequest.username(),
-                            authRequest.password()
+                            authRequestDto.username(),
+                            authRequestDto.password()
                     )
             );
             return tokenService.getToken(authentication.getName());

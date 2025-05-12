@@ -9,7 +9,6 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @SpringBootApplication
 @EnableFeignClients
-@EnableCaching
 @EnableJpaRepositories(basePackages = "com.lfey.authservice.repository.jpa")
 @EnableRedisRepositories(basePackages = "com.lfey.authservice.repository.cache")
 public class AuthServiceApplication {

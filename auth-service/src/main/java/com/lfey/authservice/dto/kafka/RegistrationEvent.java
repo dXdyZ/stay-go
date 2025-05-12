@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationEvent implements Serializable {
-    private static final Long UUID = 1L;
+    private static final Long serialVersionUID = 1L;
     private String email;
     private String confirmCode;
     private EventType eventType;

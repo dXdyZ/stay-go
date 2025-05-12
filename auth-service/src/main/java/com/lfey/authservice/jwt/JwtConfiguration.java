@@ -30,18 +30,12 @@ public class JwtConfiguration {
     //TODO Сделать правильную обработку исключений в случае ошибки, разделить метод на методы
     @Bean
     public KeyPair keyPair() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
-        ClassPathResource privateKeyResource = new ClassPathResource("private-key.pem");
-        ClassPathResource publicKeyResource = new ClassPathResource("public-key.pem");
-
-        String privateKeyPEM = new String(Files.readAllBytes(privateKeyResource.getFile().toPath()))
-                .replace("-----BEGIN PRIVATE KEY-----", "")
-                .replace("-----END PRIVATE KEY-----", "")
-                .replaceAll("\\s", "");
-
-        String publicKeyPEM = new String(Files.readAllBytes(publicKeyResource.getFile().toPath()))
-                .replace("-----BEGIN PUBLIC KEY-----", "")
-                .replace("-----END PUBLIC KEY-----", "")
-                .replaceAll("\\s", "");
+        String privateKeyPEM = new String(
+                Files.readAllBytes(new ClassPathResource("private-key.txt").getFile().toPath()))
+                .trim();
+        String publicKeyPEM = new String(
+                Files.readAllBytes(new ClassPathResource("public-key.txt").getFile().toPath()))
+                .trim();
 
         byte[] privateKeyBytes = Base64.getDecoder().decode(privateKeyPEM);
         byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyPEM);

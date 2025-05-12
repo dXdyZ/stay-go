@@ -1,7 +1,7 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.entity.UserReg;
-import com.lfey.authservice.dto.ValidationCode;
+import com.lfey.authservice.dto.ValidationCodeDto;
+import com.lfey.authservice.entity.UserRegistration;
 import com.lfey.authservice.exception.InvalidCodeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,8 +27,8 @@ class VerificationCodeTest {
     void verification_ValidCode() {
         var email = "test@test.com";
         var code = "123456";
-        var validationCode = new ValidationCode(email, code);
-        var userReg = UserReg.builder()
+        var validationCode = new ValidationCodeDto(email, code);
+        var userReg = UserRegistration.builder()
                 .code(code)
                 .email(email)
                 .build();
@@ -36,7 +36,7 @@ class VerificationCodeTest {
         doReturn(userReg).when(this.userRegService).getUserRegByEmail(email);
 
         //when
-        UserReg returnUserReg = this.verificationCode.verification(validationCode);
+        UserRegistration returnUserRegistration = this.verificationCode.verification(validationCode);
 
         //then
         verify(this.userRegService).getUserRegByEmail(email);
@@ -49,8 +49,8 @@ class VerificationCodeTest {
         //given
         var email = "test@test.com";
         var code = "123456";
-        var validationCode = new ValidationCode(email, code);
-        var userReg = UserReg.builder()
+        var validationCode = new ValidationCodeDto(email, code);
+        var userReg = UserRegistration.builder()
                 .code("123345")
                 .email(email)
                 .build();

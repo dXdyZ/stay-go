@@ -1,25 +1,22 @@
 package com.lfey.authservice.controller;
 
-import com.lfey.authservice.dto.AuthRequest;
-import com.lfey.authservice.dto.JwtToken;
-import com.lfey.authservice.dto.UserDto;
-import com.lfey.authservice.dto.ValidationCode;
-import com.lfey.authservice.entity.UserReg;
+import com.lfey.authservice.controller.documentation.AuthControllerDocs;
+import com.lfey.authservice.dto.*;
 import com.lfey.authservice.service.AuthService;
 import com.lfey.authservice.service.UserService;
-import com.lfey.authservice.validation.RegistrationGroup;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/auth/")
-public class AuthController {
+@Tag(name = "Authenticated API", description = "Management authentication")
+public class AuthController implements AuthControllerDocs {
     public final static String USERNAME_HEADER = "X-User-Username";
 
     private final UserService userService;
@@ -31,16 +28,16 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/register")
-    public void registerUser(@Validated(RegistrationGroup.class) @RequestBody UserReg userReg) {
-        authService.registerUser(userReg);
+    @PostMapping("/registration")
+    public void registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDTO) {
+        authService.registerUser(userRegistrationDTO);
     }
 
-    @PostMapping("/registration/confirm")
-    public ResponseEntity<JwtToken> validationUser(@RequestBody ValidationCode validationCode) {
+   @PostMapping("/registration/confirm")
+    public ResponseEntity<JwtTokenDto> validationUser(@Valid @RequestBody ValidationCodeDto validationCodeDto) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentContextPath()
-                .build().toUri()).body(authService.getJWT(validationCode));
+                .build().toUri()).body(authService.getJWT(validationCodeDto));
     }
 
     //TODO Узнать в каких куках будет все храниться и изменить
@@ -51,24 +48,24 @@ public class AuthController {
 
         var cookie = new Cookie("refreshToken", null);
         cookie.setMaxAge(0);
-        cookie.setPath("/api/auth");
+        cookie.setPath("/");
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtToken> login(@Valid @RequestBody AuthRequest authRequest) {
-        return ResponseEntity.ok(authService.login(authRequest));
+    public ResponseEntity<JwtTokenDto> login(@Valid @RequestBody AuthRequestDto authRequestDto) {
+        return ResponseEntity.ok(authService.login(authRequestDto));
     }
 
     @PostMapping("/token/refresh")
-    public ResponseEntity<JwtToken> refreshAccessToken(@Valid @RequestBody JwtToken jwtToken) {
-        return ResponseEntity.ok(authService.refreshAccessToken(jwtToken));
+    public ResponseEntity<JwtTokenDto> refreshAccessToken(@Valid @RequestBody JwtTokenDto jwtTokenDto) {
+        return ResponseEntity.ok(authService.refreshAccessToken(jwtTokenDto));
     }
 
     @PostMapping("/email-update/confirm")
-    public ResponseEntity<UserDto> validationUpdateEmail(@Valid @RequestBody ValidationCode validationCode,
-                                         @RequestHeader(USERNAME_HEADER) String username) {
-        return ResponseEntity.ok(userService.updateEmailInUserService(validationCode, username));
+    public ResponseEntity<UserDetailsDto> validationUpdateEmail(@Valid @RequestBody ValidationCodeDto validationCodeDto,
+                                                                @RequestHeader(USERNAME_HEADER) String username) {
+        return ResponseEntity.ok(userService.updateEmailInUserService(validationCodeDto, username));
     }
 }

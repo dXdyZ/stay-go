@@ -1,9 +1,6 @@
 package com.lfey.authservice.entity;
 
 
-import com.lfey.authservice.validation.RegistrationGroup;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,21 +14,13 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash(value = "UserReg", timeToLive = 900)
-public class UserReg implements Serializable {
+@RedisHash(value = "UserRegistration", timeToLive = 900)
+public class UserRegistration implements Serializable {
 
     @Id
-    @Email(groups = RegistrationGroup.class)
     private String email;
-
-    @NotBlank(groups = RegistrationGroup.class)
     private String username;
-
-    @NotBlank(groups = RegistrationGroup.class)
     private String password;
-
-    @NotBlank(groups = RegistrationGroup.class)
     private String phoneNumber;
-
     private String code;
 }
