@@ -1,0 +1,53 @@
+package com.example.staygoclient.clietn;
+
+import com.example.staygoclient.dto.ErrorResponse;
+import com.example.staygoclient.dto.HotelDto;
+import com.example.staygoclient.dto.PageResponse;
+import com.example.staygoclient.exception.ApiErrorException;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.time.Instant;
+import java.util.Map;
+
+@Component
+public class HotelClient {
+    private static final String MAIN_URL = "http://localhost:9393/api/hotels";
+
+    private final RestTemplate restTemplate;
+
+    public HotelClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public PageResponse<HotelDto> searchHotel(String country, String city, Integer stars, int page) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(MAIN_URL)
+                .queryParam("county", country)
+                .queryParam("city", city)
+                .queryParam("page", page);
+        if (stars != null) builder.queryParam("stars", stars);
+
+        try {
+            ResponseEntity<PageResponse<HotelDto>> result = restTemplate.exchange(
+                    builder.toUriString(),
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<PageResponse<HotelDto>>() {}
+            );
+            return result.getBody();
+        } catch (HttpClientErrorException | HttpServerErrorException exception) {
+            throw new ApiErrorException(new ErrorResponse(
+                    Instant.now(),
+                    Map.of("message", "Server error"),
+                    HttpStatus.INTERNAL_SERVER_ERROR.value()
+            ));
+        }
+    }
+}

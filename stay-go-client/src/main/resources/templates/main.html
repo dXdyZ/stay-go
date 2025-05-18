@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+    <header>
+        <h1>Бронирование отеля</h1>
+        <p>Найди идеальное жилье</p>
+    </header>
+
+    <div class="search-container">
+        <form class="search-form" th:action="@{/search}" method="get">
+            <div class="form-group">
+                <label for="country">Страна</label>
+                <input type="text" id="country" name="country" placeholder="e.g., France"
+                       th:value="${countryFilter}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="city">Город</label>
+                <input type="text" id="city" name="city" placeholder="e.g., Paris"
+                       th:value="${cityFilter}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="stars">Мин. Звезд</label>
+                <select id="stars" name="stars">
+                    <option value="">Любое</option>
+                    <option th:each="star : ${#numbers.sequence(1,5)}"
+                            th:text="${star + ' ★'}"
+                            th:value="${star}"
+                            th:selected="${star == starsFilter}">
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit" class="search-btn">Поиск</button>
+        </form>
+    </div>
+
+    <div class="results-container">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Популярные отели</h2>
+
+        <!-- Пример карточек отелей (всегда видно) -->
+        <div class="hotel-grid">
+            <!-- Пример 1 -->
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Paris Eiffel Hotel</h3>
+                    <p class="hotel-location">Paris, France</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="hotel-price">$199/night</p>
+                </div>
+            </div>
+
+            <!-- Пример 2 -->
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Grand New York Hotel</h3>
+                    <p class="hotel-location">New York, USA</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
+                    </div>
+                    <p class="hotel-price">$249/night</p>
+                </div>
+            </div>
+
+            <!-- Пример 3 -->
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Tokyo Sakura Hotel</h3>
+                    <p class="hotel-location">Tokyo, Japan</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="hotel-price">$179/night</p>
+                </div>
+            </div>
+
+            <!-- Пример 4 -->
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Dubai Royal Hotel</h3>
+                    <p class="hotel-location">Dubai, UAE</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="hotel-price">$399/night</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пагинация (временно отключена для избежания ошибок) -->
+        <!--
+        <div class="pagination">
+            <a th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, page=${pageNum})}"
+               th:text="${pageNum + 1}"
+               th:classappend="${pageNum == currentPage} ? 'active'">
+            </a>
+        </div>
+        -->
+    </div>
+</body>
+</html>

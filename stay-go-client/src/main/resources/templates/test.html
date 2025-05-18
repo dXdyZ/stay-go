@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --accent-color: #f8f9fa;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, var(--accent-color), #e9ecef);
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            background: white;
+            padding: 2rem;
+            margin: -50px 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .search-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .results-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 4rem;
+        }
+
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .hotel-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hotel-image {
+            height: 200px;
+            background: #e9ecef;
+            position: relative;
+        }
+
+        .hotel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hotel-info {
+            padding: 1.5rem;
+        }
+
+        .hotel-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .hotel-location {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .hotel-rating {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .hotel-rating span {
+            color: gold;
+        }
+
+        .hotel-price {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .pagination a {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hotel Booking</h1>
+        <p>Find your perfect accommodation</p>
+    </header>
+
+    <div class="search-container">
+        <form class="search-form" action="/search" method="get">
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" placeholder="e.g., France">
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="e.g., Paris">
+            </div>
+
+            <div class="form-group">
+                <label for="stars">Min Stars</label>
+                <select id="stars" name="stars">
+                    <option value="">Any</option>
+                    <option value="1">1 ★</option>
+                    <option value="2">2 ★</option>
+                    <option value="3">3 ★</option>
+                    <option value="4">4 ★</option>
+                    <option value="5">5 ★</option>
+                </select>
+            </div>
+
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+
+    <div class="results-container">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Popular Hotels</h2>
+
+        <div class="hotel-grid">
+            <!-- Example hotel cards -->
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Paris Eiffel Hotel</h3>
+                    <p class="hotel-location">Paris, France</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="hotel-price">$199/night</p>
+                </div>
+            </div>
+
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Grand New York Hotel</h3>
+                    <p class="hotel-location">New York, USA</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
+                    </div>
+                    <p class="hotel-price">$249/night</p>
+                </div>
+            </div>
+
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Tokyo Sakura Hotel</h3>
+                    <p class="hotel-location">Tokyo, Japan</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="hotel-price">$179/night</p>
+                </div>
+            </div>
+
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
+                </div>
+                <div class="hotel-info">
+                    <h3 class="hotel-name">Dubai Royal Hotel</h3>
+                    <p class="hotel-location">Dubai, UAE</p>
+                    <div class="hotel-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="hotel-price">$399/night</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <a href="/search?page=0">Previous</a>
+            <a href="/search?page=1">Next</a>
+        </div>
+    </div>
+</body>
+</html>
