@@ -16,7 +16,6 @@ import java.util.Map;
                     }
                     """
 )
-
 public record ErrorResponse(
     Instant timestamp,
     Map<String, String> error,

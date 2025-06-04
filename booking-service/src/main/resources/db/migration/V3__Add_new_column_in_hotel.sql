@@ -1,0 +1,1 @@
+ALTER TABLE hotels ADD COLUMN hotel_type VARCHAR default 'HOTEL';

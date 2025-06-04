@@ -1,11 +1,8 @@
 package com.lfey.statygo.service;
 
 import com.lfey.statygo.component.CustomDateFormatter;
-import com.lfey.statygo.dto.BookingRoom;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.exception.NoRoomsAvailableException;
-import com.lfey.statygo.service.RoomAvailabilityService;
-import com.lfey.statygo.service.RoomService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

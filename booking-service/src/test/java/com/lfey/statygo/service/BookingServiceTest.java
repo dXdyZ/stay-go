@@ -1,11 +1,10 @@
 package com.lfey.statygo.service;
 
-import com.lfey.statygo.dto.BookingRoom;
+import com.lfey.statygo.dto.BookingRoomDto;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.kafka.KafkaProducer;
 import com.lfey.statygo.repository.BookingRepository;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -93,7 +92,7 @@ class BookingServiceTest {
         var guests = 1;
         var numberOfRoom = 1;
         var userName = "test";
-        var bookingRoom = BookingRoom.builder()
+        var bookingRoom = BookingRoomDto.builder()
                 .hotelId(hotelId)
                 .startDate(startDate)
                 .endDate(endDate)
@@ -135,7 +134,7 @@ class BookingServiceTest {
         var guests = 1;
         var numberOfRoom = 1;
         var userName = "test";
-        var bookingRoom = BookingRoom.builder()
+        var bookingRoom = BookingRoomDto.builder()
                 .hotelId(hotelId)
                 .startDate(startDate)
                 .endDate(endDate)

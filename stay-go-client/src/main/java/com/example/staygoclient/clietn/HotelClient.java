@@ -4,6 +4,7 @@ import com.example.staygoclient.dto.ErrorResponse;
 import com.example.staygoclient.dto.HotelDto;
 import com.example.staygoclient.dto.PageResponse;
 import com.example.staygoclient.exception.ApiErrorException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -27,27 +28,43 @@ public class HotelClient {
         this.restTemplate = restTemplate;
     }
 
-    public PageResponse<HotelDto> searchHotel(String country, String city, Integer stars, int page) {
+    public PageResponse<HotelDto> searchHotel(String startDate, String endDate,
+                                              String country, String city,
+                                              Integer stars, int page) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(MAIN_URL)
-                .queryParam("county", country)
+                .path("/search")
+                .queryParam("startDate", startDate)
+                .queryParam("endDate", endDate)
+                .queryParam("country", country)
                 .queryParam("city", city)
                 .queryParam("page", page);
         if (stars != null) builder.queryParam("stars", stars);
-
         try {
-            ResponseEntity<PageResponse<HotelDto>> result = restTemplate.exchange(
+            return restTemplate.exchange(
                     builder.toUriString(),
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<PageResponse<HotelDto>>() {}
-            );
-            return result.getBody();
+            ).getBody();
         } catch (HttpClientErrorException | HttpServerErrorException exception) {
             throw new ApiErrorException(new ErrorResponse(
                     Instant.now(),
                     Map.of("message", "Server error"),
                     HttpStatus.INTERNAL_SERVER_ERROR.value()
             ));
+        }
+    }
+
+    public HotelDto getHotelDetails(Long hotelId, Integer guests, String startDate, String endDate) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(MAIN_URL)
+                .path("/" + hotelId)
+                .path("/" + guests)
+                .path("/" + startDate)
+                .path("/" + endDate);
+        try {
+            return restTemplate.getForEntity(builder.toUriString(), HotelDto.class).getBody();
+        } catch (HttpClientErrorException exception) {
+            throw new ApiErrorException(exception.getResponseBodyAs(ErrorResponse.class));
         }
     }
 }

@@ -6,6 +6,7 @@ import com.staygo.userservice.dto.UserDto;
 import com.staygo.userservice.entity.Users;
 import com.staygo.userservice.service.HotelAssignmentService;
 import com.staygo.userservice.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "User API", description = "Management user")
 public class UserController implements UserControllerDocs {
     public final static String USERNAME_HEADER = "X-User-Username";
 

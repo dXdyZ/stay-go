@@ -7,13 +7,12 @@ import com.lfey.statygo.component.factory.BookingDetailsEventFactory;
 import com.lfey.statygo.component.factory.BookingFactory;
 import com.lfey.statygo.dto.BookingDetailsEvent;
 import com.lfey.statygo.dto.BookingDto;
-import com.lfey.statygo.dto.BookingRoom;
+import com.lfey.statygo.dto.BookingRoomDto;
 import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.BookingStatus;
 import com.lfey.statygo.exception.BookingNotFoundException;
 import com.lfey.statygo.kafka.KafkaProducer;
 import com.lfey.statygo.repository.BookingRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,15 +35,15 @@ public class BookingService {
     }
 
     @Transactional
-    public void bookingRoom(BookingRoom bookingRoom, String username) {
+    public void bookingRoom(BookingRoomDto bookingRoomDto, String username) {
         //TODO STB-5
-        CustomDateFormatter.dateVerification(bookingRoom.getStartDate(), bookingRoom.getEndDate());
-        List<Booking> saveBooking = (List<Booking>) bookingRepository.saveAll(
-                roomAvailabilityService.getFreeRooms(bookingRoom.getHotelId(), bookingRoom.getStartDate(),
-                        bookingRoom.getEndDate(), bookingRoom.getRoomType(),
-                                bookingRoom.getGuests(), bookingRoom.getNumberOfRooms()).stream()
+        CustomDateFormatter.dateVerification(bookingRoomDto.getStartDate(), bookingRoomDto.getEndDate());
+        List<Booking> saveBooking = bookingRepository.saveAll(
+                roomAvailabilityService.getFreeRooms(bookingRoomDto.getHotelId(), bookingRoomDto.getStartDate(),
+                        bookingRoomDto.getEndDate(), bookingRoomDto.getRoomType(),
+                                bookingRoomDto.getGuests(), bookingRoomDto.getNumberOfRooms()).stream()
                         .map(freeRoom -> {
-                            Booking booking = BookingFactory.createBooking(freeRoom, username, bookingRoom);
+                            Booking booking = BookingFactory.createBooking(freeRoom, username, bookingRoomDto);
                             if (freeRoom.getAutoApprove()) {
                                 booking.setBookingStatus(BookingStatus.CONFIRMED);
                             } else {

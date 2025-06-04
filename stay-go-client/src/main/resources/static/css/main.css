@@ -50,9 +50,14 @@ header p {
 
 .search-form {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     align-items: end;
+}
+
+.form-group input[type="date"] {
+    padding: 0.7rem 1rem;
+    font-family: inherit;
 }
 
 .form-group {
@@ -194,6 +199,10 @@ header p {
     }
 
     .search-btn {
+        width: 100%;
+    }
+
+    .form-group input[type="date"] {
         width: 100%;
     }
 }

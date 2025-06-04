@@ -6,9 +6,8 @@ import com.lfey.statygo.dto.RoomDto;
 import com.lfey.statygo.entity.Room;
 import org.springframework.stereotype.Component;
 
-@Component
 public class RoomDtoFactory {
-    public RoomDto createRoomDto(Room room, String startDate, String endDate) {
+    public static RoomDto createRoomDto(Room room, String startDate, String endDate) {
         return RoomDto.builder()
                 .roomType(room.getRoomType().name())
                 .capacity(room.getCapacity())

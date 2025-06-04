@@ -1,11 +1,12 @@
 package com.lfey.statygo.service;
 
-import com.lfey.statygo.dto.CreateRoom;
+import com.lfey.statygo.dto.CreateRoomDto;
 import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.entity.Room;
 import com.lfey.statygo.entity.RoomType;
 import com.lfey.statygo.exception.DuplicateRoomException;
 import com.lfey.statygo.exception.HotelNotFoundException;
+import com.lfey.statygo.repository.HotelRepository;
 import com.lfey.statygo.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,17 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
     private final RoomRepository roomRepository;
-    private final HotelService hotelService;
+    private final HotelRepository hotelRepository;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository, HotelService hotelService) {
+    public RoomService(RoomRepository roomRepository, HotelRepository hotelRepository) {
         this.roomRepository = roomRepository;
-        this.hotelService = hotelService;
+        this.hotelRepository = hotelRepository;
     }
 
     @Transactional
@@ -35,44 +37,39 @@ public class RoomService {
     }
 
     @Transactional
-    public void addRoomsToHotel(Long hotelId, List<CreateRoom> createRooms) throws DuplicateRoomException,
+    public void addRoomsToHotel(Long hotelId, List<CreateRoomDto> createRoomDtos) throws DuplicateRoomException,
             HotelNotFoundException, IllegalArgumentException{
 
-        if (createRooms == null || createRooms.isEmpty())
+        if (createRoomDtos == null || createRoomDtos.isEmpty())
             throw new IllegalArgumentException("List of rooms cannot be empty.");
 
-        Hotel hotel = hotelService.getHotelById(hotelId);
+        if (!hotelRepository.existsById(hotelId)) throw new HotelNotFoundException(
+                "Hotel by id: %s not found".formatted(hotelId));
 
-        if (hotel.getRoom() != null && !hotel.getRoom().isEmpty()) existsRoomByHotel(hotel.getRoom(), createRooms);
-        hotel.getRoom().addAll(createRooms.stream()
-                .map(createRoom -> {
+        if (createRoomDtos.stream()
+                .map(CreateRoomDto::getNumber)
+                .collect(Collectors.toSet()).size() != createRoomDtos.size())
+            throw new DuplicateRoomException("Duplicates number in added rooms");
+
+        if (!roomRepository.findNumbersByHotelIdAndNumberIn(
+                hotelId,
+                createRoomDtos.stream()
+                        .map(CreateRoomDto::getNumber)
+                        .collect(Collectors.toSet())).isEmpty())
+            throw new DuplicateRoomException("The rooms to be added already exist");
+
+        roomRepository.saveAll(createRoomDtos.stream()
+                .map(createRoomDto -> {
                     return Room.builder()
-                            .capacity(createRoom.getCapacity())
-                            .roomType(RoomType.valueOf(createRoom.getRoomType()))
-                            .description(createRoom.getDescription())
-                            .pricePerDay(createRoom.getPricePerDay())
+                            .hotel(Hotel.builder().id(hotelId).build())
+                            .capacity(createRoomDto.getCapacity())
+                            .roomType(createRoomDto.getRoomType())
+                            .bedType(createRoomDto.getBedType())
+                            .description(createRoomDto.getDescription())
+                            .pricePerDay(createRoomDto.getPricePerDay())
+                            .number(createRoomDto.getNumber())
                             .build();
                 })
                 .toList());
-
-        hotelService.saveHotel(hotel);
     }
-
-    public void existsRoomByHotel(List<Room> rooms, List<CreateRoom> roomDto) throws DuplicateRoomException{
-        Set<CreateRoom> uniqueNumber = new HashSet<>();
-        List<CreateRoom> duplicate = roomDto.stream()
-                .filter(n -> !uniqueNumber.add(n))
-                .toList();
-        for (CreateRoom createRoom : roomDto) {
-            for (Room room : rooms) {
-                if (createRoom.getNumber().equals(room.getNumber())) {
-                    throw new DuplicateRoomException("The rooms to be added already exist");
-                }
-            }
-        }
-        if (!duplicate.isEmpty()) {
-            throw new DuplicateRoomException("Duplicates number in added rooms");
-        }
-    }
-
 }

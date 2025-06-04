@@ -1,5 +1,7 @@
 package com.lfey.statygo.dto;
 
+import com.lfey.statygo.entity.BedType;
+import com.lfey.statygo.entity.RoomType;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRoom {
+public class CreateRoomDto {
 
     @NotNull(message = "Room number cannot be null.")
     @Min(value = 1, message = "Room number must be greater than or equal to 1.")
@@ -30,6 +32,14 @@ public class CreateRoom {
     @NotBlank(message = "Description is required.")
     private String description;
 
-    @NotBlank(message = "Room type is required.")
-    private String roomType;
+    @NotNull(message = "The field must not be empty, choose one of the suggested options: " +
+            "STANDARD, LUX, BUSINESS, PRESIDENT")
+    private RoomType roomType;
+
+    @NotNull(message = "Auto approve must be enabled or disabled.")
+    private Boolean autoApprove;
+
+    @NotNull(message = "The field must not be empty, choose one of the suggested options: " +
+            "SINGLE, DOUBLE, QUEEN_SIZE, KING_SIZE, TWO_TIRE")
+    private BedType bedType;
 }

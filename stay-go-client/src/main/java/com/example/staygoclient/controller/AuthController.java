@@ -53,7 +53,7 @@ class AuthController {
                     (String) session.getAttribute("confirmRegistration"), code));
             addCookie(response, "accessToken", jwt.accessToken(), Integer.MAX_VALUE, true);
             addCookie(response, "refreshToken", jwt.refreshToken(), Integer.MAX_VALUE, true);
-            return "Hello";
+            return "redirect:/";
         } catch (ApiErrorException exception) {
             ErrorResponse errorResponse = exception.getErrorResponse();
             model.addAttribute("error", errorResponse.error().get("message"));
@@ -74,7 +74,7 @@ class AuthController {
             JwtTokenDto jwt = authClient.login(loginDto);
             addCookie(response, "accessToken", jwt.accessToken(), Integer.MAX_VALUE, true);
             addCookie(response, "refreshToken", jwt.refreshToken(), Integer.MAX_VALUE, true);
-            return "Hello";
+            return "redirect:/";
         } catch (ApiErrorException exception) {
             ErrorResponse errorResponse = exception.getErrorResponse();
             model.addAttribute("error", errorResponse.error().get("message"));

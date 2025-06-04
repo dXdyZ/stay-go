@@ -22,12 +22,22 @@ public class RoomAvailabilityService {
     public List<Room> getFreeRooms(Long hotelId, String startDate, String endDate, String roomType,
                                              Integer guests, Integer numberOfRooms) throws NoRoomsAvailableException{
         CustomDateFormatter.dateVerification(startDate, endDate);
-        List<Room> roomAvailableIds = roomService.getAvailableRoom(
-                hotelId, guests,
-                CustomDateFormatter.localDateFormatter(startDate),
-                CustomDateFormatter.localDateFormatter(endDate),
-                RoomType.valueOf(roomType)
-        );
+        List<Room> roomAvailableIds;
+        if (roomType != null) {
+            roomAvailableIds = roomService.getAvailableRoom(
+                    hotelId, guests,
+                    CustomDateFormatter.localDateFormatter(startDate),
+                    CustomDateFormatter.localDateFormatter(endDate),
+                    RoomType.valueOf(roomType)
+            );
+        } else {
+              roomAvailableIds = roomService.getAvailableRoom(
+                    hotelId, guests,
+                    CustomDateFormatter.localDateFormatter(startDate),
+                    CustomDateFormatter.localDateFormatter(endDate),
+                    null
+            );
+        }
 
         if (roomAvailableIds.isEmpty())
             throw new NoRoomsAvailableException("No available rooms of this type on the specified date");

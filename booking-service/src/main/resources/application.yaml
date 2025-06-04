@@ -1,6 +1,8 @@
 spring:
   config:
-    import: "optional:consul:"
+    import:
+      - 'optional:consul:'
+      - 'classpath:application-backup.yaml'
   application:
     name: booking-service
   cloud:
@@ -10,7 +12,6 @@ spring:
       config:
         format: yaml
         data-key: data
-        acl-token: 66b41fb4-766f-66f4-d4b7-42d0295fe586
   flyway:
     locations: classpath:db/migration
 

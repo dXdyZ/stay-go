@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -30,5 +31,13 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             @Param("rangeEnd") LocalDate endDate,
             @Param("roomType") RoomType roomType
     );
+
+
+    @Query("select r.number from Room r where r.hotel.id = :hotelId and r.number in :numbers")
+    List<Integer> findNumbersByHotelIdAndNumberIn(
+            @Param("hotelId")
+            Long hotelId,
+            @Param("numbers")
+            Collection<Integer> numbers);
 
 }

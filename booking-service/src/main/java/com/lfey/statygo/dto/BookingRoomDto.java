@@ -1,5 +1,6 @@
 package com.lfey.statygo.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingRoom {
+@Schema(
+        description = "Entity for booking room by user",
+        example = """
+                {
+                    "hotelId": 1, 
+                    "startDate": "2025-03-14",
+                    "endDate": "2025-03-15",
+                    "roomType": "STANDARD",
+                    "guests": 1,
+                     
+                }
+                """
+)
+public class BookingRoomDto {
 
     private Long hotelId;
 

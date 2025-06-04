@@ -13,18 +13,21 @@
 
     <div class="search-container">
         <form class="search-form" th:action="@{/search}" method="get">
+            <!-- Страна -->
             <div class="form-group">
                 <label for="country">Страна</label>
                 <input type="text" id="country" name="country" placeholder="e.g., France"
                        th:value="${countryFilter}"/>
             </div>
 
+            <!-- Город -->
             <div class="form-group">
                 <label for="city">Город</label>
                 <input type="text" id="city" name="city" placeholder="e.g., Paris"
                        th:value="${cityFilter}"/>
             </div>
 
+            <!-- Звезды -->
             <div class="form-group">
                 <label for="stars">Мин. Звезд</label>
                 <select id="stars" name="stars">
@@ -37,16 +40,36 @@
                 </select>
             </div>
 
+            <!-- Дата заезда -->
+            <div class="form-group">
+                <label for="startDate">Дата заезда</label>
+                <input type="date" id="startDate" name="startDate"
+                       th:value="${startDate}"/>
+            </div>
+
+            <!-- Дата выезда -->
+            <div class="form-group">
+                <label for="endDate">Дата выезда</label>
+                <input type="date" id="endDate" name="endDate"
+                       th:value="${endDate}"/>
+            </div>
+
+            <!-- Количество гостей -->
+            <div class="form-group">
+                <label for="guests">Гости</label>
+                <input type="number" id="guests" name="guests" min="1" max="10" placeholder="1"
+                       th:value="${guests ?: 1}"/>
+            </div>
+
+            <!-- Кнопка поиска -->
             <button type="submit" class="search-btn">Поиск</button>
         </form>
     </div>
 
     <div class="results-container">
-        <h2 style="text-align: center; margin-bottom: 2rem;">Популярные отели</h2>
-
-        <!-- Пример карточек отелей (всегда видно) -->
+        <h2 style="text-align: center; margin-bottom: 0.5rem;">Популярные отели</h2>
+        <!-- Пример карточек отелей -->
         <div class="hotel-grid">
-            <!-- Пример 1 -->
             <div class="hotel-card">
                 <div class="hotel-image">
                     <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
@@ -61,7 +84,6 @@
                 </div>
             </div>
 
-            <!-- Пример 2 -->
             <div class="hotel-card">
                 <div class="hotel-image">
                     <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
@@ -75,48 +97,7 @@
                     <p class="hotel-price">$249/night</p>
                 </div>
             </div>
-
-            <!-- Пример 3 -->
-            <div class="hotel-card">
-                <div class="hotel-image">
-                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
-                </div>
-                <div class="hotel-info">
-                    <h3 class="hotel-name">Tokyo Sakura Hotel</h3>
-                    <p class="hotel-location">Tokyo, Japan</p>
-                    <div class="hotel-rating">
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                    </div>
-                    <p class="hotel-price">$179/night</p>
-                </div>
-            </div>
-
-            <!-- Пример 4 -->
-            <div class="hotel-card">
-                <div class="hotel-image">
-                    <img src="https://via.placeholder.com/300x200 " alt="Hotel Image">
-                </div>
-                <div class="hotel-info">
-                    <h3 class="hotel-name">Dubai Royal Hotel</h3>
-                    <p class="hotel-location">Dubai, UAE</p>
-                    <div class="hotel-rating">
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                    </div>
-                    <p class="hotel-price">$399/night</p>
-                </div>
-            </div>
         </div>
-
-        <!-- Пагинация (временно отключена для избежания ошибок) -->
-        <!--
-        <div class="pagination">
-            <a th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
-               th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, page=${pageNum})}"
-               th:text="${pageNum + 1}"
-               th:classappend="${pageNum == currentPage} ? 'active'">
-            </a>
-        </div>
-        -->
     </div>
 </body>
 </html>

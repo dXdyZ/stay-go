@@ -25,7 +25,8 @@ public class Room implements Serializable {
 
     private String description;
 
-    private Boolean isActive;
+    @Builder.Default
+    private Boolean isActive = true;
 
     @Enumerated(EnumType.STRING)
     private BedType bedType;

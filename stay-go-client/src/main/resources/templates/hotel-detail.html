@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${hotel.name}">Hotel Details</title>
+    <link rel="stylesheet" th:href="@{/css/hotel-detail.css}">
+    <style>
+        .room-quantity:disabled {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="hotel-gallery">
+        <img th:src="@{/img.png}" alt="Hotel Image 1">
+        <img th:src="@{/img_1.png}" alt="Hotel Image 2">
+        <img th:src="@{/img_2.png}" alt="Hotel Image 3">
+    </div>
+
+    <div class="hotel-detail-container">
+        <div class="hotel-info">
+            <h1 th:text="${hotel.name}"></h1>
+            <div class="hotel-meta">
+                <span th:text="${hotel.address}" class="hotel-location"></span>
+                <div class="hotel-rating">
+                    <span th:each="star : ${#numbers.sequence(1, hotel.stars)}">★</span>
+                </div>
+                <p th:text="${'Rating: ' + hotel.grade}" class="hotel-grade"></p>
+            </div>
+            <p th:text="${hotel.description}" class="hotel-description"></p>
+        </div>
+
+        <form class="room-booking-form" th:action="@{/booking}" method="post">
+            <input type="hidden" name="hotelId" th:value="${hotel.hotelId}"/>
+
+            <div class="room-list">
+                <div class="room-cards">
+                    <div class="room-card" th:each="room : ${hotel.roomDto}">
+                        <div class="room-header">
+                            <h3 th:text="${room.roomType + ' Room'}"></h3>
+                            <p class="room-price" th:text="${room.totalPrice} + ' руб.'"></p>
+                        </div>
+                        <div class="room-details">
+                            <p><strong>Capacity:</strong> <span th:text="${room.capacity}"></span></p>
+                            <p><strong>Bed Type:</strong> <span th:text="${room.bedType}"></span></p>
+                            <p><strong>Size:</strong> <span th:text="${room.roomSize + ' m²'}"></span></p>
+                        </div>
+                        <div class="room-select">
+                            <label th:for="'quantity_' + ${room.roomType}"></label>
+                            <select class="room-quantity"
+                                    th:id="'quantity_' + ${room.roomType}"
+                                    th:name="'quantity[${room.roomType}]'"
+                                    required>
+                                <option value="0">Не выбрано</option>
+                                <option th:each="num : ${#numbers.sequence(1, 10)}"
+                                        th:value="${num}"
+                                        th:text="${num}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="book-all-btn">Забронировать</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selects = document.querySelectorAll('.room-quantity');
+
+            const handleSelectChange = (changedSelect) => {
+                const selectedValue = parseInt(changedSelect.value);
+
+                selects.forEach(select => {
+                    if (select !== changedSelect) {
+                        select.disabled = selectedValue > 0;
+                        if (selectedValue > 0) {
+                            select.value = '0';
+                            select.querySelectorAll('option').forEach(option => {
+                                if (option.value !== '0') option.disabled = true;
+                            });
+                        } else {
+                            select.querySelectorAll('option').forEach(option => {
+                                option.disabled = false;
+                            });
+                        }
+                    }
+                });
+            };
+
+            selects.forEach(select => {
+                select.addEventListener('change', (e) => handleSelectChange(e.target));
+                // Инициализация при загрузке
+                handleSelectChange(select);
+            });
+        });
+    </script>
+</body>
+</html>

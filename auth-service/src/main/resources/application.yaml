@@ -8,20 +8,10 @@ spring:
   cloud:
     consul:
       port: 8500
-      host: localhost
+      host: consul-server
       discovery:
         instance-id: auth-service-i1
-#        Удалить когда буду все собирать в докер
-        hostname: 192.168.0.103
-        acl-token: 527e2915-295d-bfb0-277a-87fc893e3983
       config:
         format: yaml
-        prefixes: config/auth-service
         data-key: data
-        acl-token: e34f5694-2d34-3703-32b9-f262ff82eac8
-#       Не прерывать запуск при ошибке
-        fail-fast: false
-logging:
-  level:
-    root: ERROR
-    org.springframework: ERROR
+        fail-fast: true

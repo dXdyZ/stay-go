@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -36,8 +35,24 @@ public class Hotel implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(
             mappedBy = "hotel",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private List<Room> room = new ArrayList<>();
 
+
+    @Builder.Default
+    @ToString.Exclude
+    @OneToMany(
+            mappedBy = "hotel",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Set<Photo> photos = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private HotelType hotelType;
+
+    public Optional<Photo> getMainPhoto() {
+        return photos.stream().filter(Photo::getIsMain).findFirst();
+    }
 }

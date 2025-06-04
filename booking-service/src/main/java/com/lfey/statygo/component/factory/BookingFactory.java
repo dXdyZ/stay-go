@@ -3,24 +3,24 @@ package com.lfey.statygo.component.factory;
 import com.lfey.statygo.component.CustomDateFormatter;
 import com.lfey.statygo.component.PriceCalculate;
 import com.lfey.statygo.dto.BookingDto;
-import com.lfey.statygo.dto.BookingRoom;
+import com.lfey.statygo.dto.BookingRoomDto;
 import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.Room;
 
 import java.time.Instant;
 
 public class BookingFactory {
-    public static Booking createBooking(Room freeRoom, String username, BookingRoom bookingRoom) {
+    public static Booking createBooking(Room freeRoom, String username, BookingRoomDto bookingRoomDto) {
         return Booking.builder()
                 .room(freeRoom)
                 .hotel(freeRoom.getHotel())
                 .createDate(Instant.now())
-                .startDate(CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()))
-                .endDate(CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate()))
+                .startDate(CustomDateFormatter.localDateFormatter(bookingRoomDto.getStartDate()))
+                .endDate(CustomDateFormatter.localDateFormatter(bookingRoomDto.getEndDate()))
                 .username(username)
                 .totalPrice(PriceCalculate.calculationTotalPrice(freeRoom.getPricePerDay(),
-                        CustomDateFormatter.localDateFormatter(bookingRoom.getStartDate()),
-                        CustomDateFormatter.localDateFormatter(bookingRoom.getEndDate())))
+                        CustomDateFormatter.localDateFormatter(bookingRoomDto.getStartDate()),
+                        CustomDateFormatter.localDateFormatter(bookingRoomDto.getEndDate())))
                 .build();
     }
 

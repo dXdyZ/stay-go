@@ -1,3 +1,6 @@
 spring:
   application:
     name: stay-go-client
+logging:
+  level:
+    org.springframework.web: debug

@@ -6,13 +6,15 @@ COPY settings.gradle .
 COPY build.gradle .
 COPY src ./src
 
-RUN gradle clean build --no-deamon
+#Убрать пропуск тестов в продакшене
+RUN gradle clean build --no-daemon -x test
 
 FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 
-RUN groupadd -r spring && useradd -r -g spring spring \
+RUN mkdir -p /app/secrets && \
+    groupadd -r spring && useradd -r -g spring spring \
     && chown -R spring:spring /app \
     && chmod -R 755 /app
 

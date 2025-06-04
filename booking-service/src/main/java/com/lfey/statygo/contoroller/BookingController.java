@@ -1,16 +1,20 @@
 package com.lfey.statygo.contoroller;
 
 import com.lfey.statygo.component.PageResponse;
+import com.lfey.statygo.contoroller.documentation.BookingControllerDocs;
 import com.lfey.statygo.dto.BookingDto;
-import com.lfey.statygo.dto.BookingRoom;
+import com.lfey.statygo.dto.BookingRoomDto;
 import com.lfey.statygo.service.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.annotation.HttpConstraint;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bookings")
-public class BookingController {
+public class BookingController implements BookingControllerDocs {
     private final BookingService bookingService;
 
     public final static String USERNAME_HEADER = "X-User-Username";
@@ -20,9 +24,10 @@ public class BookingController {
     }
 
     @PostMapping
-    public void booingRoom(@Valid @RequestBody BookingRoom bookingRoom,
+    @ResponseStatus(HttpStatus.CREATED)
+    public void booingRoom(@Valid @RequestBody BookingRoomDto bookingRoomDto,
                            @RequestHeader(USERNAME_HEADER) String username) {
-        bookingService.bookingRoom(bookingRoom, username);
+        bookingService.bookingRoom(bookingRoomDto, username);
     }
 
     @GetMapping("/{id}")

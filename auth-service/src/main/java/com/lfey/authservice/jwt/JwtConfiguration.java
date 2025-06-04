@@ -1,13 +1,17 @@
 package com.lfey.authservice.jwt;
 
+import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -27,15 +31,33 @@ public class JwtConfiguration {
     @Value("${jwt.refresh.expiration}")
     private Long refreshExpiration;
 
+
+    @Value("${jwt.keys.path}")
+    private String keysPath;
+
+    @PostConstruct
+    public void checkKeys() {
+        Path privateKeyPath = Paths.get(keysPath, "private-key.txt");
+        Path publicKeyPath = Paths.get(keysPath, "public-key.txt");
+
+        if (!Files.exists(privateKeyPath) || !Files.isReadable(privateKeyPath) ||
+                !Files.exists(publicKeyPath) || !Files.isReadable(publicKeyPath)) {
+            throw new IllegalStateException(
+                    "CRITICAL ERROR: JWT keys are missing or not readable.\n" +
+                            "Private key path: " + privateKeyPath.toAbsolutePath() + "\n" +
+                            "Public key path: " + publicKeyPath.toAbsolutePath()
+            );
+        }
+    }
+
     //TODO Сделать правильную обработку исключений в случае ошибки, разделить метод на методы
     @Bean
     public KeyPair keyPair() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
-        String privateKeyPEM = new String(
-                Files.readAllBytes(new ClassPathResource("private-key.txt").getFile().toPath()))
-                .trim();
-        String publicKeyPEM = new String(
-                Files.readAllBytes(new ClassPathResource("public-key.txt").getFile().toPath()))
-                .trim();
+        Path privateKeyPath = Paths.get(keysPath, "private-key.txt");
+        Path publicKeyPath = Paths.get(keysPath, "public-key.txt");
+
+        String privateKeyPEM = new String(Files.readAllBytes(privateKeyPath)).trim();
+        String publicKeyPEM = new String(Files.readAllBytes(publicKeyPath)).trim();
 
         byte[] privateKeyBytes = Base64.getDecoder().decode(privateKeyPEM);
         byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyPEM);

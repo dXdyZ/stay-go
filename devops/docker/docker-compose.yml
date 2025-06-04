@@ -1,7 +1,22 @@
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ../config/nginx/nginx.conf:/etc/nginx/nginx.conf
+#    depends_on:
+#      - auth-service
+#      - user-service
+#      - booking-service
+    network_mode: host
+#    networks:
+#      - app-network
+
+
   # Redis Service
   redis:
-    image: redis:7-alpine
+    image: redis:7-alpine 
     hostname: redis
     container_name: redis
     ports:
@@ -168,6 +183,10 @@ services:
     build:
       context: ../../auth-service
       dockerfile: Dockerfile
+    volumes:
+      - ../secrets:/app/secrets
+    environment:
+      - JWT_KEYS_PATH=/app/secrets
     ports:
       - "9191:9191"
     depends_on:
@@ -179,6 +198,7 @@ services:
       - backend-network
       - kafka-network
       - database-network
+      - app-network
 
 networks:
   backend-network:
@@ -186,6 +206,8 @@ networks:
   kafka-network:
     driver: bridge
   database-network:
+    driver: bridge
+  app-network:
     driver: bridge
 
 volumes:
