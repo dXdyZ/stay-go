@@ -40,6 +40,6 @@ public class CreateRoomDto {
     private Boolean autoApprove;
 
     @NotNull(message = "The field must not be empty, choose one of the suggested options: " +
-            "SINGLE, DOUBLE, QUEEN_SIZE, KING_SIZE, TWO_TIRE")
+            "SINGLE, DOUBLE, QUEEN, KING, TWO_TIRE")
     private BedType bedType;
 }

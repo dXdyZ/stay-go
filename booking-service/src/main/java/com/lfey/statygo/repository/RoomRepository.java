@@ -16,7 +16,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     @Query("SELECT r FROM Room r " +
             "WHERE r.hotel.id = :hotelId " +
-            "AND r.capacity = :capacity " +
+            "AND r.capacity >= :capacity " +
+            "AND r.capacity <= :capacity + 1 " +
             "AND (:roomType IS NULL OR r.roomType = :roomType) " +
             "AND r.id NOT IN (" +
             "   SELECT b.room.id FROM Booking b " +
@@ -39,5 +40,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             Long hotelId,
             @Param("numbers")
             Collection<Integer> numbers);
+
 
 }

@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
                     "capacity": 4,
                     "totalPrice": 1234.5,
                     "bedType": "DOUBLE",
-                    "roomSize": 34.3
+                    "roomSize": 34.3,
+                    "description": "Standard Double Room with 1 Bed or 2 Single Beds"
                 }
                 """
 )
@@ -32,6 +33,8 @@ public class RoomDto {
     private String bedType;
     @Schema(description = "Room size", example = "34.3")
     private Double roomSize;
+    @Schema(description = "Description room", example = "Standard Double Room with 1 Bed or 2 Single Beds")
+    private String description;
 }
 
 

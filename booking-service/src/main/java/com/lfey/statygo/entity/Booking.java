@@ -44,6 +44,8 @@ public class Booking implements Serializable {
 
     private String username;
 
+    private Integer guests;
+
     @LastModifiedDate
     private Instant updateDate;
 }

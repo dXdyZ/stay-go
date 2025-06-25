@@ -5,8 +5,10 @@ import com.lfey.statygo.component.CustomPageable;
 import com.lfey.statygo.component.PageResponse;
 import com.lfey.statygo.component.factory.BookingDetailsEventFactory;
 import com.lfey.statygo.component.factory.BookingFactory;
+import com.lfey.statygo.component.factory.BookingHistoryFactory;
 import com.lfey.statygo.dto.BookingDetailsEvent;
 import com.lfey.statygo.dto.BookingDto;
+import com.lfey.statygo.dto.BookingHistoryDto;
 import com.lfey.statygo.dto.BookingRoomDto;
 import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.BookingStatus;
@@ -36,8 +38,8 @@ public class BookingService {
 
     @Transactional
     public void bookingRoom(BookingRoomDto bookingRoomDto, String username) {
-        //TODO STB-5
         CustomDateFormatter.dateVerification(bookingRoomDto.getStartDate(), bookingRoomDto.getEndDate());
+
         List<Booking> saveBooking = bookingRepository.saveAll(
                 roomAvailabilityService.getFreeRooms(bookingRoomDto.getHotelId(), bookingRoomDto.getStartDate(),
                         bookingRoomDto.getEndDate(), bookingRoomDto.getRoomType(),
@@ -48,11 +50,14 @@ public class BookingService {
                                 booking.setBookingStatus(BookingStatus.CONFIRMED);
                             } else {
                                 booking.setBookingStatus(BookingStatus.PENDING);
+                                //TODO Разобраться с созданием сообщения админу
+//                                kafkaProducer.sendPendingBookingNotification();
                             }
                             return booking;
                         })
                         .toList());
-        kafkaProducer.sendBookingDetails(getGroupedBookingDetailsByRoomType(saveBooking, username));
+
+        kafkaProducer.sendBookingDetailsNotification(getGroupedBookingDetailsByRoomType(saveBooking, username));
     }
 
 
@@ -94,6 +99,12 @@ public class BookingService {
         return PageResponse.fromPage(bookingRepository.findAllByHotel_Id(hotelId,
                         CustomPageable.getPageable(0, 7)),
                 BookingFactory::createBookingDto);
+    }
+
+    public PageResponse<BookingHistoryDto> getUserBookingHistory(String username, int page) {
+        return PageResponse.fromPage(
+                bookingRepository.findAllByUsername(username, CustomPageable.getPageable(page, 9)),
+                BookingHistoryFactory::createBookingHistoryDto);
     }
 }
 

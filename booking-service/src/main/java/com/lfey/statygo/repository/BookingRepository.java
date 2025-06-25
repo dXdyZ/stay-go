@@ -19,7 +19,6 @@ import java.util.Set;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-
     @EntityGraph(attributePaths = {"hotel", "room"})
     @Query("SELECT b FROM Booking b " +
            "WHERE b.hotel.id = :hotelId " +
@@ -36,4 +35,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("select b from Booking b where b.hotel.id = :hotelId")
     Page<Booking> findAllByHotel_Id(@Param("hotelId") Long hotelId, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"hotel", "room"})
+    Page<Booking> findAllByUsername(@Param("username") String username, Pageable pageable);
 }

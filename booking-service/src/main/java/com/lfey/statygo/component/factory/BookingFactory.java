@@ -21,6 +21,7 @@ public class BookingFactory {
                 .totalPrice(PriceCalculate.calculationTotalPrice(freeRoom.getPricePerDay(),
                         CustomDateFormatter.localDateFormatter(bookingRoomDto.getStartDate()),
                         CustomDateFormatter.localDateFormatter(bookingRoomDto.getEndDate())))
+                .guests(bookingRoomDto.getGuests())
                 .build();
     }
 
@@ -34,6 +35,7 @@ public class BookingFactory {
                 .endDate(booking.getEndDate())
                 .username(booking.getUsername())
                 .totalPrice(booking.getTotalPrice())
+                .guests(booking.getGuests())
                 .build();
     }
 }

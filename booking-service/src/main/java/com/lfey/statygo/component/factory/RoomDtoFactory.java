@@ -16,6 +16,7 @@ public class RoomDtoFactory {
                         CustomDateFormatter.localDateFormatter(startDate),
                         CustomDateFormatter.localDateFormatter(endDate)
                 ))
+                .description(room.getDescription())
                 .bedType(room.getBedType().name())
                 .build();
     }

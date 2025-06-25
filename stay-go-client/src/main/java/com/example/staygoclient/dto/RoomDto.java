@@ -15,5 +15,6 @@ public class RoomDto {
     private Double totalPrice;
     private String bedType;
     private Double roomSize;
+    private String description;
 }
 

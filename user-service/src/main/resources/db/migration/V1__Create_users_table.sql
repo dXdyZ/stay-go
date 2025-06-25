@@ -5,3 +5,4 @@ create table if not exists users (
     username varchar(100) unique not null,
     hotel_id BIGINT
 );
+

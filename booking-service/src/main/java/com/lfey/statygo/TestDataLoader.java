@@ -29,7 +29,7 @@ import java.util.stream.IntStream;
 //
 //    @PostConstruct
 //    public void init() {
-//        IntStream.rangeClosed(1, 50).forEach(i -> {
+//        IntStream.rangeClosed(50, 500).forEach(i -> {
 //            // Создаем адрес без явного сохранения
 //            Address address = Address.builder()
 //                    .country("Russian")
@@ -76,7 +76,5 @@ import java.util.stream.IntStream;
 //                roomRepository.save(room);
 //            });
 //        });
-//
-//        System.out.println("✅ Инициализировано 50 отелей в Москве, Россия, все с 5 звездами.");
 //    }
 //}

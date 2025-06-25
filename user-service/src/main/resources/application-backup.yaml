@@ -34,4 +34,6 @@ springdoc:
   api-docs:
     path: /v3/api-docs
 server:
+  servlet:
+    context-path: /user-service
   port: 9292

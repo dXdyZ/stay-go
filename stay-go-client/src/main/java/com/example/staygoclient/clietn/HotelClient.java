@@ -4,11 +4,9 @@ import com.example.staygoclient.dto.ErrorResponse;
 import com.example.staygoclient.dto.HotelDto;
 import com.example.staygoclient.dto.PageResponse;
 import com.example.staygoclient.exception.ApiErrorException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -16,11 +14,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Map;
 
 @Component
 public class HotelClient {
-    private static final String MAIN_URL = "http://localhost:9393/api/hotels";
+    private static final String MAIN_URL = "http://localhost:9393/booking-service/api/hotels";
 
     private final RestTemplate restTemplate;
 
@@ -62,9 +61,21 @@ public class HotelClient {
                 .path("/" + startDate)
                 .path("/" + endDate);
         try {
-            return restTemplate.getForEntity(builder.toUriString(), HotelDto.class).getBody();
+            HotelDto result = restTemplate.getForEntity(builder.toUriString(), HotelDto.class).getBody();
+            for (int i = 0; i < result.getPhotoDto().size(); i++) {
+                if (result.getPhotoDto().get(i).getIsMain()) {
+                    Collections.swap(result.getPhotoDto(), i, 0);
+                    break;
+                }
+            }
+            return result;
         } catch (HttpClientErrorException exception) {
             throw new ApiErrorException(exception.getResponseBodyAs(ErrorResponse.class));
         }
+    }
+
+
+    public void createHotel() {
+
     }
 }

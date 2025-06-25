@@ -26,7 +26,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
     @Query("select h.id from Hotel h " +
             "where (:stars is null or h.stars = :stars) " +
             "and (:country is null or h.address.country = :country) " +
-        "and (:city is null or h.address.city = :city)")
+            "and (:city is null or h.address.city = :city)")
     Page<Long> findFilteredHotelIds(@Param("stars") Integer stars, @Param("country") String country,
                                     @Param("city") String city, @NonNull Pageable pageable);
 

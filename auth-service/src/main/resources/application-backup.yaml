@@ -77,4 +77,6 @@ springdoc:
     path: /v3/api-docs
 
 server:
+  servlet:
+    context-path: /auth-service
   port: 9191

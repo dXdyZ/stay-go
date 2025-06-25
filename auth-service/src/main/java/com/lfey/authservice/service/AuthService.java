@@ -59,8 +59,13 @@ public class AuthService {
     //TODO Create method for validation reset password code
 
     @Transactional
-    public JwtTokenDto getJWT(ValidationCodeDto validationCodeDto) throws UserCacheDataNotFoundException, InvalidCodeException {
+    public JwtTokenDto getJWT(ValidationCodeDto validationCodeDto) throws UserCacheDataNotFoundException,
+            InvalidCodeException {
         return tokenService.getToken(saveUserAfterRegistration(validationCodeDto).getUsername());
+    }
+
+    public UserAuthInfoDto getAuthInfoAndValidation(String token) throws InvalidJwtTokenException{
+        return tokenService.getUserAuthInfo(token);
     }
 
     public JwtTokenDto refreshAccessToken(JwtTokenDto jwtTokenDto) {

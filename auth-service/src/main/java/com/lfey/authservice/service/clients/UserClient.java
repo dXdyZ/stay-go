@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "user-service", configuration = FeignClintConfiguration.class)
 public interface UserClient {
-    @PostMapping("/api/users/save")
+    @PostMapping("/user-service/api/users/save")
     void saveUser(@RequestBody UserDetailsDto userDetailsDto);
 
-    @GetMapping("/api/users/by-email/{email}")
+    @GetMapping("/user-service/api/users/by-email/{email}")
     UserDetailsDto getUserByEmail(@PathVariable String email);
 
-    @GetMapping("/api/users/by-name/{username}")
+    @GetMapping("/user-service/api/users/by-name/{username}")
     UserDetailsDto getUserByUsername(@PathVariable String username);
 
-    @PatchMapping("/api/users/{email}/email")
+    @PatchMapping("/user-service/api/users/{email}/email")
     UserDetailsDto updateEmail(@PathVariable String email,
                                @RequestHeader("X-User-Username") String username);
 
-    @PatchMapping("/api/users/{newUsername}/username")
+    @PatchMapping("/user-service/api/users/{newUsername}/username")
     UserDetailsDto updateUsername(@PathVariable String newUsername,
                                   @RequestHeader("X-User-Username") String username);
 }

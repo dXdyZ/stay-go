@@ -62,7 +62,7 @@
                     <a th:href="@{/details(hotelId=${hotel.hotelId}, guests=${guests}, startDate=${startDate}, endDate=${endDate})}">
                         <div class="hotel-card-inner">
                             <div class="hotel-image">
-                                <img th:src="${hotel.getPhotoDto().get(0)}" alt="Hotel Image">
+                                <img th:src="${hotel.getPhotoDto[0].url}" alt="Hotel Image">
                             </div>
                             <div class="hotel-info">
                                 <h3 class="hotel-name" th:text="${hotel.name}"></h3>
@@ -70,7 +70,9 @@
                                 <div class="hotel-rating">
                                     <span th:each="star : ${#numbers.sequence(1, hotel.stars)}">★</span>
                                 </div>
-                                <p class="hotel-price" th:text="${hotel.totalPrice}"></p>
+                                <p class="hotel-price"
+                                   th:text="${#numbers.formatDecimal(hotel.totalPrice, 0, 'WHITESPACE', 0, 'POINT')} + ' руб.'">
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -79,27 +81,27 @@
 
             <!-- Пагинация -->
             <div class="pagination" th:if="${totalPages != null and totalPages > 1}">
+                <!-- « Первая -->
                 <a th:if="${currentPage > 0}"
-                   th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, page=0)}">
+                   th:href="@{/search(startDate=${startDate}, endDate=${endDate}, stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, guests=${guests}, page=0)}">
                     « Первая
                 </a>
+
+                <!-- ← Назад -->
                 <a th:if="${currentPage > 0}"
-                   th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, page=${currentPage - 1})}">
+                   th:href="@{/search(startDate=${startDate}, endDate=${endDate}, stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, guests=${guests}, page=${currentPage - 1})}">
                     ← Назад
                 </a>
 
-                <a th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
-                   th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, page=${pageNum})}"
-                   th:text="${pageNum + 1}"
-                   th:classappend="${pageNum == currentPage} ? 'active'">
-                </a>
-
+                <!-- Вперед → -->
                 <a th:if="${currentPage < totalPages - 1}"
-                   th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, page=${currentPage + 1})}">
+                   th:href="@{/search(startDate=${startDate}, endDate=${endDate}, stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, guests=${guests}, page=${currentPage + 1})}">
                     Вперед →
                 </a>
+
+                <!-- Последняя » -->
                 <a th:if="${currentPage < totalPages - 1}"
-                   th:href="@{/search(stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, page=${totalPages - 1})}">
+                   th:href="@{/search(startDate=${startDate}, endDate=${endDate}, stars=${starsFilter}, country=${countryFilter}, city=${cityFilter}, priceMin=${priceMinFilter}, priceMax=${priceMaxFilter}, guests=${guests}, page=${totalPages - 1})}">
                     Последняя »
                 </a>
             </div>

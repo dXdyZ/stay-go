@@ -67,7 +67,7 @@ public class CreateHotelDto {
     @Schema(description = "The postal code of the hotel", example = "12345")
     private Long postalCode;
 
-    @Schema(description = "Hotel photo")
+    @Schema(description = "Hotel photo in the file")
     private List<MultipartFile> photos;
 
     @Schema(description = "Main photo index", example = "1")

@@ -3,18 +3,25 @@ package com.example.staygoclient.controller;
 import com.example.staygoclient.clietn.AuthClient;
 import com.example.staygoclient.dto.*;
 import com.example.staygoclient.exception.ApiErrorException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 class AuthController {
     private final AuthClient authClient;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String COOKIE_NAME = "auth_cookie";
 
-    AuthController(AuthClient authClient) {
+    public AuthController(AuthClient authClient) {
         this.authClient = authClient;
     }
 
@@ -51,8 +58,10 @@ class AuthController {
         try {
             JwtTokenDto jwt = authClient.registrationConfirm(new ConfirmRegistrationDto(
                     (String) session.getAttribute("confirmRegistration"), code));
-            addCookie(response, "accessToken", jwt.accessToken(), Integer.MAX_VALUE, true);
-            addCookie(response, "refreshToken", jwt.refreshToken(), Integer.MAX_VALUE, true);
+            ObjectNode token = objectMapper.createObjectNode();
+            token.put("accessToken", jwt.accessToken());
+            token.put("refreshToken", jwt.refreshToken());
+            addCookie(response, COOKIE_NAME, token.toString(), Integer.MAX_VALUE);
             return "redirect:/";
         } catch (ApiErrorException exception) {
             ErrorResponse errorResponse = exception.getErrorResponse();
@@ -72,8 +81,10 @@ class AuthController {
     public String login(@ModelAttribute LoginDto loginDto, Model model, HttpServletResponse response) {
         try {
             JwtTokenDto jwt = authClient.login(loginDto);
-            addCookie(response, "accessToken", jwt.accessToken(), Integer.MAX_VALUE, true);
-            addCookie(response, "refreshToken", jwt.refreshToken(), Integer.MAX_VALUE, true);
+            ObjectNode token = objectMapper.createObjectNode();
+            token.put("accessToken", jwt.accessToken());
+            token.put("refreshToken", jwt.refreshToken());
+            addCookie(response, COOKIE_NAME, token.toString(), Integer.MAX_VALUE);
             return "redirect:/";
         } catch (ApiErrorException exception) {
             ErrorResponse errorResponse = exception.getErrorResponse();
@@ -82,11 +93,11 @@ class AuthController {
         return "login";
     }
 
-    private void addCookie(HttpServletResponse response, String name, String value, int maxAge, boolean httpOnly) {
+    private void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
         Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");
-        cookie.setHttpOnly(httpOnly);
+        cookie.setHttpOnly(true);
         cookie.setSecure(false); //Установить true если используется https
         response.addCookie(cookie);
     }

@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
                        "message": {
                            "message": "Error message"
                        },
-                       "code": "400" 
+                       "code": 400 
                     }
                     """
     )

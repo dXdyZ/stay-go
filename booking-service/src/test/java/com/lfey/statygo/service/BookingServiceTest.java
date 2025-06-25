@@ -120,7 +120,7 @@ class BookingServiceTest {
             Iterator<Booking> iter = actBooking.iterator();
             return iter.hasNext() && iter.next().getBookingStatus() == BookingStatus.CONFIRMED;
         }));
-        verify(this.kafkaProducer).sendBookingDetails(argThat(bookingDetailsEvents -> {
+        verify(this.kafkaProducer).sendBookingDetailsNotification(argThat(bookingDetailsEvents -> {
             if (bookingDetailsEvents == null || bookingDetailsEvents.isEmpty()) return false;
             return bookingDetailsEvents.get(0).getUsername().equals("test");
         }));
@@ -163,7 +163,7 @@ class BookingServiceTest {
             Iterator<Booking> iter = actBooking.iterator();
             return iter.hasNext() && iter.next().getBookingStatus() == BookingStatus.PENDING;
         }));
-        verify(this.kafkaProducer).sendBookingDetails(argThat(bookingDetailsEvents -> {
+        verify(this.kafkaProducer).sendBookingDetailsNotification(argThat(bookingDetailsEvents -> {
             if (bookingDetailsEvents == null || bookingDetailsEvents.isEmpty()) return false;
             return bookingDetailsEvents.get(0).getUsername().equals("test");
         }));

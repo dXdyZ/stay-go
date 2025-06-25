@@ -26,13 +26,18 @@ public class PhotoService {
         for (int i = 0; i < files.size(); i++) {
             validFile(files.get(i));
 
-            boolean isMain = (mainPhotoIndex != null &&
-                            mainPhotoIndex == i);
+            boolean isMain = false;
 
-            String fileName = fileStorageService.store(files.get(i));
+            if (mainPhotoIndex != null) {
+                isMain = (mainPhotoIndex == i);
+                if (!hotel.getPhotos().isEmpty()) {
+                    Photo photo = hotel.getPhotos().stream().filter(Photo::getIsMain).findFirst().get();
+                    photo.setIsMain(false);
+                }
+            }
 
             photoRepository.save(Photo.builder()
-                    .fileName(fileName)
+                    .fileName(fileStorageService.store(files.get(i)))
                     .hotel(hotel)
                     .fileSize(files.get(i).getSize())
                     .isMain(isMain)

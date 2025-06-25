@@ -23,8 +23,12 @@
                 <input type="password" id="password" th:field="*{password}" required>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Войти</button>
         </form>
+        <!-- Внутри div.container, сразу после формы -->
+        <div class="form-footer">
+            <a th:href="@{/registration}" class="secondary-button">Создать аккаунт</a>
+        </div>
     </div>
 </body>
 </html>

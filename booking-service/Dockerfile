@@ -5,7 +5,7 @@ COPY settings.gradle .
 COPY build.gradle .
 COPY src ./src
 
-RUN gradle clean build --no-deamon
+RUN gradle clean build --no-daemon
 
 FROM eclipse-temurin:17-jre-jammy
 

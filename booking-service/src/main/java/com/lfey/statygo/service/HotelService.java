@@ -12,6 +12,7 @@ import com.lfey.statygo.dto.HotelUpdateRequestDto;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.exception.HotelNotFoundException;
 import com.lfey.statygo.repository.HotelRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -21,10 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+@Slf4j
 @Service
 public class HotelService {
     private final HotelRepository hotelRepository;
@@ -117,14 +117,14 @@ public class HotelService {
         hotelRepository.delete(hotel);
     }
 
-    //TODO STB-12 WARNING
+    //TODO WARNING Optimization methods for get room and photo
     @Transactional(readOnly = true)
-    //@Cacheable(value = "hotelSearch", key = "{#stars, #country, #city, #page, #startDate, #endDate}")
+    @Cacheable(value = "hotelSearch", key = "{#stars, #country, #city, #page, #startDate, #endDate}")
     public Page<HotelDto> searchHotelByFilter(String startDate, String endDate,
                                               Integer stars, String country,
                                               String city, int page) {
 
-        Pageable pageable = CustomPageable.getPageable(page, 7);
+        Pageable pageable = CustomPageable.getPageable(page, 9);
 
         Page<Long> hotelIdPage = hotelRepository.findFilteredHotelIds(stars, country, city, pageable);
 

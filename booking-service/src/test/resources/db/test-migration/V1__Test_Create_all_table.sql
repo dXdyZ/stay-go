@@ -51,7 +51,7 @@ VALUES (1, 'Test Hotel', 4, 8.75, 'Good hotel near the city center', 1);
 
 INSERT INTO rooms (id, number, capacity, price_per_day, description, is_active, bed_type, room_type, hotel_id, auto_approve)
 VALUES
-(1, 101, 2, 3500.00, 'Standard room with queen bed', true, 'QUEEN_SIZE', 'STANDARD', 1, true),
+(1, 101, 2, 3500.00, 'Standard room with queen bed', true, 'QUEEN', 'STANDARD', 1, true),
 (2, 102, 4, 5500.00, 'Deluxe room with two double beds', true, 'DOUBLE', 'LUX', 1, true);
 
 INSERT INTO bookings (id, hotel_id, room_id, booking_status, start_date, end_date, total_price, username)

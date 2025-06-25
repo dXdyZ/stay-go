@@ -22,10 +22,6 @@ public class HotelAssignmentService {
         this.bookingClientService = bookingClientService;
     }
 
-    /**
-     * TODO сделать запрос проверки существования отеля к booking service
-     * TODO сделать запрос к auth service для проверки роли пользователя
-     */
     @Transactional
     public Users appointmentHotel(AppointmentRequestDto appointmentRequestDto) throws UserNotFoundException,
             HotelNotFoundException, DuplicateRoleException {

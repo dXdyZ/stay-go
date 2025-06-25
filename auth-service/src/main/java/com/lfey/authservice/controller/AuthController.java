@@ -63,6 +63,19 @@ public class AuthController implements AuthControllerDocs {
         return ResponseEntity.ok(authService.refreshAccessToken(jwtTokenDto));
     }
 
+    @PostMapping("/verify")
+    public ResponseEntity<Void> getAuthInfoAndValidation(@RequestHeader("Authorization") String authHeader) {
+        String token = null;
+        if (authHeader != null && !authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+        }
+        UserAuthInfoDto authInfo = authService.getAuthInfoAndValidation(token);
+        return ResponseEntity.ok()
+                .header("X-User-Username", authInfo.username())
+                .header("X-User-Roles", String.join(",", authInfo.roles()))
+                .build();
+    }
+
     @PostMapping("/email-update/confirm")
     public ResponseEntity<UserDetailsDto> validationUpdateEmail(@Valid @RequestBody ValidationCodeDto validationCodeDto,
                                                                 @RequestHeader(USERNAME_HEADER) String username) {

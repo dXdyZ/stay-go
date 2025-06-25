@@ -1,6 +1,8 @@
 package com.lfey.authservice.service.security_service;
 
 import com.lfey.authservice.dto.JwtTokenDto;
+import com.lfey.authservice.dto.UserAuthInfoDto;
+import com.lfey.authservice.exception.InvalidJwtTokenException;
 import com.lfey.authservice.exception.InvalidRefreshTokenException;
 import com.lfey.authservice.jwt.JwtUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +43,10 @@ public class TokenService {
         return new JwtTokenDto(jwtUtils.generationAccessToken(
                 userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token))),
                 null);
+    }
+
+    public UserAuthInfoDto getUserAuthInfo(String token) throws InvalidJwtTokenException {
+        return new UserAuthInfoDto(jwtUtils.extractUsername(token), jwtUtils.extractRoles(token));
     }
 
     public void deleteRefreshToken(String refreshToken) {

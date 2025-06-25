@@ -3,6 +3,7 @@ package com.lfey.statygo.contoroller.documentation;
 import com.lfey.statygo.component.PageResponse;
 import com.lfey.statygo.contoroller.GlobalExceptionHandler;
 import com.lfey.statygo.dto.BookingDto;
+import com.lfey.statygo.dto.BookingHistoryDto;
 import com.lfey.statygo.dto.BookingRoomDto;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -64,7 +65,6 @@ public interface BookingControllerDocs {
             @PathVariable Long id);
 
 
-
     @Operation(
             summary = "Get bookings for the period",
             description = "Get all hotel bookings for the specified period",
@@ -107,41 +107,83 @@ public interface BookingControllerDocs {
             @RequestParam(required = false) String endDate);
 
 
-     @Operation(
-            summary = "Get all bookings",
-            description = "Get all hotel reservations for the entire period of its existence",
+    @Operation(
+        summary = "Get all bookings",
+        description = "Get all hotel reservations for the entire period of its existence",
+        responses = @ApiResponse(responseCode = "200", description = "Success response",
+                content = @Content(schema = @Schema(implementation = BookingDto.class),
+                        examples = {
+                            @ExampleObject(
+                                    name = "Booking page response",
+                                    value = """
+                                            {
+                                                "content": [
+                                                    {
+                                                        "id": 1,
+                                                        "hotelName": "Hotel",
+                                                        "roomNumber": 12,
+                                                        "bookingStatus": "CONFIRMED",
+                                                        "startDate": "2025-03-14",
+                                                        "endDate": "2025-03-15",
+                                                        "totalPrice": 1234.4,
+                                                        "username": "user"
+                                                    }
+                                                ],
+                                                "currentPage": 0,
+                                                "totalPages": 5,
+                                                "totalItems": 50
+                                            }
+                                            """
+                            )
+                        }
+                )
+        )
+    )
+    @GetMapping("/hotels/{hotelId}")
+    ResponseEntity<PageResponse<BookingDto>> getAllBookingByHotel(
+        @Parameter(description = "Hotel id", example = "1", required = true)
+        @PathVariable Long hotelId);
+
+
+    @Operation(
+            summary = "Get user booking history",
+            description = "Get user booking history",
             responses = @ApiResponse(responseCode = "200", description = "Success response",
-                    content = @Content(schema = @Schema(implementation = BookingDto.class),
+                    content = @Content(schema = @Schema(implementation = BookingHistoryDto.class),
                             examples = {
-                                @ExampleObject(
-                                        name = "Booking page response",
-                                        value = """
-                                                {
-                                                    "content": [
-                                                        {
-                                                            "id": 1,
-                                                            "hotelName": "Hotel",
-                                                            "roomNumber": 12,
-                                                            "bookingStatus": "CONFIRMED",
-                                                            "startDate": "2025-03-14",
-                                                            "endDate": "2025-03-15",
-                                                            "totalPrice": 1234.4,
-                                                            "username": "user"
-                                                        }
-                                                    ],
-                                                    "currentPage": 0,
-                                                    "totalPages": 5,
-                                                    "totalItems": 50
-                                                }
-                                                """
-                                )
+                                    @ExampleObject(
+                                            name = "Booking page response",
+                                            value = """
+                                            {
+                                                "content": [
+                                                    {
+                                                        "bookingId": 12345,
+                                                        "hotelId": 789,
+                                                        "hotelName": "Grand Paradise Resort",
+                                                        "hotelStars": 5,
+                                                        "hotelType": "HOTEL",
+                                                        "mainPhotoUrl": "https://example.com/uploads/grand-paradise.jpg",
+                                                        "startDate": "2023-12-15",
+                                                        "endDate": "2023-12-22",
+                                                        "totalPrice": 1200.50,
+                                                        "createDate": "2023-10-05T14:30:00Z",
+                                                        "roomNumber": 305,
+                                                        "roomDescription": "Deluxe King Room with Ocean View",
+                                                        "bedType": "KING
+                                                    }
+                                                ],
+                                                "currentPage": 0,
+                                                "totalPages": 5,
+                                                "totalItems": 50
+                                            }
+                                            """
+                                    )
                             }
                     )
             )
     )
-    @GetMapping("/hotels/{hotelId}")
-    ResponseEntity<PageResponse<BookingDto>> getAllBookingByHotel(
-            @Parameter(description = "Hotel id", example = "1", required = true)
-            @PathVariable Long hotelId);
-
+    @GetMapping("/history")
+    ResponseEntity<PageResponse<BookingHistoryDto>> getUserBookingHistory(
+            @RequestHeader(USERNAME_HEADER) String username,
+            @RequestParam(required = false, defaultValue = "0") int page);
 }

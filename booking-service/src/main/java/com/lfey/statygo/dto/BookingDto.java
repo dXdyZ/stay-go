@@ -19,7 +19,8 @@ import java.time.LocalDate;
                     "startDate": "2025-03-14",
                     "endDate": "2025-03-15",
                     "totalPrice": 1234.4,
-                    "username": "user"
+                    "username": "user",
+                    "guests": 2
                 }
                 """
 )
@@ -40,4 +41,6 @@ public class BookingDto {
     private Double totalPrice;
     @Schema(description = "The name of the user who booked the room", example = "user")
     private String username;
+    @Schema(description = "Number of guests", example = "2")
+    private Integer guests;
 }
