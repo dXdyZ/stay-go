@@ -9,6 +9,7 @@ import com.lfey.statygo.component.factory.RoomDtoFactory;
 import com.lfey.statygo.dto.CreateHotelDto;
 import com.lfey.statygo.dto.HotelDto;
 import com.lfey.statygo.dto.HotelUpdateRequestDto;
+import com.lfey.statygo.dto.PhotoDto;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.exception.HotelNotFoundException;
 import com.lfey.statygo.repository.HotelRepository;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -121,37 +123,61 @@ public class HotelService {
     @Transactional(readOnly = true)
     @Cacheable(value = "hotelSearch", key = "{#stars, #country, #city, #page, #startDate, #endDate}")
     public Page<HotelDto> searchHotelByFilter(String startDate, String endDate,
-                                              Integer stars, String country,
+                                              Integer stars, String country, Double grade,
+                                              String hotelType, Double minPrice, Double maxPrice,
                                               String city, int page) {
 
         Pageable pageable = CustomPageable.getPageable(page, 9);
 
         Page<Long> hotelIdPage = hotelRepository.findFilteredHotelIds(stars, country, city, pageable);
 
-        List<HotelDto> hotelDtos = hotelRepository.findHotelsWithDetailsByIds(hotelIdPage.getContent()).stream()
-                .map(hotel -> {
-                    HotelDto hotelDto = HotelFactory.createHotelDtoSearch(hotel);
-                    //TODO Решить вопрос с получение только одной комнаты из базы данных
-                    Room room;
-                    if (hotel.getHotelType().equals(HotelType.HOTEL)) {
-                        room = hotel.getRoom().stream().filter(searchRoom -> searchRoom.getRoomType()
-                                            .equals(RoomType.STANDARD))
-                                        .findAny().get();
-                    } else {
-                        room = hotel.getRoom().stream().findFirst().get();
-                    }
+        Stream<HotelDto> hotelDtos = hotelRepository.findHotelsWithDetailsByIds(hotelIdPage.getContent()).stream()
+                .flatMap(hotel -> createHotelDtoIfPossible(hotel, startDate, endDate).stream());
 
-                    hotelDto.setTotalPrice(PriceCalculate.calculationTotalPrice(room.getPricePerDay(),
-                            CustomDateFormatter.localDateFormatter(startDate),
-                            CustomDateFormatter.localDateFormatter(endDate)));
 
-                    //TODO Решить вопрос с получением только главной фотографии из базы
-                    hotelDto.getPhotoDto().add(hotel.getMainPhoto()
-                            .map(PhotoDtoFactory::createPhotoDto).get());
+        if (hotelType != null && !hotelType.isEmpty()) {
+            hotelDtos = hotelDtos.filter(hotel -> hotel.equals(hotelType));
+        }
+        if (minPrice != null) {
+            hotelDtos = hotelDtos.filter(hotel -> hotel.getTotalPrice().compareTo(minPrice) >= 0);
+        }
+        if (maxPrice != null) {
+            hotelDtos = hotelDtos.filter(hotel -> hotel.getTotalPrice().compareTo(maxPrice) <= 0);
+        }
+        if (grade != null) {
+            hotelDtos = hotelDtos.filter(hotel -> hotel.getGrade().equals(grade));
+        }
 
-                    return hotelDto;
-                }).toList();
 
-        return new PageImpl<>(hotelDtos, pageable, hotelIdPage.getTotalElements());
+        return new PageImpl<>(hotelDtos.toList(), pageable, hotelIdPage.getTotalElements());
+    }
+
+    private Optional<HotelDto> createHotelDtoIfPossible(Hotel hotel, String startDate, String endDate) {
+        Optional<Room> roomOptional;
+
+        //TODO Решить проблему с получение только одной комнаты отеля а не всех
+        if (hotel.getHotelType().equals(HotelType.HOTEL)) {
+            roomOptional = hotel.getRoom().stream().filter(searchRoom -> searchRoom.getRoomType()
+                            .equals(RoomType.STANDARD))
+                    .findAny();
+        } else {
+            roomOptional = hotel.getRoom().stream().findFirst();
+        }
+
+        if (roomOptional.isEmpty()) return Optional.empty();
+
+        Room room = roomOptional.get();
+        HotelDto hotelDto = HotelFactory.createHotelDtoSearch(hotel);
+
+        hotelDto.setTotalPrice(PriceCalculate.calculationTotalPrice(room.getPricePerDay(),
+                CustomDateFormatter.localDateFormatter(startDate),
+                CustomDateFormatter.localDateFormatter(endDate)));
+
+        //TODO Решить вопрос с получением только главной фотографии из базы
+        hotel.getMainPhoto()
+                .map(PhotoDtoFactory::createPhotoDto)
+                .ifPresent(photoDto -> hotelDto.getPhotoDto().add(photoDto));
+
+        return Optional.of(hotelDto);
     }
 }

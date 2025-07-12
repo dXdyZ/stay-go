@@ -9,14 +9,18 @@ import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.service.HotelService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/hotels")
 @Tag(name = "Hotel API", description = "Api for management hotel")
@@ -62,15 +66,21 @@ public class HotelController implements HotelControllerDocs {
 
     @GetMapping("/search")
     public ResponseEntity<PageResponse<HotelDto>> searchHotels(
-            @RequestParam String startDate,
-            @RequestParam String endDate,
+            @RequestParam String startDate, @RequestParam String endDate,
             @RequestParam(required = false) Integer stars,
-            @RequestParam String country,
-            @RequestParam String city,
+            @RequestParam String country, @RequestParam String city,
+
+            @Min(0) @Max(5) @RequestParam(required = false) Double grade,
+
+            @RequestParam(required = false) String hotelType,
+
+            @Min(0) @RequestParam(required = false) Double minPrice,
+            @Min(0) @RequestParam(required = false) Double maxPrice,
+
             @RequestParam(defaultValue = "0") int page
     ) {
         return ResponseEntity.ok(PageResponse.fromPage(hotelService.searchHotelByFilter(
-                startDate, endDate, stars, country, city, page
+                startDate, endDate, stars, country, grade, hotelType, minPrice, maxPrice, city, page
         )));
     }
 

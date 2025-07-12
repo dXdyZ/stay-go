@@ -41,7 +41,8 @@ import java.util.List;
                             "url": "https://domain.com/photo/qwe123asdsda_filename.jpg",
                             "isMain": true
                         }
-                    ]
+                    ],
+                    "hotelType": "HOTEL"
                 }
                 """
 )
@@ -86,6 +87,9 @@ public class HotelDto implements Serializable {
                     }
                     """)
     private List<PhotoDto> photoDto = new ArrayList<>();
+
+    @Schema(description = "Type of housing", example = "HOTEL")
+    private String hotelType;
 }
 
 

@@ -21,6 +21,7 @@ public class HotelFactory {
                 .photoDto(hotel.getPhotos().stream()
                         .map(PhotoDtoFactory::createPhotoDto)
                         .toList())
+                .hotelType(hotel.getHotelType().name())
                 .build();
     }
 
@@ -34,6 +35,7 @@ public class HotelFactory {
                 .address(String.format("%s, %s",
                         hotel.getAddress().getCountry(),
                         hotel.getAddress().getCity()))
+                .hotelType(hotel.getHotelType().name())
                 .build();
     }
 }

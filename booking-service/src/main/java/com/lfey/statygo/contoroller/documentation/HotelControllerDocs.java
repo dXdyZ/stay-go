@@ -216,6 +216,14 @@ public interface HotelControllerDocs {
             @RequestParam(required = false) String country,
             @Parameter(description = "City", example = "Moscow")
             @RequestParam(required = false) String city,
+            @Parameter(description = "Users grade", example = "4.8")
+            @RequestParam(required = false) Double grade,
+            @Parameter(description = "Type of housing", example = "HOTEL")
+            @RequestParam(required = false) String hotelType,
+            @Parameter(description = "Minimal price for period", example = "10000.0")
+            @RequestParam(required = false) Double minPrice,
+            @Parameter(description = "Maximal price for period", example = "100000.0")
+            @RequestParam(required = false) Double maxPrice,
             @Parameter(description = "Search page Number", example = "0")
             @RequestParam(defaultValue = "0") int page
     );

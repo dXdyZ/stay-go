@@ -6,10 +6,8 @@ import com.lfey.statygo.component.PageResponse;
 import com.lfey.statygo.component.factory.BookingDetailsEventFactory;
 import com.lfey.statygo.component.factory.BookingFactory;
 import com.lfey.statygo.component.factory.BookingHistoryFactory;
-import com.lfey.statygo.dto.BookingDetailsEvent;
-import com.lfey.statygo.dto.BookingDto;
-import com.lfey.statygo.dto.BookingHistoryDto;
-import com.lfey.statygo.dto.BookingRoomDto;
+import com.lfey.statygo.component.factory.PendingBookingNotificationFactory;
+import com.lfey.statygo.dto.*;
 import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.BookingStatus;
 import com.lfey.statygo.exception.BookingNotFoundException;
@@ -19,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,6 +39,8 @@ public class BookingService {
     public void bookingRoom(BookingRoomDto bookingRoomDto, String username) {
         CustomDateFormatter.dateVerification(bookingRoomDto.getStartDate(), bookingRoomDto.getEndDate());
 
+        List<PendingBookingNotification> pbn = new ArrayList<>();
+
         List<Booking> saveBooking = bookingRepository.saveAll(
                 roomAvailabilityService.getFreeRooms(bookingRoomDto.getHotelId(), bookingRoomDto.getStartDate(),
                         bookingRoomDto.getEndDate(), bookingRoomDto.getRoomType(),
@@ -50,13 +51,12 @@ public class BookingService {
                                 booking.setBookingStatus(BookingStatus.CONFIRMED);
                             } else {
                                 booking.setBookingStatus(BookingStatus.PENDING);
-                                //TODO Разобраться с созданием сообщения админу
-//                                kafkaProducer.sendPendingBookingNotification();
+                                pbn.add(PendingBookingNotificationFactory.createPendingBookingNotification(booking));
                             }
                             return booking;
                         })
                         .toList());
-
+        if (!pbn.isEmpty()) kafkaProducer.sendPendingBookingNotification(pbn);
         kafkaProducer.sendBookingDetailsNotification(getGroupedBookingDetailsByRoomType(saveBooking, username));
     }
 
