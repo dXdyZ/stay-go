@@ -9,9 +9,9 @@ import com.lfey.statygo.component.factory.RoomDtoFactory;
 import com.lfey.statygo.dto.CreateHotelDto;
 import com.lfey.statygo.dto.HotelDto;
 import com.lfey.statygo.dto.HotelUpdateRequestDto;
-import com.lfey.statygo.dto.PhotoDto;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.exception.HotelNotFoundException;
+import com.lfey.statygo.exception.InvalidDateException;
 import com.lfey.statygo.repository.HotelRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -83,7 +87,6 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
-    //TODO STB-3
     @Transactional(readOnly = true)
     public HotelDto getHotelByIdUser(Long id, Integer guests, String startDate, String endDate) {
         Hotel hotel = hotelRepository.findById(id).orElseThrow(() -> new HotelNotFoundException(
@@ -136,7 +139,7 @@ public class HotelService {
 
 
         if (hotelType != null && !hotelType.isEmpty()) {
-            hotelDtos = hotelDtos.filter(hotel -> hotel.equals(hotelType));
+            hotelDtos = hotelDtos.filter(hotel -> hotel.getHotelType().equalsIgnoreCase(hotelType));
         }
         if (minPrice != null) {
             hotelDtos = hotelDtos.filter(hotel -> hotel.getTotalPrice().compareTo(minPrice) >= 0);
@@ -145,14 +148,16 @@ public class HotelService {
             hotelDtos = hotelDtos.filter(hotel -> hotel.getTotalPrice().compareTo(maxPrice) <= 0);
         }
         if (grade != null) {
-            hotelDtos = hotelDtos.filter(hotel -> hotel.getGrade().equals(grade));
+            hotelDtos = hotelDtos.filter(hotel -> hotel.getGrade().compareTo(grade) == 0);
         }
 
 
         return new PageImpl<>(hotelDtos.toList(), pageable, hotelIdPage.getTotalElements());
     }
 
-    private Optional<HotelDto> createHotelDtoIfPossible(Hotel hotel, String startDate, String endDate) {
+    private Optional<HotelDto> createHotelDtoIfPossible(Hotel hotel, String startDate, String endDate)
+            throws InvalidDateException {
+
         Optional<Room> roomOptional;
 
         //TODO Решить проблему с получение только одной комнаты отеля а не всех
@@ -169,9 +174,17 @@ public class HotelService {
         Room room = roomOptional.get();
         HotelDto hotelDto = HotelFactory.createHotelDtoSearch(hotel);
 
+        LocalDate start = CustomDateFormatter.localDateFormatter(startDate);
+        LocalDate end;
+
+        if (endDate == null) {
+            end = CustomDateFormatter.localDateFormatter(startDate).plusDays(7);
+        } else {
+            end = CustomDateFormatter.localDateFormatter(endDate);
+        }
+
         hotelDto.setTotalPrice(PriceCalculate.calculationTotalPrice(room.getPricePerDay(),
-                CustomDateFormatter.localDateFormatter(startDate),
-                CustomDateFormatter.localDateFormatter(endDate)));
+                start, end));
 
         //TODO Решить вопрос с получением только главной фотографии из базы
         hotel.getMainPhoto()

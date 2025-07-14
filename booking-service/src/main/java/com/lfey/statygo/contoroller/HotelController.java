@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -66,9 +67,11 @@ public class HotelController implements HotelControllerDocs {
 
     @GetMapping("/search")
     public ResponseEntity<PageResponse<HotelDto>> searchHotels(
-            @RequestParam String startDate, @RequestParam String endDate,
+            @NotBlank @RequestParam String startDate, @RequestParam(required = false) String endDate,
+
             @RequestParam(required = false) Integer stars,
-            @RequestParam String country, @RequestParam String city,
+
+            @NotBlank @RequestParam String country, @NotBlank @RequestParam String city,
 
             @Min(0) @Max(5) @RequestParam(required = false) Double grade,
 
