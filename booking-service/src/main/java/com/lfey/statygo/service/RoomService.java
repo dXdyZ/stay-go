@@ -6,16 +6,14 @@ import com.lfey.statygo.entity.Room;
 import com.lfey.statygo.entity.RoomType;
 import com.lfey.statygo.exception.DuplicateRoomException;
 import com.lfey.statygo.exception.HotelNotFoundException;
-import com.lfey.statygo.repository.HotelRepository;
-import com.lfey.statygo.repository.RoomRepository;
+import com.lfey.statygo.repository.jpaRepository.HotelRepository;
+import com.lfey.statygo.repository.jpaRepository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

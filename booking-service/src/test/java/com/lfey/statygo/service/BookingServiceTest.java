@@ -3,7 +3,7 @@ package com.lfey.statygo.service;
 import com.lfey.statygo.dto.BookingRoomDto;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.kafka.KafkaProducer;
-import com.lfey.statygo.repository.BookingRepository;
+import com.lfey.statygo.repository.jpaRepository.BookingRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

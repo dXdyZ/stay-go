@@ -1,6 +1,7 @@
 package com.lfey.statygo.repository;
 
 import com.lfey.statygo.entity.*;
+import com.lfey.statygo.repository.jpaRepository.HotelRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.stat.Statistics;

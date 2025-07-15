@@ -12,7 +12,7 @@ import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.BookingStatus;
 import com.lfey.statygo.exception.BookingNotFoundException;
 import com.lfey.statygo.kafka.KafkaProducer;
-import com.lfey.statygo.repository.BookingRepository;
+import com.lfey.statygo.repository.jpaRepository.BookingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

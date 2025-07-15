@@ -16,6 +16,14 @@ create table if not exists hotels(
     address_id BIGINT unique references addresses(id) on delete cascade
 );
 
+create table if not exists reviews (
+    id bigserial primary key,
+    username varchar not null,
+    reviews_description text,
+    grade integer check ( grade >= 1 and grade <= 5 ),
+    hotel_id bigint references hotels(id) on delete cascade
+);
+
 create table if not exists rooms(
     id BIGSERIAL primary key,
     number INTEGER not null,

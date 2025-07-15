@@ -9,25 +9,25 @@ import com.lfey.statygo.component.factory.RoomDtoFactory;
 import com.lfey.statygo.dto.CreateHotelDto;
 import com.lfey.statygo.dto.HotelDto;
 import com.lfey.statygo.dto.HotelUpdateRequestDto;
+import com.lfey.statygo.dto.ReviewDto;
 import com.lfey.statygo.entity.*;
 import com.lfey.statygo.exception.HotelNotFoundException;
 import com.lfey.statygo.exception.InvalidDateException;
-import com.lfey.statygo.repository.HotelRepository;
+import com.lfey.statygo.repository.jpaRepository.HotelRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -36,13 +36,15 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final RoomAvailabilityService roomAvailabilityService;
     private final PhotoService photoService;
+    private final ReviewsService reviewsService;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository, RoomAvailabilityService roomAvailabilityService,
-                        PhotoService photoService) {
+                        PhotoService photoService, ReviewsService reviewsService) {
         this.hotelRepository = hotelRepository;
         this.roomAvailabilityService = roomAvailabilityService;
         this.photoService = photoService;
+        this.reviewsService = reviewsService;
     }
 
     @Transactional
@@ -192,5 +194,18 @@ public class HotelService {
                 .ifPresent(photoDto -> hotelDto.getPhotoDto().add(photoDto));
 
         return Optional.of(hotelDto);
+    }
+
+    public void addReview(ReviewDto review, String username) {
+        Hotel hotel = hotelRepository.findById(review.hotelId()).orElseThrow(
+                () -> new HotelNotFoundException("Hotel by id: %s not found".formatted(review.hotelId())));
+        reviewsService.createReview(username, review.reviewDescription(), review.grade(), hotel);
+    }
+
+    @Async
+    @Scheduled(cron = "0 0 2 * * *")
+    @Transactional
+    public void updateRating() {
+        reviewsService.calculateAverageRatingIncludeDay().forEach(hotelRepository::updateRating);
     }
 }

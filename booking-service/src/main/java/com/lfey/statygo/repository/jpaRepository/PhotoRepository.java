@@ -1,4 +1,4 @@
-package com.lfey.statygo.repository;
+package com.lfey.statygo.repository.jpaRepository;
 
 import com.lfey.statygo.entity.Photo;
 import org.springframework.data.jpa.repository.JpaRepository;

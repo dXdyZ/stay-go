@@ -5,6 +5,7 @@ import com.lfey.statygo.contoroller.documentation.HotelControllerDocs;
 import com.lfey.statygo.dto.CreateHotelDto;
 import com.lfey.statygo.dto.HotelDto;
 import com.lfey.statygo.dto.HotelUpdateRequestDto;
+import com.lfey.statygo.dto.ReviewDto;
 import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.service.HotelService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,6 +27,9 @@ import java.util.List;
 @RequestMapping("/api/hotels")
 @Tag(name = "Hotel API", description = "Api for management hotel")
 public class HotelController implements HotelControllerDocs {
+
+    public final static String USERNAME_HEADER = "X-User-Username";
+
     private final HotelService hotelService;
 
     public HotelController(HotelService hotelService) {
@@ -50,6 +54,12 @@ public class HotelController implements HotelControllerDocs {
     public void updateHotelData(@PathVariable Long id,
                                 @Valid @RequestBody HotelUpdateRequestDto hotelUpdateRequest) {
         hotelService.updateHotelDataById(id, hotelUpdateRequest);
+    }
+
+    @PutMapping("/reviews")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addReview(@RequestHeader(USERNAME_HEADER) String username, @Valid @RequestBody ReviewDto reviewDto) {
+        hotelService.addReview(reviewDto, username);
     }
 
     @GetMapping("/{id}/{guests}/{startDate}/{endDate}")

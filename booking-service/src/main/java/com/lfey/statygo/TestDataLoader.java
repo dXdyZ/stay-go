@@ -1,17 +1,5 @@
 package com.lfey.statygo;
 
-import com.lfey.statygo.entity.*;
-import com.lfey.statygo.repository.AddressRepository;
-import com.lfey.statygo.repository.HotelRepository;
-import com.lfey.statygo.repository.PhotoRepository;
-import com.lfey.statygo.repository.RoomRepository;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.IntStream;
-
 //@Component
 //public class TestDataLoader {
 //

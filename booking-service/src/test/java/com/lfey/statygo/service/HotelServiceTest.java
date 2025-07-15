@@ -5,9 +5,8 @@ import com.lfey.statygo.component.CustomPageable;
 import com.lfey.statygo.dto.HotelDto;
 import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.entity.HotelType;
-import com.lfey.statygo.repository.HotelRepository;
+import com.lfey.statygo.repository.jpaRepository.HotelRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -96,6 +96,30 @@ class HotelServiceTest {
             assertAll(() -> assertEquals(700.0, hotel.getTotalPrice()));
         });
 
+    }
+
+    @Test
+    void test() {
+        var averageRating = 4.0;
+        List<Integer> gradePerDay = new ArrayList<>() {
+            {
+                add(1);
+                add(4);
+                add(3);
+                add(4);
+                add(5);
+            }
+        };
+
+        int dayResult = 0;
+
+        for (Integer nums : gradePerDay) {
+            dayResult += nums;
+        }
+
+        double result = (averageRating * 10 + dayResult) / (10 + gradePerDay.size());
+
+        log.info("Algos result: {}", result);
     }
 }
 

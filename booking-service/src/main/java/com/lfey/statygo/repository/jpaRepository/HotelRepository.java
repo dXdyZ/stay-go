@@ -1,19 +1,16 @@
-package com.lfey.statygo.repository;
+package com.lfey.statygo.repository.jpaRepository;
 
 import com.lfey.statygo.entity.Hotel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,4 +33,8 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "left join fetch h.photos " +
             "where h.id in :ids")
     List<Hotel> findHotelsWithDetailsByIds(@Param("ids") List<Long> ids);
+
+    @Modifying(clearAutomatically = true) //Показывает что запрос изменяющий и очищает кеш первого уровня
+    @Query("update Hotel h set h.grade = :hotelRating where h.id = :id")
+    void updateRating(@Param("id") Long id, @Param("hotelRating") Double hotelRating);
 }

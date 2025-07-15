@@ -3,8 +3,7 @@ package com.lfey.statygo.service;
 import com.lfey.statygo.entity.Hotel;
 import com.lfey.statygo.entity.Photo;
 import com.lfey.statygo.exception.ValidateFileException;
-import com.lfey.statygo.repository.PhotoRepository;
-import jakarta.annotation.PostConstruct;
+import com.lfey.statygo.repository.jpaRepository.PhotoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
