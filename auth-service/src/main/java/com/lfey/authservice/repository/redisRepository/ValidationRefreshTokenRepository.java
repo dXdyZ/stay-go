@@ -1,6 +1,6 @@
-package com.lfey.authservice.repository.cache;
+package com.lfey.authservice.repository.redisRepository;
 
-import com.lfey.authservice.entity.ValidationRefreshToken;
+import com.lfey.authservice.entity.redis.ValidationRefreshToken;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

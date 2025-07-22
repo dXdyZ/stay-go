@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.util.UUID;
+
 @OpenAPIDefinition
 public interface AuthControllerDocs {
 
@@ -225,5 +227,5 @@ public interface AuthControllerDocs {
     )
     @PostMapping("/email-update/confirm")
     ResponseEntity<UserDetailsDto> validationUpdateEmail(@Valid @RequestBody ValidationCodeDto validationCodeDto,
-                                                         @RequestHeader(USERNAME_HEADER) String username);
+                                                         @RequestHeader(USERNAME_HEADER) UUID publicId);
 }

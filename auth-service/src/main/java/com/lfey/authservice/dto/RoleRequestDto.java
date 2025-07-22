@@ -1,6 +1,6 @@
 package com.lfey.authservice.dto;
 
-import com.lfey.authservice.entity.RoleName;
+import com.lfey.authservice.entity.jpa.RoleName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 

@@ -15,11 +15,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @OpenAPIDefinition
 public interface UserControllerDocs {
 
-    String USERNAME_HEADER = "X-User-Username";
+    String USER_PUBLIC_ID = "X-User-PublicId";
 
     @Operation(
             summary = "User by id",
@@ -157,6 +159,33 @@ public interface UserControllerDocs {
 
 
 
+    @Operation(
+            summary = "User by public id",
+            description = "Getting user by public uuid",
+            responses = @ApiResponse(responseCode = "200", description = "Success response",
+                    content = @Content(schema = @Schema(implementation = Users.class))
+            )
+    )
+    @ApiResponse(responseCode = "404", description = "User not found",
+            content = @Content(schema = @Schema(implementation = ErrorResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "User by phone number not found",
+                                    value = """
+                                        {
+                                            "timestamp": "2024-07-15T14:30:45Z",
+                                            "error": {
+                                                "message": "User by public id: bc10cb59-8e55-477a-96d6-8485b56334ee not found"
+                                            },
+                                            "code": 404
+                                        }
+                                        """
+                            )
+                    }
+            )
+    )
+    @GetMapping("/by-publicId/{publicId}")
+    ResponseEntity<Users> getUserByPublicId(@PathVariable UUID publicId);
 
 
     @Operation(
@@ -176,7 +205,7 @@ public interface UserControllerDocs {
                                                {
                                                     "timestamp": "2024-07-15T14:30:45Z",
                                                     "error": {
-                                                        "message": "User with name: newUsername already exists"
+                                                        "message": "User by public id: bc10cb59-8e55-477a-96d6-8485b56334ee not found"
                                                     },
                                                     "code": 400
                                                }
@@ -189,7 +218,7 @@ public interface UserControllerDocs {
     ResponseEntity<Users> updateUsername(
             @Parameter(description = "New username for update", example = "newUsername", required = true)
             @PathVariable String newUsername,
-            @RequestHeader(USERNAME_HEADER) String username);
+            @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
 
@@ -210,7 +239,7 @@ public interface UserControllerDocs {
                                         {
                                             "timestamp": "2024-07-15T14:30:45Z",
                                             "error": {
-                                                "message": "User by phone number: 89999999 not found"
+                                                "message": "User by public id: bc10cb59-8e55-477a-96d6-8485b56334ee not found"
                                             },
                                             "code": 404
                                         }
@@ -223,7 +252,7 @@ public interface UserControllerDocs {
     ResponseEntity<Users> updatePhone(
             @Parameter(description = "New phone number for update", example = "89999999", required = true)
             @PathVariable String phone,
-            @RequestHeader(USERNAME_HEADER) String username);
+            @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
 
@@ -245,7 +274,7 @@ public interface UserControllerDocs {
                                                {
                                                     "timestamp": "2024-07-15T14:30:45Z",
                                                     "error": {
-                                                        "message": "User with email: user@email.com already exists"
+                                                        "message": "User by public id: bc10cb59-8e55-477a-96d6-8485b56334ee not found"
                                                     },
                                                     "code": 400
                                                }
@@ -258,11 +287,7 @@ public interface UserControllerDocs {
     ResponseEntity<Users> updateEmail(
             @Parameter(description = "Email for update", example = "user@email.com")
             @PathVariable String email,
-            @RequestHeader(USERNAME_HEADER) String username);
-
-
-
-
+            @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
     @Operation(

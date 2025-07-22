@@ -1,8 +1,8 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.entity.UserRegistration;
+import com.lfey.authservice.entity.redis.UserRegistration;
 import com.lfey.authservice.exception.UserCacheDataNotFoundException;
-import com.lfey.authservice.repository.cache.UserRegRepository;
+import com.lfey.authservice.repository.redisRepository.UserRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class UserRegService {
     }
 
     public UserRegistration getUserRegByEmail(String email) {
-        return userRegRepository.findById(email).orElseThrow(() -> new UserCacheDataNotFoundException("Code is not valid"));
+        return userRegRepository.findById(email).orElseThrow(() -> new UserCacheDataNotFoundException("Code invalid"));
     }
 
     public Boolean existsByEmail(String email) {

@@ -1,8 +1,7 @@
 package com.lfey.authservice.service.security_service;
 
-import com.lfey.authservice.entity.ValidationRefreshToken;
-import com.lfey.authservice.jwt.JwtUtils;
-import com.lfey.authservice.repository.cache.ValidationRefreshTokenRepository;
+import com.lfey.authservice.entity.redis.ValidationRefreshToken;
+import com.lfey.authservice.repository.redisRepository.ValidationRefreshTokenRepository;
 import org.springframework.stereotype.Service;
 
 @Service

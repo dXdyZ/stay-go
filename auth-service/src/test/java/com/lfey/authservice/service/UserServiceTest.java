@@ -2,14 +2,14 @@ package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.*;
 import com.lfey.authservice.dto.kafka.EventType;
-import com.lfey.authservice.entity.Role;
-import com.lfey.authservice.entity.RoleName;
-import com.lfey.authservice.entity.UserRegistration;
-import com.lfey.authservice.entity.Users;
+import com.lfey.authservice.entity.jpa.Role;
+import com.lfey.authservice.entity.jpa.RoleName;
+import com.lfey.authservice.entity.redis.UserRegistration;
+import com.lfey.authservice.entity.jpa.Users;
 import com.lfey.authservice.exception.DuplicateRoleException;
 import com.lfey.authservice.exception.DuplicateUserException;
 import com.lfey.authservice.exception.UserNotFoundException;
-import com.lfey.authservice.repository.jpa.UserRepository;
+import com.lfey.authservice.repository.jpaRepository.UserRepository;
 import com.lfey.authservice.service.clients.UserClientService;
 import com.lfey.authservice.service.verification.GenerationCode;
 import com.lfey.authservice.service.verification.VerificationCode;
@@ -97,14 +97,14 @@ class UserServiceTest {
                 .username(username)
                 .email(email)
                 .build();
-        doReturn(userReg).when(this.verificationCode).verification(validationCode);
+        doReturn(userReg).when(this.verificationCode).verificationRegistration(validationCode);
         doReturn(userDto).when(this.userClientService).updateUserEmailInUserService(email, username);
         //when
         UserDetailsDto response = this.userService.updateEmailInUserService(validationCode, username);
         //then
         assertNotNull(response);
         verify(this.userClientService).updateUserEmailInUserService(email, username);
-        verify(this.verificationCode).verification(validationCode);
+        verify(this.verificationCode).verificationRegistration(validationCode);
     }
 
     @Test

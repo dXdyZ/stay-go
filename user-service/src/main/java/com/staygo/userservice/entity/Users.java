@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Builder
@@ -46,4 +48,7 @@ public class Users {
     @Column(name = "hotel_id")
     @Schema(description = "Hotel id where the user works")
     private Long hotelId;
+
+    @Column(name = "public_id", nullable = false, updatable = false, unique = true)
+    public UUID publicId;
 }

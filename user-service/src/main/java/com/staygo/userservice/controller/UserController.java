@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/users")
 @Tag(name = "User API", description = "Management user")
 public class UserController implements UserControllerDocs {
-    public final static String USERNAME_HEADER = "X-User-Username";
+    public final static String USER_PUBLIC_ID = "X-User-PublicId";
 
     private final UserService userService;
     private final HotelAssignmentService hotelAssignmentService;
@@ -52,22 +54,27 @@ public class UserController implements UserControllerDocs {
         return ResponseEntity.ok(userService.getUserByPhoneNumber(phone));
     }
 
+    @GetMapping("/by-publicId/{publicId}")
+    public ResponseEntity<Users> getUserByPublicId(@PathVariable UUID publicId) {
+        return ResponseEntity.ok(userService.getUserByPublicId(publicId));
+    }
+
     @PatchMapping("/{newUsername}/username")
     public ResponseEntity<Users> updateUsername(@PathVariable String newUsername,
-                               @RequestHeader(USERNAME_HEADER) String username) {
-        return ResponseEntity.ok(userService.updateUsername(username, newUsername));
+                               @RequestHeader(USER_PUBLIC_ID) UUID publicId) {
+        return ResponseEntity.ok(userService.updateUsername(publicId, newUsername));
     }
 
     @PatchMapping("/{phone}/phone")
     public ResponseEntity<Users> updatePhone(@PathVariable String phone,
-                            @RequestHeader(USERNAME_HEADER) String username) {
-        return ResponseEntity.ok(userService.updatePhoneNumber(username, phone));
+                            @RequestHeader(USER_PUBLIC_ID) UUID publicId) {
+        return ResponseEntity.ok(userService.updatePhoneNumber(publicId, phone));
     }
 
     @PatchMapping("/{email}/email")
     public ResponseEntity<Users> updateEmail(@PathVariable String email,
-                             @RequestHeader(USERNAME_HEADER) String username) {
-        return ResponseEntity.ok(userService.updateEmail(email, username));
+                             @RequestHeader(USER_PUBLIC_ID) UUID publicId) {
+        return ResponseEntity.ok(userService.updateEmail(publicId, email));
     }
 
     @PatchMapping("/assign-hotel")

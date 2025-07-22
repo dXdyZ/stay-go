@@ -5,9 +5,10 @@ import com.staygo.userservice.entity.Users;
 import com.staygo.userservice.exception.DuplicateUserException;
 import com.staygo.userservice.exception.UserNotFoundException;
 import com.staygo.userservice.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -22,6 +23,7 @@ public class UserService {
                         .email(userDto.getEmail())
                         .phoneNumber(userDto.getPhoneNumber())
                         .username(userDto.getUsername())
+                        .publicId(userDto.getPublicId())
                 .build());
     }
 
@@ -52,9 +54,15 @@ public class UserService {
         );
     }
 
+    public Users getUserByPublicId(UUID publicId) {
+        return userRepository.findByPublicId(publicId).orElseThrow(
+                () -> new UserNotFoundException("User by public id: %s not found".formatted(publicId.toString()))
+        );
+    }
+
     @Transactional
-    public Users updateUsername(String oldName, String newName) throws DuplicateUserException, UserNotFoundException {
-        Users users = getUserByUsername(oldName);
+    public Users updateUsername(UUID publicId, String newName) throws DuplicateUserException, UserNotFoundException {
+        Users users = getUserByPublicId(publicId);
         if (!userRepository.existsByUsername(newName)) {
             users.setUsername(newName);
             return userRepository.save(users);
@@ -62,16 +70,16 @@ public class UserService {
     }
 
     @Transactional
-    public Users updatePhoneNumber(String username, String phoneNumber) throws UserNotFoundException{
-        Users users = getUserByUsername(username);
+    public Users updatePhoneNumber(UUID publicId, String phoneNumber) throws UserNotFoundException{
+        Users users = getUserByPublicId(publicId);
         users.setPhoneNumber(phoneNumber);
         userRepository.save(users);
         return users;
     }
 
     @Transactional
-    public Users updateEmail(String username, String email) throws DuplicateUserException, UserNotFoundException{
-        Users users = getUserByUsername(username);
+    public Users updateEmail(UUID publicId, String email) throws DuplicateUserException, UserNotFoundException{
+        Users users = getUserByPublicId(publicId);
         if (!userRepository.existsByEmail(email)) {
             users.setEmail(email);
             userRepository.save(users);

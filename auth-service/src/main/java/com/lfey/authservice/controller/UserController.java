@@ -8,13 +8,15 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/auth/users/")
 @Tag(name = "User authentication API", description = "Management user data for authentication")
 public class UserController implements UserControllerDocs {
     private final UserService userService;
 
-    public final static String USERNAME_HEADER = "X-User-Username";
+    public final static String USER_PUBLIC_ID = "X-User-PublicId";
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -27,20 +29,20 @@ public class UserController implements UserControllerDocs {
 
     @PatchMapping("/username")
     public ResponseEntity<UserDetailsDto> updateUsername(@Valid  @RequestBody UsernameUpdateDto usernameUpdateDto,
-                                                         @RequestHeader(USERNAME_HEADER) String username) {
-        return ResponseEntity.ok(userService.updateUsername(username, usernameUpdateDto));
+                                                         @RequestHeader(USER_PUBLIC_ID) UUID publicId) {
+        return ResponseEntity.ok(userService.updateUsername(publicId, usernameUpdateDto));
     }
 
     @PatchMapping("/email")
     public void updateEmail(@Valid @RequestBody EmailUpdateDto emailUpdateDto,
-                            @RequestHeader(USERNAME_HEADER) String username) {
-        userService.updateEmail(emailUpdateDto, username);
+                            @RequestHeader(USER_PUBLIC_ID) UUID publicId) {
+        userService.updateEmail(emailUpdateDto, publicId);
     }
 
     @PatchMapping("/password")
     public void updatePassword(@Valid @RequestBody ResetPasswordRequestDto passwordRequest,
-                               @RequestHeader(USERNAME_HEADER) String username) {
-        userService.resetPassword(passwordRequest, username);
+                               @RequestHeader(USER_PUBLIC_ID) UUID publicId) {
+        userService.resetPassword(passwordRequest, publicId);
     }
 
     @PatchMapping("/{username}/roles")

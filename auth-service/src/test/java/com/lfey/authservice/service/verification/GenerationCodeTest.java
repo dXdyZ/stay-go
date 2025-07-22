@@ -1,6 +1,6 @@
 package com.lfey.authservice.service.verification;
 
-import com.lfey.authservice.entity.UserRegistration;
+import com.lfey.authservice.entity.redis.UserRegistration;
 import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.service.RegistrationEventDispatcher;
 import org.junit.jupiter.api.Test;

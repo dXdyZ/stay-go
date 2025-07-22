@@ -2,10 +2,10 @@ package com.lfey.authservice.jwt;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.lfey.authservice.entity.Role;
-import com.lfey.authservice.entity.RoleName;
-import com.lfey.authservice.entity.SecurityUser;
-import com.lfey.authservice.entity.Users;
+import com.lfey.authservice.entity.jpa.Role;
+import com.lfey.authservice.entity.jpa.RoleName;
+import com.lfey.authservice.entity.CustomUserDetails;
+import com.lfey.authservice.entity.jpa.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -46,7 +46,7 @@ class JWTUtilsTest {
         jwtUtils = new JwtUtils(testConfig, keyPair);
 
         // 4. Тестовый пользователь
-        userDetails = new SecurityUser(
+        userDetails = new CustomUserDetails(
                 Users.builder()
                         .username("testUser")
                         .password("password")

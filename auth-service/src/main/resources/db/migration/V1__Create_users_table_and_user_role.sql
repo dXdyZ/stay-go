@@ -2,7 +2,10 @@ create table if not exists users (
     id BIGSERIAL primary key,
     username varchar(100) unique not null ,
     password varchar not null ,
-    create_at timestamp
+    publicId uuid not null unique,
+    create_at timestamp,
+    enable boolean not null,
+    account_locked boolean not null
 );
 
 create table if not exists roles (

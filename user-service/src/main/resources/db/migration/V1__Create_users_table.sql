@@ -3,6 +3,7 @@ create table if not exists users (
     email varchar(100) unique not null,
     phone_number varchar(20),
     username varchar(100) unique not null,
-    hotel_id BIGINT
+    hotel_id BIGINT,
+    public_id uuid not null unique
 );
 

@@ -1,36 +1,39 @@
 package com.lfey.authservice.jwt;
 
-import com.lfey.authservice.exception.AuthenticationFailedException;
 import com.lfey.authservice.exception.InvalidJwtTokenException;
+import com.lfey.authservice.service.security_service.CustomUserDetailService;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import org.springframework.expression.spel.ast.TypeReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.KeyPair;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class JwtUtils {
     private final JwtConfiguration jwtConfiguration;
     private final KeyPair keyPair;
+    private final CustomUserDetailService customUserDetailService;
 
-    public JwtUtils(JwtConfiguration jwtConfiguration, KeyPair keyPair) {
+    public JwtUtils(JwtConfiguration jwtConfiguration, KeyPair keyPair,
+                    CustomUserDetailService customUserDetailService) {
         this.jwtConfiguration = jwtConfiguration;
         this.keyPair = keyPair;
+        this.customUserDetailService = customUserDetailService;
     }
 
     //Generation access token
     public String generationAccessToken(UserDetails userDetails) {
         return Jwts.builder()
-                .subject(userDetails.getUsername())
+                .subject(customUserDetailService.getCustomUserDetails(userDetails).getPublicId().toString())
                 .claim("roles", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .toList())
+                .claim("username", userDetails.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtConfiguration.getAccessExpiration()))
                 .signWith(keyPair.getPrivate())
@@ -40,7 +43,7 @@ public class JwtUtils {
     //Generation refresh token
     public String generationRefreshToken(UserDetails userDetails) {
         return Jwts.builder()
-                .subject(userDetails.getUsername())
+                .subject(customUserDetailService.getCustomUserDetails(userDetails).getPublicId().toString())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() +
                         jwtConfiguration.getRefreshExpiration()))
@@ -70,6 +73,19 @@ public class JwtUtils {
                     .parseSignedClaims(token)
                     .getPayload()
                     .getSubject();
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new InvalidJwtTokenException("Invalid or expired JWT token");
+        }
+    }
+
+    public UUID extractPublicId(String token) {
+        try {
+            return UUID.fromString(Jwts.parser()
+                    .verifyWith(keyPair.getPublic())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getSubject());
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtTokenException("Invalid or expired JWT token");
         }

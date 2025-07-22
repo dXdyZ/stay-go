@@ -8,6 +8,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserClientService {
     private final UserClient userClient;
@@ -23,7 +25,7 @@ public class UserClientService {
 
 
     //TODO Скоре всего придется делать его асинхронным в случае пустого кеша чтобы пользовать не ожидал проверки
-    @Cacheable(value = "userByEmail", key = "#email")
+    @Cacheable(value = "UserByEmail", key = "#email")
     public UserDetailsDto getUserByEmailFromUserService(String email) {
         try {
             return userClient.getUserByEmail(email);
@@ -36,18 +38,23 @@ public class UserClientService {
         return userClient.getUserByUsername(username);
     }
 
-    @CachePut(value = "userByEmail", key = "#result.email")
-    public UserDetailsDto updateUsernameInUserService(String newUsername, String username) throws ServerErrorException{
+    @Cacheable(value = "UserByPublicId", key = "#publicId")
+    public UserDetailsDto getUserByPublicIdFromUserService(UUID publicId) {
+        return userClient.getUserByPublicId(publicId);
+    }
+
+    @CachePut(value = "UserByEmail", key = "#result.email")
+    public UserDetailsDto updateUsernameInUserService(String newUsername, UUID publicId) throws ServerErrorException{
         try {
-            return userClient.updateUsername(newUsername, username);
+            return userClient.updateUsername(newUsername, publicId);
         } catch (FeignException.BadRequest badRequest) {
             throw new ServerErrorException("An error occurred when updating the username");
         }
     }
 
-    public UserDetailsDto updateUserEmailInUserService(String newEmail, String username) throws ServerErrorException{
+    public UserDetailsDto updateUserEmailInUserService(String newEmail, UUID publicId) throws ServerErrorException{
         try {
-            return userClient.updateEmail(newEmail, username);
+            return userClient.updateEmail(newEmail, publicId);
         } catch (FeignException.BadRequest badRequest) {
             throw new ServerErrorException("An error occurred when updating the email");
         }

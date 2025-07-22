@@ -1,8 +1,7 @@
-package com.lfey.authservice.entity;
+package com.lfey.authservice.entity.jpa;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Objects;
 

@@ -2,12 +2,12 @@ package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.*;
 import com.lfey.authservice.dto.kafka.EventType;
-import com.lfey.authservice.entity.Role;
-import com.lfey.authservice.entity.RoleName;
-import com.lfey.authservice.entity.UserRegistration;
-import com.lfey.authservice.entity.Users;
+import com.lfey.authservice.entity.jpa.Role;
+import com.lfey.authservice.entity.jpa.RoleName;
+import com.lfey.authservice.entity.redis.UserRegistration;
+import com.lfey.authservice.entity.jpa.Users;
 import com.lfey.authservice.exception.*;
-import com.lfey.authservice.repository.jpa.UserRepository;
+import com.lfey.authservice.repository.jpaRepository.UserRepository;
 import com.lfey.authservice.service.clients.UserClientService;
 import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.verification.GenerationCode;
@@ -74,7 +74,7 @@ public class AuthService {
 
     @Transactional
     public Users saveUserAfterRegistration(ValidationCodeDto validationCodeDto) {
-        UserRegistration userRegistration = verificationCode.verification(validationCodeDto);
+        UserRegistration userRegistration = verificationCode.verificationRegistration(validationCodeDto);
         Users users = Users.builder()
                 .username(userRegistration.getUsername())
                 .password(userRegistration.getPassword())

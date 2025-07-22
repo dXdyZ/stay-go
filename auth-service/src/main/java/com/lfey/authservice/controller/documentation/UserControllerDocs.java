@@ -14,11 +14,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 
+import java.util.UUID;
+
 
 @OpenAPIDefinition
 public interface UserControllerDocs {
 
-    String USERNAME_HEADER = "X-User-Username";
+    String USER_PUBLIC_ID = "X-User-PublicId";
 
     @Operation(
             summary = "Brief user",
@@ -93,7 +95,7 @@ public interface UserControllerDocs {
                                                                  example = "oldUsername",
                                                                  required = true
                                                          )
-                                                         @RequestHeader(USERNAME_HEADER) String username);
+                                                         @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
     @Operation(
@@ -127,7 +129,7 @@ public interface UserControllerDocs {
     )
     @PatchMapping("/email")
     void updateEmail(@Valid @RequestBody EmailUpdateDto emailUpdateDto,
-                            @RequestHeader(USERNAME_HEADER) String username);
+                            @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
 
@@ -148,7 +150,7 @@ public interface UserControllerDocs {
                                        example = "user",
                                        required = true
                                )
-                               @RequestHeader(USERNAME_HEADER) String username);
+                               @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
 

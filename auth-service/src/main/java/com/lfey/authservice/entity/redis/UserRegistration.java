@@ -1,4 +1,4 @@
-package com.lfey.authservice.entity;
+package com.lfey.authservice.entity.redis;
 
 
 import lombok.AllArgsConstructor;
@@ -16,7 +16,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @RedisHash(value = "UserRegistration", timeToLive = 900)
 public class UserRegistration implements Serializable {
-
     @Id
     private String email;
     private String username;

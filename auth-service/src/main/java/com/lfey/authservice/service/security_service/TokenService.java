@@ -46,7 +46,7 @@ public class TokenService {
     }
 
     public UserAuthInfoDto getUserAuthInfo(String token) throws InvalidJwtTokenException {
-        return new UserAuthInfoDto(jwtUtils.extractUsername(token), jwtUtils.extractRoles(token));
+        return new UserAuthInfoDto(jwtUtils.extractUsername(token), jwtUtils.extractPublicId(token), jwtUtils.extractRoles(token));
     }
 
     public void deleteRefreshToken(String refreshToken) {

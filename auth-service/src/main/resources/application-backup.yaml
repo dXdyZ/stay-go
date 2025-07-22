@@ -22,10 +22,6 @@ spring:
       port: 6379
       password: werpipl15
       database: 0
-
-  cache:
-    type: redis
-
   kafka:
     producer:
       bootstrap-servers: localhost:9092

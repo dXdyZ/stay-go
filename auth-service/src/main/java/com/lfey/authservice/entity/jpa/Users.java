@@ -1,4 +1,4 @@
-package com.lfey.authservice.entity;
+package com.lfey.authservice.entity.jpa;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -29,17 +30,26 @@ public class Users {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @Builder.Default
+    @Column(name = "publicId", updatable = false, nullable = false, unique = true)
+    private UUID publicId = UUID.randomUUID();
 
+    @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "create_at")
     @Builder.Default
+    @Column(name = "create_at", updatable = false, nullable = false)
     private Instant createAt = Instant.now();
+
+    @Builder.Default
+    private Boolean enable = true;
+
+    @Builder.Default
+    private Boolean accountLocked = false;
 }

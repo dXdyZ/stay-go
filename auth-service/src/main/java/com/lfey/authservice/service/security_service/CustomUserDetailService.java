@@ -1,8 +1,9 @@
 package com.lfey.authservice.service.security_service;
 
-import com.lfey.authservice.entity.SecurityUser;
-import com.lfey.authservice.entity.Users;
-import com.lfey.authservice.repository.jpa.UserRepository;
+import com.lfey.authservice.entity.CustomUserDetails;
+import com.lfey.authservice.entity.jpa.Users;
+import com.lfey.authservice.repository.jpaRepository.UserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +22,23 @@ public class CustomUserDetailService implements UserDetailsService {
         Users users = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found")
         );
-        return new SecurityUser(users);
+
+        return new CustomUserDetails(
+                users.getPublicId(),
+                users.getUsername(),
+                users.getPassword(),
+                users.getRoles().stream()
+                        .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
+                        .toList(),
+                users.getEnable(),
+                users.getAccountLocked()
+        );
+    }
+
+    public CustomUserDetails getCustomUserDetails(UserDetails userDetails) {
+        if (!(userDetails instanceof CustomUserDetails customUserDetails)) {
+            throw new IllegalArgumentException("UserDetails must be an instance of CustomUserDetails");
+        }
+        return customUserDetails;
     }
 }

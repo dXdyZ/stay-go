@@ -1,6 +1,6 @@
-package com.lfey.authservice.repository.cache;
+package com.lfey.authservice.repository.redisRepository;
 
-import com.lfey.authservice.entity.UserRegistration;
+import com.lfey.authservice.entity.redis.UserRegistration;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRegRepository extends CrudRepository<UserRegistration, String> {

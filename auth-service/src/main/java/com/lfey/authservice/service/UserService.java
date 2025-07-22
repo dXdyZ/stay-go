@@ -2,12 +2,12 @@ package com.lfey.authservice.service;
 
 import com.lfey.authservice.dto.*;
 import com.lfey.authservice.dto.kafka.EventType;
-import com.lfey.authservice.entity.Role;
-import com.lfey.authservice.entity.RoleName;
-import com.lfey.authservice.entity.UserRegistration;
-import com.lfey.authservice.entity.Users;
+import com.lfey.authservice.entity.jpa.Role;
+import com.lfey.authservice.entity.redis.EmailUpdate;
+import com.lfey.authservice.entity.redis.UserRegistration;
+import com.lfey.authservice.entity.jpa.Users;
 import com.lfey.authservice.exception.*;
-import com.lfey.authservice.repository.jpa.UserRepository;
+import com.lfey.authservice.repository.jpaRepository.UserRepository;
 import com.lfey.authservice.service.clients.UserClientService;
 import com.lfey.authservice.service.verification.GenerationCode;
 import com.lfey.authservice.service.verification.VerificationCode;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,29 +40,28 @@ public class UserService {
     }
 
     @Transactional
-    public void updateEmail(EmailUpdateDto emailUpdateDto, String username) throws DuplicateUserException {
-        //Может стоит обновить проверку на null через метод Objects.requireNonNull()
+    public void updateEmail(EmailUpdateDto emailUpdateDto, UUID publicId) throws DuplicateUserException {
         UserDetailsDto userDetailsDto = userClientService.getUserByEmailFromUserService(emailUpdateDto.email());
         if (userDetailsDto == null) {
-            generationCode.generateCode(UserRegistration.builder()
-                    .email(emailUpdateDto.email())
-                    .username(username)
-                    .build(), EventType.EMAIL_RESET);
+            generationCode.generateCode(EmailUpdate.builder()
+                            .newEmail(emailUpdateDto.email())
+                            .publicId(publicId)
+                    .build());
         } else
             throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdateDto.email()));
     }
 
-    public UserDetailsDto updateEmailInUserService(ValidationCodeDto validationCodeDto, String username) throws ServerErrorException {
-        UserRegistration userRegistration = verificationCode.verification(validationCodeDto);
-        return userClientService.updateUserEmailInUserService(userRegistration.getEmail(), username);
+    public UserDetailsDto updateEmailInUserService(ValidationCodeDto validationCodeDto, UUID publicId) throws ServerErrorException {
+        EmailUpdate emailUpdate = verificationCode.verificationEmailUpdate(validationCodeDto);
+        return userClientService.updateUserEmailInUserService(emailUpdate.getNewEmail(), publicId);
     }
 
     @Transactional
-    public UserDetailsDto updateUsername(String username, UsernameUpdateDto usernameUpdateDto) throws ServerErrorException,
+    public UserDetailsDto updateUsername(UUID publicId, UsernameUpdateDto usernameUpdateDto) throws ServerErrorException,
             DuplicateUserException{
         if (userRepository.findByUsername(usernameUpdateDto.newUsername()).orElse(null) == null) {
-            UserDetailsDto userDetailsDto = userClientService.updateUsernameInUserService(usernameUpdateDto.newUsername(), username);
-            Users users = userRepository.findByUsername(username).get();
+            UserDetailsDto userDetailsDto = userClientService.updateUsernameInUserService(usernameUpdateDto.newUsername(), publicId);
+            Users users = userRepository.findByPublicId(publicId).get();
             users.setUsername(userDetailsDto.getUsername());
             userRepository.save(users);
             return userDetailsDto;
@@ -70,10 +70,8 @@ public class UserService {
     }
 
     @Transactional
-    public void resetPassword(ResetPasswordRequestDto resetPasswordRequestDto, String username) throws UserNotFoundException {
-        Users users = getUserByName(username);
-
-        UserDetailsDto userFromUserService = userClientService.getUserByUsernameFromUserService(users.getUsername());
+    public void resetPassword(ResetPasswordRequestDto resetPasswordRequestDto, UUID publicId) throws UserNotFoundException {
+        UserDetailsDto userFromUserService = userClientService.getUserByPublicIdFromUserService(publicId);
         generationCode.generateCode(UserRegistration.builder()
                         .email(userFromUserService.getEmail())
                         .password(passwordEncoder.encode(resetPasswordRequestDto.newPassword()))

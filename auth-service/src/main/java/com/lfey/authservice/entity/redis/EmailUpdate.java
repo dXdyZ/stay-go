@@ -1,4 +1,5 @@
-package com.lfey.authservice.entity;
+package com.lfey.authservice.entity.redis;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,18 +8,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash(value = "ValidRefToken", timeToLive = 604800000)
-public class ValidationRefreshToken implements Serializable {
-
+@RedisHash(value = "EmailUpdate", timeToLive = 900)
+public class EmailUpdate {
     @Id
-    private String token;
-
-    private String username;
+    private String newEmail;
+    private UUID publicId;
+    private String code;
 }

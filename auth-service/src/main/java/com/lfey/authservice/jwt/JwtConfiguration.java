@@ -50,7 +50,6 @@ public class JwtConfiguration {
         }
     }
 
-    //TODO Сделать правильную обработку исключений в случае ошибки, разделить метод на методы
     @Bean
     public KeyPair keyPair() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
         Path privateKeyPath = Paths.get(keysPath, "private-key.txt");

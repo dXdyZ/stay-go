@@ -5,10 +5,10 @@ import com.lfey.authservice.dto.JwtTokenDto;
 import com.lfey.authservice.dto.UserRegistrationDto;
 import com.lfey.authservice.dto.ValidationCodeDto;
 import com.lfey.authservice.dto.kafka.EventType;
-import com.lfey.authservice.entity.UserRegistration;
+import com.lfey.authservice.entity.redis.UserRegistration;
 import com.lfey.authservice.exception.AuthenticationFailedException;
 import com.lfey.authservice.exception.DuplicateUserException;
-import com.lfey.authservice.repository.jpa.UserRepository;
+import com.lfey.authservice.repository.jpaRepository.UserRepository;
 import com.lfey.authservice.service.clients.UserClientService;
 import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.verification.GenerationCode;
@@ -107,7 +107,7 @@ class AuthServiceTest {
         var validationCode = new ValidationCodeDto(email, code);
         var jwtToken = new JwtTokenDto(accessToke, refreshToken);
         doReturn(jwtToken).when(this.tokenService).getToken(username);
-        doReturn(userReg).when(this.verificationCode).verification(validationCode);
+        doReturn(userReg).when(this.verificationCode).verificationRegistration(validationCode);
 
         JwtTokenDto response = this.authService.getJWT(validationCode);
 
