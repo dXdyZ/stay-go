@@ -1,8 +1,10 @@
-package com.lfey.authservice.service.verification;
+package com.lfey.authservice.oldTest.service.verification;
 
 import com.lfey.authservice.entity.redis.UserRegistration;
 import com.lfey.authservice.dto.kafka.EventType;
 import com.lfey.authservice.service.RegistrationEventDispatcher;
+import com.lfey.authservice.service.verification.GenerationCode;
+import com.lfey.authservice.service.verification.UserRegService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

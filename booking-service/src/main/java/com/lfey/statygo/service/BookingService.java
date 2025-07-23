@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +37,7 @@ public class BookingService {
     }
 
     @Transactional
-    public void bookingRoom(BookingRoomDto bookingRoomDto, String username) {
+    public void bookingRoom(BookingRoomDto bookingRoomDto, UUID publicId) {
         CustomDateFormatter.dateVerification(bookingRoomDto.getStartDate(), bookingRoomDto.getEndDate());
 
         List<PendingBookingNotification> pbn = new ArrayList<>();
@@ -46,7 +47,7 @@ public class BookingService {
                         bookingRoomDto.getEndDate(), bookingRoomDto.getRoomType(),
                                 bookingRoomDto.getGuests(), bookingRoomDto.getNumberOfRooms()).stream()
                         .map(freeRoom -> {
-                            Booking booking = BookingFactory.createBooking(freeRoom, username, bookingRoomDto);
+                            Booking booking = BookingFactory.createBooking(freeRoom, publicId, bookingRoomDto);
                             if (freeRoom.getAutoApprove()) {
                                 booking.setBookingStatus(BookingStatus.CONFIRMED);
                             } else {
@@ -57,14 +58,14 @@ public class BookingService {
                         })
                         .toList());
         if (!pbn.isEmpty()) kafkaProducer.sendPendingBookingNotification(pbn);
-        kafkaProducer.sendBookingDetailsNotification(getGroupedBookingDetailsByRoomType(saveBooking, username));
+        kafkaProducer.sendBookingDetailsNotification(getGroupedBookingDetailsByRoomType(saveBooking, publicId));
     }
 
 
-    private List<BookingDetailsEvent> getGroupedBookingDetailsByRoomType(List<Booking> bookings, String username) {
+    private List<BookingDetailsEvent> getGroupedBookingDetailsByRoomType(List<Booking> bookings, UUID publicId) {
         return bookings.stream()
                 .map(booking -> {
-                    return BookingDetailsEventFactory.createBookingDetailsEvent(booking, username);
+                    return BookingDetailsEventFactory.createBookingDetailsEvent(booking, publicId);
                 })
                 .collect(Collectors.groupingBy(
                         BookingDetailsEvent::getRoomType,

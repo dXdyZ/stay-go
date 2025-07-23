@@ -22,6 +22,7 @@ public class HotelRatingDay implements Serializable {
 
     private Double avgRating;
 
+    @Builder.Default
     private List<Integer> grades = new ArrayList<>();
 
     public HotelRatingDay(Long hotelId, Integer grade) {

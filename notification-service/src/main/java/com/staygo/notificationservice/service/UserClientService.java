@@ -5,6 +5,8 @@ import com.staygo.notificationservice.entity.Users;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserClientService {
     private final UserClient userClient;
@@ -13,9 +15,14 @@ public class UserClientService {
         this.userClient = userClient;
     }
 
-    @Cacheable(value = "username", key = "#username")
+    @Cacheable(value = "UserByUsername", key = "#username")
     public Users getUserByUsername(String username) {
         return userClient.getUserByUsername(username);
     }
 
+
+    @Cacheable(value = "UserByPublicId", key = "#publicId")
+    public Users getUserByPublicId(UUID publicId) {
+        return userClient.getUserByPublicId(publicId);
+    }
 }

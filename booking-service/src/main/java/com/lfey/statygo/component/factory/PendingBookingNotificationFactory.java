@@ -9,7 +9,7 @@ public class PendingBookingNotificationFactory {
                 .bookingId(booking.getId())
                 .hotelId(booking.getHotel().getId())
                 .roomId(booking.getRoom().getId())
-                .guestName(booking.getUsername())
+                .userPublicId(booking.getUserPublicID())
                 .roomType(booking.getRoom().getRoomType().name())
                 .guests(booking.getGuests())
                 .startDate(booking.getStartDate())

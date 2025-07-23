@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ReviewsService {
@@ -19,9 +20,9 @@ public class ReviewsService {
         this.hotelRatingDayService = hotelRatingDayService;
     }
 
-    public void createReview(String username, String text, Integer grade, Hotel hotel) {
+    public void createReview(UUID publicId, String text, Integer grade, Hotel hotel) {
         reviewsRepository.save(Review.builder()
-                        .username(username)
+                        .userPublicId(publicId)
                         .reviewsDescription(text)
                         .grade(grade)
                         .hotel(hotel)

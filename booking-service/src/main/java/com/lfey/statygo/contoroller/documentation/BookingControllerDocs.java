@@ -16,10 +16,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @OpenAPIDefinition
 public interface BookingControllerDocs {
 
-    String USERNAME_HEADER = "X-User-Username";
+    String USER_PUBLIC_ID = "X-User-PublicId";
 
 
     @Operation(
@@ -31,7 +33,7 @@ public interface BookingControllerDocs {
     )
     @PostMapping
     void booingRoom(@Valid @RequestBody BookingRoomDto bookingRoomDto,
-                           @RequestHeader(USERNAME_HEADER) String username);
+                           @RequestHeader(USER_PUBLIC_ID) UUID publicId);
 
 
     @Operation(
@@ -184,6 +186,6 @@ public interface BookingControllerDocs {
     )
     @GetMapping("/history")
     ResponseEntity<PageResponse<BookingHistoryDto>> getUserBookingHistory(
-            @RequestHeader(USERNAME_HEADER) String username,
+            @RequestHeader(USER_PUBLIC_ID) String username,
             @RequestParam(required = false, defaultValue = "0") int page);
 }

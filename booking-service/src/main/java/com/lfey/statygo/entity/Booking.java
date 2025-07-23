@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -42,7 +43,7 @@ public class Booking implements Serializable {
 
     private Instant createDate;
 
-    private String username;
+    private UUID userPublicID;
 
     private Integer guests;
 

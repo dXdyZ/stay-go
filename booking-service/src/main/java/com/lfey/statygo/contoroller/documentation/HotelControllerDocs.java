@@ -5,6 +5,7 @@ import com.lfey.statygo.contoroller.GlobalExceptionHandler;
 import com.lfey.statygo.dto.CreateHotelDto;
 import com.lfey.statygo.dto.HotelDto;
 import com.lfey.statygo.dto.HotelUpdateRequestDto;
+import com.lfey.statygo.dto.ReviewDto;
 import com.lfey.statygo.entity.Hotel;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,16 +15,19 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @OpenAPIDefinition
 public interface HotelControllerDocs {
 
+    String USER_PUBLIC_ID = "X-User-PublicId";
 
     @Operation(
             summary = "Create hotel",
@@ -257,4 +261,39 @@ public interface HotelControllerDocs {
     void addPhoto(@PathVariable Long hotelId,
                   @RequestParam("mainPhoto") Integer mainPhoto,
                   @RequestParam("photos") List<MultipartFile> photos);
+
+
+
+    @Operation(
+            summary = "Add review",
+            description = "Add Add review for the hotel",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(schema = @Schema(implementation = ReviewDto.class))
+            ),
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Success add photo"),
+                    @ApiResponse(responseCode = "404", description = "Hotel not found",
+                            content = @Content(schema = @Schema(implementation = GlobalExceptionHandler.ErrorResponse.class),
+                                    examples = @ExampleObject(
+                                            name = "Hotel not found",
+                                            value = """
+                                                    {
+                                                        "timestamp": "2024-07-15T14:30:45Z",
+                                                        "error": {
+                                                            "message": "Hotel by id: 1 not found"
+                                                        },
+                                                        "code": 404
+                                                    }
+                                                    """
+                                    )
+                            )
+                    )
+            }
+    )
+    @PutMapping("/reviews")
+    @ResponseStatus(HttpStatus.CREATED)
+    void addReview(
+            @Schema(description = "The public ID of the user who leaves the review", example = "a81bc81b-dead-4e5d-abff-90865d1e13b1")
+            @RequestHeader(USER_PUBLIC_ID) UUID publicId,
+            @Valid @RequestBody ReviewDto reviewDto);
 }

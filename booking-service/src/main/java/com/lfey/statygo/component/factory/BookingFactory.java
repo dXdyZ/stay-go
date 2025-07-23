@@ -8,16 +8,17 @@ import com.lfey.statygo.entity.Booking;
 import com.lfey.statygo.entity.Room;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public class BookingFactory {
-    public static Booking createBooking(Room freeRoom, String username, BookingRoomDto bookingRoomDto) {
+    public static Booking createBooking(Room freeRoom, UUID publicId, BookingRoomDto bookingRoomDto) {
         return Booking.builder()
                 .room(freeRoom)
                 .hotel(freeRoom.getHotel())
                 .createDate(Instant.now())
                 .startDate(CustomDateFormatter.localDateFormatter(bookingRoomDto.getStartDate()))
                 .endDate(CustomDateFormatter.localDateFormatter(bookingRoomDto.getEndDate()))
-                .username(username)
+                .userPublicID(publicId)
                 .totalPrice(PriceCalculate.calculationTotalPrice(freeRoom.getPricePerDay(),
                         CustomDateFormatter.localDateFormatter(bookingRoomDto.getStartDate()),
                         CustomDateFormatter.localDateFormatter(bookingRoomDto.getEndDate())))
@@ -33,7 +34,7 @@ public class BookingFactory {
                 .bookingStatus(booking.getBookingStatus().name())
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())
-                .username(booking.getUsername())
+                .userPublicId(booking.getUserPublicID())
                 .totalPrice(booking.getTotalPrice())
                 .guests(booking.getGuests())
                 .build();

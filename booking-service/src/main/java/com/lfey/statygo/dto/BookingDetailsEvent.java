@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 
 @Data
 @Builder
@@ -17,7 +19,7 @@ public class BookingDetailsEvent {
     private String startDate;
     private String endDate;
     private String roomType;
-    private String username;
+    private UUID userPublicId;
     private Double totalPrice;
     private String bookingStatus;
     private Integer reservedRooms;

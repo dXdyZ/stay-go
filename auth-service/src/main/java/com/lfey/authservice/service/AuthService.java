@@ -43,7 +43,7 @@ public class AuthService {
     }
 
     @Transactional
-    public void  registerUser(UserRegistrationDto userRegistrationDTO) throws DuplicateUserException {
+    public void registerUser(UserRegistrationDto userRegistrationDTO) throws DuplicateUserException {
         var userRegistration = new UserRegistration(
                 userRegistrationDTO.email(), userRegistrationDTO.username(),
                 userRegistrationDTO.password(), userRegistrationDTO.phoneNumber(), null);

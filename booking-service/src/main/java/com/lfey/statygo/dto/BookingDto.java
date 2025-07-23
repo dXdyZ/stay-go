@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -19,7 +20,7 @@ import java.time.LocalDate;
                     "startDate": "2025-03-14",
                     "endDate": "2025-03-15",
                     "totalPrice": 1234.4,
-                    "username": "user",
+                    "userPublicId": "a81bc81b-dead-4e5d-abff-90865d1e13b1",
                     "guests": 2
                 }
                 """
@@ -39,8 +40,8 @@ public class BookingDto {
     private LocalDate endDate;
     @Schema(description = "Total price", example = "1234.4")
     private Double totalPrice;
-    @Schema(description = "The name of the user who booked the room", example = "user")
-    private String username;
+    @Schema(description = "The public ID of the user who booked the room", example = "a81bc81b-dead-4e5d-abff-90865d1e13b1")
+    private UUID userPublicId;
     @Schema(description = "Number of guests", example = "2")
     private Integer guests;
 }

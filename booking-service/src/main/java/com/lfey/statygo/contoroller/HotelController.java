@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -28,7 +29,7 @@ import java.util.List;
 @Tag(name = "Hotel API", description = "Api for management hotel")
 public class HotelController implements HotelControllerDocs {
 
-    public final static String USERNAME_HEADER = "X-User-Username";
+    public final static String USER_PUBLIC_ID = "X-User-PublicId";
 
     private final HotelService hotelService;
 
@@ -58,8 +59,8 @@ public class HotelController implements HotelControllerDocs {
 
     @PutMapping("/reviews")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addReview(@RequestHeader(USERNAME_HEADER) String username, @Valid @RequestBody ReviewDto reviewDto) {
-        hotelService.addReview(reviewDto, username);
+    public void addReview(@RequestHeader(USER_PUBLIC_ID) UUID publicId, @Valid @RequestBody ReviewDto reviewDto) {
+        hotelService.addReview(reviewDto, publicId);
     }
 
     @GetMapping("/{id}/{guests}/{startDate}/{endDate}")
@@ -69,7 +70,7 @@ public class HotelController implements HotelControllerDocs {
     ) {
         return ResponseEntity.ok(hotelService.getHotelByIdUser(id, guests, startDate, endDate));
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable Long id) {
         return ResponseEntity.ok(hotelService.getHotelById(id));

@@ -41,8 +41,8 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = "${app.topics.hotel-booking-event}")
     public void receiveBookingEvent(@Payload List<BookingDetailsEvent> bookingDetailsEvents) {
-        emailSendService.sendMail(userClientService.getUserByUsername(
-                bookingDetailsEvents.get(0).getUsername()).getEmail(),
+        emailSendService.sendMail(userClientService.getUserByPublicId(
+                bookingDetailsEvents.get(0).getUserPublicId()).getEmail(),
                 "Booking details",
                 bookingDetailsEvents.stream()
                         .map(BookingDetailsEvent::toPrettyString)

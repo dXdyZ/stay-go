@@ -11,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController implements BookingControllerDocs {
     private final BookingService bookingService;
 
-    public final static String USERNAME_HEADER = "X-User-Username";
+    public final static String USER_PUBLIC_ID = "X-User-PublicId";
 
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
@@ -25,8 +27,8 @@ public class BookingController implements BookingControllerDocs {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void booingRoom(@Valid @RequestBody BookingRoomDto bookingRoomDto,
-                           @RequestHeader(USERNAME_HEADER) String username) {
-        bookingService.bookingRoom(bookingRoomDto, username);
+                           @RequestHeader(USER_PUBLIC_ID) UUID publicID) {
+        bookingService.bookingRoom(bookingRoomDto, publicID);
     }
 
     @GetMapping("/{id}")
@@ -36,7 +38,7 @@ public class BookingController implements BookingControllerDocs {
 
     @GetMapping("/history")
     public ResponseEntity<PageResponse<BookingHistoryDto>> getUserBookingHistory(
-            @RequestHeader(USERNAME_HEADER) String username,
+            @RequestHeader(USER_PUBLIC_ID) String username,
             @RequestParam(required = false, defaultValue = "0") int page) {
         return ResponseEntity.ok(bookingService.getUserBookingHistory(username, page));
     }

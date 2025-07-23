@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class PendingBookingNotification implements Serializable {
     private Long hotelId;
     private Long roomId;
 
-    private String guestName;
+    private UUID userPublicId;
     private String roomType;
     private Integer guests;
     private LocalDate startDate;

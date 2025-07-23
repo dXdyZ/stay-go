@@ -21,6 +21,7 @@ create table if not exists reviews (
     username varchar not null,
     reviews_description text,
     grade integer check ( grade >= 1 and grade <= 5 ),
+    user_public_id uuid not null unique,
     hotel_id bigint references hotels(id) on delete cascade
 );
 
@@ -47,5 +48,5 @@ create table if not exists bookings(
     total_price double precision not null,
     create_date timestamp default current_timestamp,
     update_date timestamp default current_timestamp,
-    username varchar not null
+    user_public_id uuid not null
 );

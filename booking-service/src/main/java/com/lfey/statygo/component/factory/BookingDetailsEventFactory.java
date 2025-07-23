@@ -4,9 +4,11 @@ import com.lfey.statygo.dto.BookingDetailsEvent;
 import com.lfey.statygo.entity.Booking;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 public class BookingDetailsEventFactory {
 
-    public static BookingDetailsEvent createBookingDetailsEvent(Booking booking, String username) {
+    public static BookingDetailsEvent createBookingDetailsEvent(Booking booking, UUID publicId) {
         return BookingDetailsEvent.builder()
                 .bookingId(booking.getId())
                 .hotelName(booking.getHotel().getName())
@@ -14,7 +16,7 @@ public class BookingDetailsEventFactory {
                 .startDate(booking.getStartDate().toString())
                 .endDate(booking.getEndDate().toString())
                 .roomType(booking.getRoom().getRoomType().name())
-                .username(username)
+                .userPublicId(publicId)
                 .totalPrice(booking.getTotalPrice())
                 .bookingStatus(booking.getBookingStatus().name())
                 .reservedRooms(1)
@@ -28,7 +30,7 @@ public class BookingDetailsEventFactory {
                 .roomType(first.getRoomType())
                 .startDate(first.getStartDate())
                 .endDate(first.getEndDate())
-                .username(first.getUsername())
+                .userPublicId(first.getUserPublicId())
                 .totalPrice(first.getTotalPrice() * listSize)
                 .bookingStatus(first.getBookingStatus())
                 .reservedRooms(listSize)

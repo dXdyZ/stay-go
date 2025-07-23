@@ -196,10 +196,10 @@ public class HotelService {
         return Optional.of(hotelDto);
     }
 
-    public void addReview(ReviewDto review, String username) {
+    public void addReview(ReviewDto review, UUID publicId) {
         Hotel hotel = hotelRepository.findById(review.hotelId()).orElseThrow(
                 () -> new HotelNotFoundException("Hotel by id: %s not found".formatted(review.hotelId())));
-        reviewsService.createReview(username, review.reviewDescription(), review.grade(), hotel);
+        reviewsService.createReview(publicId, review.reviewDescription(), review.grade(), hotel);
     }
 
     @Async

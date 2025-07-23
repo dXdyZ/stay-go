@@ -24,13 +24,13 @@ public class KafkaProducer {
 
     public void sendBookingDetailsNotification(List<BookingDetailsEvent> bookingDetailsEvent) {
         kafkaTemplate.send(hotelBookingEventTopicName,
-                bookingDetailsEvent.get(0).getUsername() + "|" + bookingDetailsEvent.get(0).getBookingId(),
+                bookingDetailsEvent.get(0).getUserPublicId() + "|" + bookingDetailsEvent.get(0).getBookingId(),
                 bookingDetailsEvent);
     }
 
     public void sendPendingBookingNotification(List<PendingBookingNotification> pendingBookingNotifications) {
         kafkaTemplate.send(hotelBookingNotificationTopicName,
-                pendingBookingNotifications.get(0).getGuestName() + "|" +
+                pendingBookingNotifications.get(0).getUserPublicId() + "|" +
                         pendingBookingNotifications.get(0).getBookingId());
     }
 }
