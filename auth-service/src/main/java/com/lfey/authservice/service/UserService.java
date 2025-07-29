@@ -51,7 +51,9 @@ public class UserService {
             throw new DuplicateUserException(String.format("User with email: %s already exists", emailUpdateDto.email()));
     }
 
-    public UserDetailsDto updateEmailInUserService(ValidationCodeDto validationCodeDto, UUID publicId) throws ServerErrorException {
+    public UserDetailsDto updateEmailInUserService(ValidationCodeDto validationCodeDto, UUID publicId) throws ServerErrorException,
+            UserCacheDataNotFoundException{
+
         EmailUpdate emailUpdate = verificationCode.verificationEmailUpdate(validationCodeDto);
         return userClientService.updateUserEmailInUserService(emailUpdate.getNewEmail(), publicId);
     }
@@ -59,18 +61,19 @@ public class UserService {
     @Transactional
     public UserDetailsDto updateUsername(UUID publicId, UsernameUpdateDto usernameUpdateDto) throws ServerErrorException,
             DuplicateUserException{
-        if (userRepository.findByUsername(usernameUpdateDto.newUsername()).orElse(null) == null) {
-            UserDetailsDto userDetailsDto = userClientService.updateUsernameInUserService(usernameUpdateDto.newUsername(), publicId);
-            Users users = userRepository.findByPublicId(publicId).get();
-            users.setUsername(userDetailsDto.getUsername());
-            userRepository.save(users);
-            return userDetailsDto;
-        } else throw new DuplicateUserException(
-                String.format("User with username: %s already exists", usernameUpdateDto.newUsername()));
+        if (userRepository.existsByUsername(usernameUpdateDto.newUsername())) {
+            throw new DuplicateUserException(
+                    String.format("User with username: %s already exists", usernameUpdateDto.newUsername()));
+        }
+        UserDetailsDto userDetailsDto = userClientService.updateUsernameInUserService(usernameUpdateDto.newUsername(), publicId);
+        Users users = userRepository.findByPublicId(publicId).get();
+        users.setUsername(userDetailsDto.getUsername());
+        userRepository.save(users);
+        return userDetailsDto;
     }
 
     @Transactional
-    public void resetPassword(ResetPasswordRequestDto resetPasswordRequestDto, UUID publicId) throws UserNotFoundException {
+    public void resetPassword(ResetPasswordRequestDto resetPasswordRequestDto, UUID publicId) {
         UserDetailsDto userFromUserService = userClientService.getUserByPublicIdFromUserService(publicId);
         generationCode.generateCode(UserRegistration.builder()
                         .email(userFromUserService.getEmail())
@@ -93,10 +96,11 @@ public class UserService {
     @Transactional
     public void deleteRoleUser(String username, RoleRequestDto role) throws UserNotFoundException{
         Users users = getUserByName(username);
-        Set<Role> updateRole = users.getRoles().stream()
+
+        users.setRoles(users.getRoles().stream()
                 .filter(roleUpdate -> !roleUpdate.getRoleName().equals(role.role()))
-                .collect(Collectors.toSet());
-        users.setRoles(updateRole);
+                .collect(Collectors.toSet()));
+
         userRepository.save(users);
     }
 

@@ -12,9 +12,7 @@ import com.lfey.authservice.service.clients.UserClientService;
 import com.lfey.authservice.service.security_service.TokenService;
 import com.lfey.authservice.service.verification.GenerationCode;
 import com.lfey.authservice.service.verification.VerificationCode;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -73,7 +71,7 @@ public class AuthService {
     }
 
     @Transactional
-    public Users saveUserAfterRegistration(ValidationCodeDto validationCodeDto) {
+    public Users saveUserAfterRegistration(ValidationCodeDto validationCodeDto) throws UserCacheDataNotFoundException{
         UserRegistration userRegistration = verificationCode.verificationRegistration(validationCodeDto);
         Users users = Users.builder()
                 .username(userRegistration.getUsername())
@@ -93,6 +91,7 @@ public class AuthService {
         tokenService.deleteRefreshToken(refreshToken);
     }
 
+    //TODO Обработать другие исключения
     public JwtTokenDto login(AuthRequestDto authRequestDto) throws AuthenticationFailedException{
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -102,6 +101,10 @@ public class AuthService {
                     )
             );
             return tokenService.getToken(authentication.getName());
+        } catch (DisabledException e) {
+            throw new AuthenticationFailedException("Account is disable");
+        } catch (LockedException e) {
+            throw new AuthenticationFailedException("Account is locked");
         } catch (BadCredentialsException e) {
             throw new AuthenticationFailedException("Invalid username or password");
         }
