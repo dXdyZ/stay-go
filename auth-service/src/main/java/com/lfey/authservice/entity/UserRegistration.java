@@ -10,7 +10,8 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
